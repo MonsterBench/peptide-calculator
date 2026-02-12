@@ -87,6 +87,25 @@
     /* Pulse dot */
     .pulse-dot { animation: pulseDot 2s ease-in-out infinite; }
     @keyframes pulseDot { 0%,100%{opacity:.6} 50%{opacity:1} }
+
+    /* Weekly calendar dot */
+    .cal-dot { width: 100%; aspect-ratio: 1; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 8px; }
+
+    /* Print styles */
+    @media print {
+      .bg-scene, .bg-blob, .modal-overlay, .pulse-dot { display: none !important; }
+      body { background: #fff !important; color: #111 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .glass, .glass-strong { background: #f9fafb !important; border: 1px solid #e5e7eb !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important; color: #111 !important; }
+      .pill-active { background: #4f46e5 !important; color: #fff !important; }
+      .pill-track { background: #f3f4f6 !important; border-color: #d1d5db !important; color: #374151 !important; }
+      .gradient-text, .num-highlight { -webkit-text-fill-color: #111 !important; background: none !important; }
+      .disclaimer-bar { background: #fef2f2 !important; border-color: #fca5a5 !important; }
+      .shop-btn { background: #059669 !important; }
+      .text-gray-100, .text-gray-200, .text-gray-300 { color: #111 !important; }
+      .text-gray-400, .text-gray-500 { color: #6b7280 !important; }
+      .text-red-300, .text-red-400\\/80 { color: #dc2626 !important; }
+      #root { position: static !important; }
+    }
   </style>
 </head>
 <body class="text-gray-100 min-h-screen relative">
@@ -517,7 +536,12 @@
     // ── Protocol Builder ──
 
     function ProtocolBuilder({ emailCaptured, onRequestEmail }) {
-      const [entries, setEntries] = useState([]);
+      const [entries, setEntries] = useState(() => {
+        try { const saved = localStorage.getItem("peptide_protocol"); return saved ? JSON.parse(saved) : []; } catch { return []; }
+      });
+      useEffect(() => {
+        try { localStorage.setItem("peptide_protocol", JSON.stringify(entries)); } catch {}
+      }, [entries]);
       const [addPeptide, setAddPeptide] = useState("");
       const [copied, setCopied] = useState(false);
       const catalogKeys = Object.keys(CATALOG);
@@ -650,19 +674,31 @@
               </div>
             </div>
           )}
+
+          {/* Weekly Calendar */}
+          {hasEntries && <WeeklyCalendar entries={entries} />}
         </div>
       );
     }
 
     // ── Peptide Finder ──
 
+    function decodeFinderHash(h) {
+      try { const d = JSON.parse(atob(h)); return { goals: d.g || [], experience: d.e || "any", adminPref: d.a || "any" }; } catch { return null; }
+    }
+    function encodeFinderHash(goals, experience, adminPref) {
+      try { return btoa(JSON.stringify({ g: goals, e: experience, a: adminPref })); } catch { return ""; }
+    }
+
     function PeptideFinder({ emailCaptured, onEmailSubmit }) {
-      const [goals, setGoals] = useState([]);
-      const [experience, setExperience] = useState("any");
-      const [adminPref, setAdminPref] = useState("any");
+      const initFinder = window.location.hash.startsWith("#find=") ? decodeFinderHash(window.location.hash.slice(6)) : null;
+      const [goals, setGoals] = useState(initFinder?.goals || []);
+      const [experience, setExperience] = useState(initFinder?.experience || "any");
+      const [adminPref, setAdminPref] = useState(initFinder?.adminPref || "any");
       const [email, setEmail] = useState("");
       const [showStacks, setShowStacks] = useState(false);
       const [justUnlocked, setJustUnlocked] = useState(false);
+      const [shareMsg, setShareMsg] = useState("");
 
       const toggleGoal = (id) => setGoals((prev) => prev.includes(id) ? prev.filter(x=>x!==id) : [...prev, id]);
 
@@ -832,10 +868,20 @@
           )}
 
           {goals.length > 0 && (
-            <button onClick={()=>{setGoals([]);setExperience("any");setAdminPref("any");setShowStacks(false);}}
-              className="w-full glass hover:bg-white/10 text-gray-300 hover:text-gray-100 font-medium py-2 rounded-xl transition-all text-xs">
-              Clear All
-            </button>
+            <div className="grid grid-cols-2 gap-2">
+              <button onClick={()=>{setGoals([]);setExperience("any");setAdminPref("any");setShowStacks(false);setShareMsg("");}}
+                className="glass hover:bg-white/10 text-gray-300 hover:text-gray-100 font-medium py-2 rounded-xl transition-all text-xs">
+                Clear All
+              </button>
+              <button onClick={async ()=>{
+                const url=`${location.origin}${location.pathname}#find=${encodeFinderHash(goals,experience,adminPref)}`;
+                try{await navigator.clipboard.writeText(url)}catch{const t=document.createElement("textarea");t.value=url;document.body.appendChild(t);t.select();document.execCommand("copy");document.body.removeChild(t)}
+                setShareMsg("Link copied!"); setTimeout(()=>setShareMsg(""),2000);
+              }}
+                className="glass hover:bg-white/10 text-gray-300 hover:text-white font-medium py-2 rounded-xl transition-all text-xs">
+                {shareMsg || "Share Results"}
+              </button>
+            </div>
           )}
         </div>
       );
@@ -859,12 +905,13 @@
     function CalcTab() {
       const initHash = window.location.hash.startsWith("#calc=") ? decodeState(window.location.hash.slice(6)) : null;
       const [state, setState] = useState(initHash || {...DEFAULTS});
+      const [vialPrice, setVialPrice] = useState(0);
       const onChange = useCallback((k,v)=>setState(p=>({...p,[k]:v})),[]);
       const onSelect = useCallback((name)=>{
         const pr=PRESETS[name]; if(pr) setState(p=>({...p,peptide:name,vialMg:pr.vialMg,waterMl:pr.waterMl,doseMcg:pr.doseMcg,doseMode:"flat"}));
         else setState(p=>({...p,peptide:name}));
       },[]);
-      const reset = ()=>{ setState({...DEFAULTS}); window.history.replaceState(null,"",window.location.pathname); };
+      const reset = ()=>{ setState({...DEFAULTS}); setVialPrice(0); window.history.replaceState(null,"",window.location.pathname); };
 
       const catKey = CALC_MAP[state.peptide];
       const product = catKey ? CATALOG[catKey] : null;
@@ -877,6 +924,21 @@
       const doses = dose>0?totalMcg/dose:0;
       const pName = state.peptide==="Other"?state.customPeptide||"Custom Peptide":state.peptide;
       const valid = state.vialMg>0 && state.waterMl>0 && dose>0;
+      const costPerDose = vialPrice > 0 && doses > 0 ? vialPrice / doses : 0;
+      const freqToMonthly = (freq) => {
+        if (!freq) return 30;
+        const f = freq.toLowerCase();
+        if (f.includes("weekly") && !f.includes("2") && !f.includes("3") && !f.includes("4") && !f.includes("5")) return 4.3;
+        if (f.includes("2x weekly") || f.includes("twice weekly")) return 8.6;
+        if (f.includes("3x weekly") || f.includes("3-5x")) return 17;
+        if (f.includes("every other day")) return 15;
+        if (f.includes("2x daily") || f.includes("2-3x daily")) return 75;
+        if (f.includes("daily") || f.includes("1x daily")) return 30;
+        return 30;
+      };
+      const catKey2 = CALC_MAP[state.peptide];
+      const monthlyDoses = catKey2 && CATALOG[catKey2] ? freqToMonthly(CATALOG[catKey2].freq) : 30;
+      const monthlyCost = costPerDose > 0 ? costPerDose * monthlyDoses : 0;
 
       const instructions = [
         `Reconstitute the ${state.vialMg} mg vial of ${pName} with ${state.waterMl} mL of bacteriostatic water.`,
@@ -950,6 +1012,8 @@
                     <NumberInput label="Body Weight" value={state.bodyWeightKg} onChange={(v)=>onChange("bodyWeightKg",v)} unit="kg" min={1} step={1} />
                   </div>
               }
+              <h3 className="text-xs font-bold text-gray-300 uppercase tracking-wider pt-1">Cost (Optional)</h3>
+              <NumberInput label="Vial Price" value={vialPrice} onChange={setVialPrice} unit="$" min={0} step={1} />
             </div>
           </div>
 
@@ -966,6 +1030,12 @@
                   <Row label="Volume per Dose" value={`${vol.toFixed(4)} mL`} />
                   <Row label="Syringe Draw (U-100)" value={`${units.toFixed(1)} units`} />
                   <Row label="Doses per Vial" value={`~${Math.floor(doses)}`} />
+                  {costPerDose > 0 && (
+                    <>
+                      <Row label="Cost per Dose" value={`$${costPerDose.toFixed(2)}`} />
+                      <Row label="Est. Monthly Cost" value={`$${monthlyCost.toFixed(2)}`} />
+                    </>
+                  )}
                 </div>
 
                 {/* Syringe Visual */}
@@ -1002,10 +1072,161 @@
       );
     }
 
+    // ── Weekly Calendar ──
+
+    function freqToDays(freq) {
+      if (!freq) return [1,2,3,4,5,6,0]; // daily
+      const f = freq.toLowerCase();
+      if (f.includes("daily") || f.includes("1x daily") || f.includes("1-2x daily")) return [0,1,2,3,4,5,6];
+      if (f.includes("2x daily") || f.includes("2-3x daily") || f.includes("3-5x")) return [0,1,2,3,4,5,6];
+      if (f.includes("5x weekly")) return [1,2,3,4,5];
+      if (f.includes("3x weekly")) return [1,3,5];
+      if (f.includes("2x weekly") || f.includes("twice")) return [1,4];
+      if (f.includes("1x weekly") || f.includes("weekly")) return [1];
+      if (f.includes("every other day")) return [1,3,5,0];
+      return [1,2,3,4,5,6,0];
+    }
+
+    const PEPTIDE_COLORS = ["#a78bfa","#38bdf8","#34d399","#f59e0b","#f472b6","#fb923c","#22d3ee","#a3e635"];
+    const DAY_NAMES = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+    function WeeklyCalendar({ entries }) {
+      if (entries.length === 0) return null;
+      const colorMap = {};
+      entries.forEach((e, i) => { colorMap[e.id] = PEPTIDE_COLORS[i % PEPTIDE_COLORS.length]; });
+
+      const dayEntries = DAY_NAMES.map((_, dayIdx) =>
+        entries.filter(e => {
+          const cat = CATALOG[e.peptide];
+          return cat && freqToDays(cat.freq).includes(dayIdx);
+        })
+      );
+
+      return (
+        <div className="glass-strong rounded-2xl p-5 space-y-3 fade-in">
+          <h3 className="text-xs font-bold text-gray-300 uppercase tracking-wider">Weekly View</h3>
+          <div className="grid grid-cols-7 gap-1">
+            {DAY_NAMES.map(d => (
+              <div key={d} className="text-center text-[10px] text-gray-400 font-semibold pb-1">{d}</div>
+            ))}
+            {dayEntries.map((dayList, dayIdx) => (
+              <div key={dayIdx} className="glass rounded-lg p-1 min-h-[48px] flex flex-col gap-0.5 items-center justify-center">
+                {dayList.length === 0 ? (
+                  <span className="text-gray-600 text-[8px]">—</span>
+                ) : dayList.map(e => (
+                  <div key={e.id} className="cal-dot" style={{background: colorMap[e.id] + "30", border: `1px solid ${colorMap[e.id]}50`}} title={CATALOG[e.peptide]?.label || e.peptide}>
+                    <span style={{color: colorMap[e.id]}}>{(CATALOG[e.peptide]?.label || e.peptide).substring(0,2)}</span>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {entries.map((e, i) => (
+              <div key={e.id} className="flex items-center gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full" style={{background: colorMap[e.id]}}></div>
+                <span className="text-[10px] text-gray-300">{CATALOG[e.peptide]?.label || e.peptide}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    // ── Compare Tab ──
+
+    function CompareTab() {
+      const catalogKeys = Object.keys(CATALOG);
+      const [selected, setSelected] = useState(["", "", ""]);
+
+      const updateSel = (idx, val) => setSelected(prev => { const n = [...prev]; n[idx] = val; return n; });
+      const activeItems = selected.filter(s => s && CATALOG[s]);
+
+      return (
+        <div className="space-y-5 fade-in">
+          <div className="text-center space-y-1">
+            <h2 className="text-lg font-bold text-gray-100">Compare Peptides</h2>
+            <p className="text-gray-300 text-xs">Select up to 3 peptides to compare side-by-side</p>
+          </div>
+
+          <div className="glass-strong rounded-2xl p-5 space-y-3">
+            {[0,1,2].map(i => (
+              <select key={i} value={selected[i]} onChange={(e) => updateSel(i, e.target.value)}
+                className="w-full input-glass rounded-lg px-3 py-2.5 text-gray-100 text-sm appearance-none cursor-pointer">
+                <option value="">{i === 0 ? "Select first peptide..." : i === 1 ? "Select second peptide..." : "Select third peptide (optional)..."}</option>
+                {catalogKeys.map(k => <option key={k} value={k}>{CATALOG[k].label || k}</option>)}
+              </select>
+            ))}
+          </div>
+
+          {activeItems.length >= 2 && (
+            <div className="space-y-3 fade-in">
+              {/* Header row */}
+              <div className={`grid gap-2`} style={{gridTemplateColumns: `repeat(${activeItems.length}, 1fr)`}}>
+                {activeItems.map(name => {
+                  const p = CATALOG[name];
+                  return (
+                    <div key={name} className="glass-strong rounded-xl p-3 text-center space-y-2">
+                      <img src={p.img} alt="" className="w-12 h-12 mx-auto rounded object-contain bg-white/5" />
+                      <p className="text-xs font-bold text-gray-100">{p.label || name}</p>
+                      {p.blend && <span className="text-[9px] font-semibold uppercase px-2 py-0.5 rounded-full stack-badge text-purple-300 inline-block">Blend</span>}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Comparison rows */}
+              {[
+                { label: "Frequency", key: "freq" },
+                { label: "Route", key: "route" },
+                { label: "Description", key: "desc" },
+                { label: "Notes", key: "notes" },
+              ].map(row => (
+                <div key={row.label} className="glass rounded-xl p-3 space-y-2">
+                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">{row.label}</p>
+                  <div className={`grid gap-2`} style={{gridTemplateColumns: `repeat(${activeItems.length}, 1fr)`}}>
+                    {activeItems.map(name => (
+                      <p key={name} className="text-xs text-gray-200 leading-relaxed">{CATALOG[name][row.key] || "—"}</p>
+                    ))}
+                  </div>
+                </div>
+              ))}
+
+              {/* Capsule availability */}
+              <div className="glass rounded-xl p-3 space-y-2">
+                <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Capsule Available</p>
+                <div className={`grid gap-2`} style={{gridTemplateColumns: `repeat(${activeItems.length}, 1fr)`}}>
+                  {activeItems.map(name => (
+                    <p key={name} className={`text-xs font-medium ${CATALOG[name].capsule ? "text-emerald-400" : "text-gray-500"}`}>
+                      {CATALOG[name].capsule ? "Yes" : "No"}
+                    </p>
+                  ))}
+                </div>
+              </div>
+
+              {/* Shop links */}
+              <div className={`grid gap-2`} style={{gridTemplateColumns: `repeat(${activeItems.length}, 1fr)`}}>
+                {activeItems.map(name => (
+                  <a key={name} href={aff(CATALOG[name].path)} target="_blank" rel="noopener noreferrer"
+                    className="block text-center shop-btn text-white text-xs font-semibold px-3 py-2.5 rounded-xl">
+                    Shop — 5% Off
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {activeItems.length < 2 && activeItems.length > 0 && (
+            <div className="glass rounded-xl p-6 text-gray-400 text-center text-sm">Select at least 2 peptides to compare.</div>
+          )}
+        </div>
+      );
+    }
+
     // ── App ──
 
     function App() {
-      const initTab = window.location.hash.startsWith("#calc=") ? "calculator" : "finder";
+      const initTab = window.location.hash.startsWith("#calc=") ? "calculator" : window.location.hash.startsWith("#find=") ? "finder" : "finder";
       const [tab, setTab] = useState(initTab);
       const [emailCaptured, setEmailCaptured] = useState(() => {
         try { return !!localStorage.getItem("peptide_hub_email"); } catch { return false; }
@@ -1048,6 +1269,7 @@
         { id: "finder", label: "Find" },
         { id: "calculator", label: "Calculate" },
         { id: "protocol", label: "Protocol" },
+        { id: "compare", label: "Compare" },
       ];
 
       return (
@@ -1087,6 +1309,11 @@
           {tab === "protocol" && (
             <div className="glass-strong rounded-2xl p-5 shadow-2xl">
               <ProtocolBuilder emailCaptured={emailCaptured} onRequestEmail={() => setShowExitIntent(true)} />
+            </div>
+          )}
+          {tab === "compare" && (
+            <div className="glass-strong rounded-2xl p-5 shadow-2xl">
+              <CompareTab />
             </div>
           )}
 
