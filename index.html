@@ -55,7 +55,10 @@
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 3px; }
-    .product-img { width: 56px; height: 56px; object-fit: contain; border-radius: 8px; background: rgba(255,255,255,.05); }
+    .product-img { width: 56px; height: 56px; object-fit: contain; border-radius: 8px; background: rgba(255,255,255,.05); flex-shrink: 0; }
+    @media (max-width: 380px) {
+      .product-img { width: 44px; height: 44px; }
+    }
   </style>
 </head>
 <body class="text-gray-100 min-h-screen relative">
@@ -69,6 +72,11 @@
     const DISCOUNT = "?discount=DKE4PDRM";
     const aff = (path) => `${AFF_BASE}${path}${DISCOUNT}`;
     const IMG = "https://cms.peptiderestore.com/uploads/";
+
+    // Google Sheets endpoint — replace with your own Apps Script URL
+    // See setup instructions: create a Google Sheet, go to Extensions > Apps Script,
+    // paste the doPost function, deploy as web app, and paste the URL below.
+    const SHEET_ENDPOINT = ""; // e.g. "https://script.google.com/macros/s/YOUR_ID/exec"
 
     const CATALOG = {
       "BPC-157": {
@@ -325,10 +333,30 @@
         return STACKS.filter(s=>s.peptides.some(p=>all.has(p)));
       }, [goals]);
 
-      const handleEmailSubmit = (e) => {
+      const [submitting, setSubmitting] = useState(false);
+      const handleEmailSubmit = async (e) => {
         e.preventDefault();
         if (!email.trim()) return;
+        setSubmitting(true);
+        // Save locally as backup
         try { localStorage.setItem("peptide_hub_email", email); } catch {}
+        // Send to Google Sheet if endpoint is configured
+        if (SHEET_ENDPOINT) {
+          try {
+            await fetch(SHEET_ENDPOINT, {
+              method: "POST", mode: "no-cors",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                email: email.trim(),
+                goals: goals.map(id => GOALS.find(g=>g.id===id)?.label).filter(Boolean).join(", "),
+                experience,
+                adminPref,
+                timestamp: new Date().toISOString(),
+              }),
+            });
+          } catch {}
+        }
+        setSubmitting(false);
         setEmailSubmitted(true);
       };
 
@@ -406,7 +434,7 @@
                     <p className="text-sm font-bold text-gray-100">+{recommendations.length - FREE_PREVIEW} more recommendations</p>
                     <p className="text-xs text-gray-400">Enter your email to unlock your full personalized protocol, stack suggestions, and dosing guide.</p>
                   </div>
-                  <form onSubmit={handleEmailSubmit} className="flex gap-2">
+                  <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-2">
                     <input type="email" required placeholder="you@email.com" value={email}
                       onChange={(e)=>setEmail(e.target.value)}
                       className="flex-1 input-glass rounded-lg px-3 py-2.5 text-sm text-gray-100 placeholder-gray-600" />
