@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Peptide Research Hub — Find, Calculate & Shop Peptides</title>
   <meta name="description" content="Free peptide reconstitution calculator and research tool. Find the right peptides for your research goals, calculate dosing, and shop with 5% off." />
-
-  <!-- Open Graph -->
   <meta property="og:title" content="Peptide Research Hub" />
   <meta property="og:description" content="Find the right peptides for your research, calculate reconstitution volumes, and shop with 5% off at Peptide Restore." />
   <meta property="og:type" content="website" />
@@ -14,551 +12,277 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Peptide Research Hub" />
   <meta name="twitter:description" content="Free peptide reconstitution calculator. Find peptides, calculate dosing, shop with 5% off." />
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
-        }
-      }
-    }
+    tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] } } } }
   </script>
   <style>
     body { font-family: 'Inter', system-ui, sans-serif; }
-
-    /* Animated gradient background */
-    .bg-scene {
-      position: fixed; inset: 0; z-index: 0; overflow: hidden;
-      background: #08080f;
-    }
-    .bg-blob {
-      position: absolute; border-radius: 50%; filter: blur(100px); opacity: .18;
-      animation: drift 20s ease-in-out infinite alternate;
-    }
-    .bg-blob-1 { width: 600px; height: 600px; background: #6d28d9; top: -10%; left: -10%; animation-delay: 0s; }
+    .bg-scene { position: fixed; inset: 0; z-index: 0; overflow: hidden; background: #08080f; }
+    .bg-blob { position: absolute; border-radius: 50%; filter: blur(100px); opacity: .18; animation: drift 20s ease-in-out infinite alternate; }
+    .bg-blob-1 { width: 600px; height: 600px; background: #6d28d9; top: -10%; left: -10%; }
     .bg-blob-2 { width: 500px; height: 500px; background: #0ea5e9; bottom: -10%; right: -10%; animation-delay: -7s; }
     .bg-blob-3 { width: 400px; height: 400px; background: #10b981; top: 40%; left: 50%; animation-delay: -14s; }
-    @keyframes drift {
-      0% { transform: translate(0, 0) scale(1); }
-      33% { transform: translate(30px, -40px) scale(1.05); }
-      66% { transform: translate(-20px, 30px) scale(.95); }
-      100% { transform: translate(10px, -10px) scale(1.02); }
-    }
-
-    /* Glassmorphism card */
-    .glass {
-      background: rgba(255,255,255,0.04);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-    .glass-strong {
-      background: rgba(255,255,255,0.07);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid rgba(255,255,255,0.12);
-    }
-
-    /* Gradient text */
-    .gradient-text {
-      background: linear-gradient(135deg, #a78bfa, #38bdf8, #34d399);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    /* Smooth transitions */
+    @keyframes drift { 0%{transform:translate(0,0) scale(1)} 50%{transform:translate(30px,-40px) scale(1.05)} 100%{transform:translate(-10px,10px) scale(.97)} }
+    .glass { background: rgba(255,255,255,0.04); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); }
+    .glass-strong { background: rgba(255,255,255,0.07); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.12); }
+    .gradient-text { background: linear-gradient(135deg, #a78bfa, #38bdf8, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .fade-in { animation: fadeIn .4s ease-out; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-
-    /* Card hover lift */
+    .slide-in { animation: slideIn .35s ease-out; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes slideIn { from{opacity:0;transform:translateX(20px)} to{opacity:1;transform:translateX(0)} }
     .card-hover { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
     .card-hover:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,.3); }
-
-    /* Pill toggle */
     .pill-track { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); }
-    .pill-active {
-      background: linear-gradient(135deg, #7c3aed, #2563eb);
-      box-shadow: 0 2px 12px rgba(124,58,237,.35);
-    }
-
-    /* Number highlight */
-    .num-highlight {
-      background: linear-gradient(135deg, #34d399, #38bdf8);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    /* Shop button gradient */
-    .shop-btn {
-      background: linear-gradient(135deg, #059669, #0d9488);
-      transition: all .2s ease;
-    }
-    .shop-btn:hover {
-      background: linear-gradient(135deg, #047857, #0f766e);
-      box-shadow: 0 4px 15px rgba(5,150,105,.3);
-      transform: translateY(-1px);
-    }
-
-    /* Goal card selection ring */
-    .goal-selected {
-      border-color: rgba(139,92,246,.6);
-      background: rgba(139,92,246,.1);
-      box-shadow: 0 0 20px rgba(139,92,246,.15), inset 0 0 20px rgba(139,92,246,.05);
-    }
-
-    /* Custom scrollbar */
+    .pill-active { background: linear-gradient(135deg, #7c3aed, #2563eb); box-shadow: 0 2px 12px rgba(124,58,237,.35); }
+    .num-highlight { background: linear-gradient(135deg, #34d399, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .shop-btn { background: linear-gradient(135deg, #059669, #0d9488); transition: all .2s ease; }
+    .shop-btn:hover { background: linear-gradient(135deg, #047857, #0f766e); box-shadow: 0 4px 15px rgba(5,150,105,.3); transform: translateY(-1px); }
+    .goal-selected { border-color: rgba(139,92,246,.6); background: rgba(139,92,246,.1); box-shadow: 0 0 20px rgba(139,92,246,.15), inset 0 0 20px rgba(139,92,246,.05); }
+    .input-glass { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); transition: border-color .2s, box-shadow .2s; }
+    .input-glass:focus { border-color: rgba(139,92,246,.5); box-shadow: 0 0 0 3px rgba(139,92,246,.15); outline: none; }
+    .stack-badge { background: linear-gradient(135deg, rgba(139,92,246,.2), rgba(56,189,248,.2)); border: 1px solid rgba(139,92,246,.3); }
+    .disclaimer-bar { background: linear-gradient(135deg, rgba(239,68,68,.12), rgba(239,68,68,.06)); border: 1px solid rgba(239,68,68,.25); }
+    .progress-bar { background: rgba(255,255,255,0.08); }
+    .progress-fill { background: linear-gradient(90deg, #7c3aed, #2563eb, #0ea5e9); transition: width .4s ease; }
+    select option { background: #1a1a2e; color: #e5e7eb; }
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 3px; }
-
-    /* Input styling */
-    .input-glass {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      transition: border-color .2s ease, box-shadow .2s ease;
-    }
-    .input-glass:focus {
-      border-color: rgba(139,92,246,.5);
-      box-shadow: 0 0 0 3px rgba(139,92,246,.15);
-      outline: none;
-    }
-
-    /* Stack badge */
-    .stack-badge {
-      background: linear-gradient(135deg, rgba(139,92,246,.2), rgba(56,189,248,.2));
-      border: 1px solid rgba(139,92,246,.3);
-    }
-
-    /* Disclaimer pulse */
-    .disclaimer-bar {
-      background: linear-gradient(135deg, rgba(239,68,68,.12), rgba(239,68,68,.06));
-      border: 1px solid rgba(239,68,68,.25);
-    }
-
-    /* Select dropdown */
-    select option { background: #1a1a2e; color: #e5e7eb; }
+    .product-img { width: 56px; height: 56px; object-fit: contain; border-radius: 8px; background: rgba(255,255,255,.05); }
   </style>
 </head>
 <body class="text-gray-100 min-h-screen relative">
-  <!-- Animated background -->
-  <div class="bg-scene">
-    <div class="bg-blob bg-blob-1"></div>
-    <div class="bg-blob bg-blob-2"></div>
-    <div class="bg-blob bg-blob-3"></div>
-  </div>
-
+  <div class="bg-scene"><div class="bg-blob bg-blob-1"></div><div class="bg-blob bg-blob-2"></div><div class="bg-blob bg-blob-3"></div></div>
   <div id="root" class="relative z-10"></div>
 
   <script type="text/babel">
-    const { useState, useCallback, useEffect, useMemo } = React;
+    const { useState, useCallback, useMemo } = React;
 
-    const AFFILIATE_BASE = "https://peptiderestore.com";
-    const DISCOUNT_TAG = "?discount=DKE4PDRM";
-    const affLink = (path) => `${AFFILIATE_BASE}${path}${DISCOUNT_TAG}`;
+    const AFF_BASE = "https://peptiderestore.com";
+    const DISCOUNT = "?discount=DKE4PDRM";
+    const aff = (path) => `${AFF_BASE}${path}${DISCOUNT}`;
+    const IMG = "https://cms.peptiderestore.com/uploads/";
 
-    // ── Full product catalog ──
-    const PRODUCT_CATALOG = {
+    const CATALOG = {
       "BPC-157": {
-        path: "/peptides/bpc-157",
-        description: "Gastric pentadecapeptide studied for tissue repair, gut health, and wound healing.",
-        frequency: "2x daily",
-        route: "Subcutaneous",
-        notes: "Inject close to area of interest when possible. Stable peptide.",
-        capsuleAvailable: true,
+        path: "/peptides/bpc-157", img: `${IMG}BPC_157_a55ce4efb7.png`,
+        desc: "Gastric pentadecapeptide studied for tissue repair, gut health, and wound healing.",
+        freq: "2x daily", route: "Subcutaneous", notes: "Inject close to area of interest when possible.", capsule: true,
       },
       "CJC-1295 (no DAC)": {
-        path: "/peptides/cjc-1295",
-        description: "Growth hormone releasing hormone analog for pulsatile GH secretion.",
-        frequency: "1-3x daily",
-        route: "Subcutaneous",
-        notes: "Best administered before bed and/or morning on empty stomach.",
+        path: "/peptides/cjc-1295", img: `${IMG}CJC_1295_no_DAC_b09300ab12.png`,
+        desc: "Growth hormone releasing hormone analog for pulsatile GH secretion.",
+        freq: "1-3x daily", route: "Subcutaneous", notes: "Best before bed and/or morning on empty stomach.",
       },
       "Ipamorelin": {
-        path: "/peptides/ipamorelin",
-        description: "Selective GH secretagogue — promotes GH release without cortisol/prolactin spike.",
-        frequency: "2-3x daily",
-        route: "Subcutaneous",
-        notes: "Often paired with CJC-1295 (no DAC) for synergistic GH release.",
+        path: "/peptides/ipamorelin", img: `${IMG}Ipamorelin_1ee553164c.png`,
+        desc: "Selective GH secretagogue — GH release without cortisol/prolactin spike.",
+        freq: "2-3x daily", route: "Subcutaneous", notes: "Often paired with CJC-1295 (no DAC) for synergistic effect.",
       },
       "Retatrutide": {
-        path: "/peptides/retatrutide",
-        label: "GLP-3 R (Retatrutide)",
-        description: "Triple agonist (GIP/GLP-1/glucagon) for metabolic optimization research.",
-        frequency: "1x weekly",
-        route: "Subcutaneous",
-        notes: "Titrate up slowly over weeks. Most potent metabolic peptide available.",
+        path: "/peptides/retatrutide", img: `${IMG}7_D7921_DE_ADBB_4_E6_B_A4_B9_B527_C0_E91201_088d1bccfa.PNG`,
+        label: "GLP-3 R (Retatrutide)", desc: "Triple agonist (GIP/GLP-1/glucagon) for metabolic optimization.",
+        freq: "1x weekly", route: "Subcutaneous", notes: "Titrate up slowly over weeks.",
       },
       "Semaglutide": {
-        path: "/peptides/semaglutide",
-        label: "GLP-1 S (Semaglutide)",
-        description: "GLP-1 receptor agonist studied for appetite regulation and metabolic function.",
-        frequency: "1x weekly",
-        route: "Subcutaneous",
-        notes: "Start low and titrate up every 4 weeks. Take on same day each week.",
+        path: "/peptides/semaglutide", img: `${IMG}2_CCC_009_D_A569_4859_ADE_1_165_D757981_A7_9fd4d617c2.PNG`,
+        label: "GLP-1 S (Semaglutide)", desc: "GLP-1 receptor agonist for appetite regulation and metabolic function.",
+        freq: "1x weekly", route: "Subcutaneous", notes: "Start low, titrate up every 4 weeks. Same day each week.",
       },
       "TB-500": {
-        path: "/peptides/tb-500",
-        description: "Thymosin Beta-4 fragment studied for tissue repair, inflammation, and recovery.",
-        frequency: "2x weekly",
-        route: "Subcutaneous",
-        notes: "Higher loading dose first 4-6 weeks, then reduce to maintenance.",
+        path: "/peptides/tb-500", img: `${IMG}TB_500_8722d1f5cf.png`,
+        desc: "Thymosin Beta-4 fragment for tissue repair, inflammation, and recovery.",
+        freq: "2x weekly", route: "Subcutaneous", notes: "Higher loading dose first 4-6 weeks, then maintenance.",
       },
       "Tirzepatide": {
-        path: "/peptides/glp-2-t",
-        label: "GLP-2 T (Tirzepatide)",
-        description: "Dual GIP/GLP-1 agonist for metabolic optimization and body composition.",
-        frequency: "1x weekly",
-        route: "Subcutaneous",
-        notes: "Titrate up slowly. Take on same day each week.",
+        path: "/peptides/glp-2-t", img: `${IMG}GLP_2_T_3ee9355c8b.png`,
+        label: "GLP-2 T (Tirzepatide)", desc: "Dual GIP/GLP-1 agonist for metabolic optimization.",
+        freq: "1x weekly", route: "Subcutaneous", notes: "Titrate up slowly. Same day each week.",
       },
       "GHK-Cu": {
-        path: "/peptides/ghk-cu",
-        description: "Copper peptide for skin regeneration, collagen synthesis, and anti-aging research.",
-        frequency: "1x daily",
-        route: "Subcutaneous / Topical",
-        notes: "Can be used topically for localized skin research or injected systemically.",
+        path: "/peptides/ghk-cu", img: `${IMG}GHK_Cu_7198684b09.png`,
+        desc: "Copper peptide for skin regeneration, collagen synthesis, and anti-aging.",
+        freq: "1x daily", route: "Subcutaneous / Topical", notes: "Can be used topically or injected systemically.",
       },
       "NAD+": {
-        path: "/peptides/nad",
-        description: "Coenzyme for cellular energy production, DNA repair, and longevity research.",
-        frequency: "2-3x weekly",
-        route: "Subcutaneous / IV",
-        notes: "Subcutaneous is most practical. IV administration used in clinical settings.",
+        path: "/peptides/nad", img: `${IMG}NAD_7be666c7ac.png`,
+        desc: "Coenzyme for cellular energy, DNA repair, and longevity.",
+        freq: "2-3x weekly", route: "Subcutaneous / IV", notes: "Subcutaneous is most practical for research.",
       },
       "MOTS-c": {
-        path: "/peptides/mots-c",
-        description: "Mitochondrial peptide for metabolic regulation and exercise physiology.",
-        frequency: "3-5x weekly",
-        route: "Subcutaneous",
-        notes: "Often administered pre-exercise for metabolic research.",
+        path: "/peptides/mots-c", img: `${IMG}MOTS_c_27906e9f2e.png`,
+        desc: "Mitochondrial peptide for metabolic regulation and exercise physiology.",
+        freq: "3-5x weekly", route: "Subcutaneous", notes: "Often administered pre-exercise.",
       },
       "KPV": {
-        path: "/peptides/kpv",
-        description: "Anti-inflammatory tripeptide for gut health and immune modulation research.",
-        frequency: "1-2x daily",
-        route: "Subcutaneous / Oral",
-        notes: "Oral administration studied for direct GI tract benefits.",
-        capsuleAvailable: true,
+        path: "/peptides/kpv", img: `${IMG}KPV_d200544b70.png`,
+        desc: "Anti-inflammatory tripeptide for gut health and immune modulation.",
+        freq: "1-2x daily", route: "Subcutaneous / Oral", notes: "Oral route studied for direct GI benefits.", capsule: true,
       },
       "DSIP": {
-        path: "/peptides/dsip",
-        description: "Delta sleep-inducing peptide for sleep regulation and stress response research.",
-        frequency: "1x daily (evening)",
-        route: "Subcutaneous",
-        notes: "Administer 30-60 min before desired sleep time.",
+        path: "/peptides/dsip", img: `${IMG}DSIP_bf4e6eb69a.png`,
+        desc: "Delta sleep-inducing peptide for sleep regulation and stress response.",
+        freq: "1x daily (evening)", route: "Subcutaneous", notes: "Administer 30-60 min before desired sleep.",
       },
       "Thymosin Alpha-1": {
-        path: "/peptides/thymosin-alpha-1",
-        description: "Immune-modulating peptide for T-cell function and immune system research.",
-        frequency: "2-3x weekly",
-        route: "Subcutaneous",
-        notes: "Well-studied immune peptide. Used in clinical research worldwide.",
+        path: "/peptides/thymosin-alpha-1", img: `${IMG}Thymosin_Alpha_1_907bbe6794.png`,
+        desc: "Immune-modulating peptide for T-cell function and immune support.",
+        freq: "2-3x weekly", route: "Subcutaneous", notes: "Well-studied immune peptide used in clinical research worldwide.",
       },
       "Sermorelin": {
-        path: "/peptides/sermorelin",
-        description: "GHRH analog for growth hormone stimulation research.",
-        frequency: "1x daily (evening)",
-        route: "Subcutaneous",
-        notes: "Best administered before bed to align with natural GH pulse.",
+        path: "/peptides/sermorelin", img: `${IMG}Sermorelin_dd1d738519.png`,
+        desc: "GHRH analog for growth hormone stimulation.",
+        freq: "1x daily (evening)", route: "Subcutaneous", notes: "Best before bed to align with natural GH pulse.",
       },
       "Melanotan II": {
-        path: "/peptides/melanotan-ii",
-        description: "Melanocortin receptor agonist for pigmentation and dermatology research.",
-        frequency: "Every other day",
-        route: "Subcutaneous",
-        notes: "Low starting dose recommended. Loading phase then maintenance.",
+        path: "/peptides/melanotan-ii", img: `${IMG}Melanotan_2_95e04e1625.png`,
+        desc: "Melanocortin receptor agonist for pigmentation research.",
+        freq: "Every other day", route: "Subcutaneous", notes: "Low starting dose. Loading phase then maintenance.",
       },
-      // Blends
       "BPC-157 + TB-500 (Wolverine Blend)": {
-        path: "/peptides/bpc-157-tb-500-wolverine-blend",
-        description: "Synergistic tissue repair blend combining two of the most studied healing peptides.",
-        frequency: "Daily or 5x weekly",
-        route: "Subcutaneous",
-        notes: "Convenient single-vial blend. Inject near area of interest.",
-        isBlend: true,
+        path: "/peptides/bpc-157-tb-500-wolverine-blend", img: `${IMG}BPC_157_plus_TB_500_4cd2698556.png`,
+        desc: "Synergistic tissue repair blend — two of the most studied healing peptides.", blend: true,
+        freq: "Daily or 5x weekly", route: "Subcutaneous", notes: "Inject near area of interest.",
       },
       "BPC-157 + TB-500 + GHK-Cu (Glow Blend)": {
-        path: "/peptides/bpc-157-tb-500-ghk-cu-glow-blend",
-        description: "Repair + skin rejuvenation blend with copper peptide for collagen support.",
-        frequency: "Daily or 5x weekly",
-        route: "Subcutaneous",
-        notes: "Combined healing and anti-aging in a single vial.",
-        isBlend: true,
+        path: "/peptides/bpc-157-tb-500-ghk-cu-glow-blend", img: `${IMG}BPC_157_plus_TB_500_plus_GHK_Cu_07f838de84.png`,
+        desc: "Repair + skin rejuvenation with copper peptide for collagen support.", blend: true,
+        freq: "Daily or 5x weekly", route: "Subcutaneous", notes: "Healing and anti-aging in one vial.",
       },
       "BPC-157 + TB-500 + KPV + GHK-Cu (Klow Blend)": {
-        path: "/peptides/klow-blend",
-        description: "Comprehensive 4-peptide blend for repair, inflammation, gut, and skin research.",
-        frequency: "Daily or 5x weekly",
-        route: "Subcutaneous",
-        notes: "Most comprehensive blend — covers healing, inflammation, and skin.",
-        isBlend: true,
+        path: "/peptides/klow-blend", img: `${IMG}KLOW_f5c805d83f.png`,
+        desc: "Comprehensive 4-peptide blend for repair, inflammation, gut, and skin.", blend: true,
+        freq: "Daily or 5x weekly", route: "Subcutaneous", notes: "Most comprehensive blend available.",
       },
       "CJC-1295 (no DAC) + Ipamorelin (Blend)": {
-        path: "/peptides/cjc-1295-no-dac-ipamorelin-blend",
-        description: "The gold-standard GH blend — synergistic growth hormone release.",
-        frequency: "1-2x daily",
-        route: "Subcutaneous",
-        notes: "Most popular GH blend. Best taken before bed and/or morning.",
-        isBlend: true,
+        path: "/peptides/cjc-1295-no-dac-ipamorelin-blend", img: `${IMG}CJC_1295_plus_IPAMORELIN_497cb0b851.png`,
+        desc: "The gold-standard GH blend — synergistic growth hormone release.", blend: true,
+        freq: "1-2x daily", route: "Subcutaneous", notes: "Most popular GH blend. Best before bed and/or morning.",
       },
       "CJC-1295 (no DAC) + Ipamorelin + GHRP-2 (Blend)": {
-        path: "/peptides/cjc-1295-no-dac-ipamorelin-ghrp-2-blend",
-        description: "Triple GH blend for maximized growth hormone secretion research.",
-        frequency: "1-2x daily",
-        route: "Subcutaneous",
-        notes: "Most aggressive GH stack available in a single vial.",
-        isBlend: true,
+        path: "/peptides/cjc-1295-no-dac-ipamorelin-ghrp-2-blend", img: `${IMG}CJC_plus_IPA_plus_GHRP_2_ea90324c5c.png`,
+        desc: "Triple GH blend for maximized growth hormone secretion.", blend: true,
+        freq: "1-2x daily", route: "Subcutaneous", notes: "Most aggressive GH stack in a single vial.",
       },
       "Sermorelin + Ipamorelin (Blend)": {
-        path: "/peptides/sermorelin-ipamorelin-blend",
-        description: "Dual GHRH/GHS blend for balanced growth hormone optimization.",
-        frequency: "1x daily (evening)",
-        route: "Subcutaneous",
-        notes: "Gentle GH blend — good starting point for GH research.",
-        isBlend: true,
+        path: "/peptides/sermorelin-ipamorelin-blend", img: `${IMG}Sermorelin_plus_Ipamorelin_4f70c1edb4.png`,
+        desc: "Dual GHRH/GHS blend for balanced growth hormone optimization.", blend: true,
+        freq: "1x daily (evening)", route: "Subcutaneous", notes: "Gentle starting point for GH research.",
       },
     };
 
-    // ── Stacks: synergistic pairings ──
-    const STACK_SUGGESTIONS = [
-      {
-        name: "Tissue Repair Stack",
-        peptides: ["BPC-157", "TB-500"],
-        blend: "BPC-157 + TB-500 (Wolverine Blend)",
-        why: "BPC-157 targets tissue repair from inside out, TB-500 promotes cell migration and reduces inflammation. Together they cover complementary healing pathways.",
-      },
-      {
-        name: "Growth Hormone Stack",
-        peptides: ["CJC-1295 (no DAC)", "Ipamorelin"],
-        blend: "CJC-1295 (no DAC) + Ipamorelin (Blend)",
-        why: "CJC-1295 extends GH release duration while Ipamorelin amplifies the pulse. Synergistic effect exceeds either alone.",
-      },
-      {
-        name: "Total Recovery Stack",
-        peptides: ["BPC-157", "TB-500", "GHK-Cu"],
-        blend: "BPC-157 + TB-500 + GHK-Cu (Glow Blend)",
-        why: "Full spectrum recovery — tissue repair, inflammation reduction, and collagen synthesis for skin and connective tissue.",
-      },
-      {
-        name: "Metabolic + Gut Protection",
-        peptides: ["Semaglutide", "BPC-157"],
-        why: "GLP-1 agonists can cause GI side effects. BPC-157 is studied for its gastroprotective properties — a logical pairing.",
-      },
-      {
-        name: "Anti-Aging Stack",
-        peptides: ["GHK-Cu", "NAD+"],
-        why: "GHK-Cu promotes collagen and skin regeneration while NAD+ supports cellular energy and DNA repair — both key aging pathways.",
-      },
-      {
-        name: "Immune + Gut Health",
-        peptides: ["Thymosin Alpha-1", "KPV", "BPC-157"],
-        why: "Thymosin Alpha-1 modulates systemic immunity, KPV reduces gut inflammation, BPC-157 repairs the GI lining.",
-      },
+    const STACKS = [
+      { name: "Tissue Repair Stack", peptides: ["BPC-157","TB-500"], blend: "BPC-157 + TB-500 (Wolverine Blend)",
+        why: "BPC-157 repairs from inside out, TB-500 promotes cell migration. Complementary healing pathways." },
+      { name: "Growth Hormone Stack", peptides: ["CJC-1295 (no DAC)","Ipamorelin"], blend: "CJC-1295 (no DAC) + Ipamorelin (Blend)",
+        why: "CJC-1295 extends GH release while Ipamorelin amplifies the pulse. Synergistic effect." },
+      { name: "Total Recovery Stack", peptides: ["BPC-157","TB-500","GHK-Cu"], blend: "BPC-157 + TB-500 + GHK-Cu (Glow Blend)",
+        why: "Full spectrum: tissue repair, anti-inflammation, and collagen synthesis." },
+      { name: "Metabolic + Gut Protection", peptides: ["Semaglutide","BPC-157"],
+        why: "GLP-1 agonists can cause GI effects. BPC-157 studied for gastroprotective properties." },
+      { name: "Anti-Aging Stack", peptides: ["GHK-Cu","NAD+"],
+        why: "GHK-Cu regenerates skin/collagen, NAD+ supports cellular energy and DNA repair." },
+      { name: "Immune + Gut Health", peptides: ["Thymosin Alpha-1","KPV","BPC-157"],
+        why: "Systemic immunity + gut inflammation reduction + GI lining repair." },
     ];
 
-    // ── Calculator presets ──
-    const PEPTIDE_PRESETS = {
-      "BPC-157":                              { vialMg: 5,  waterMl: 2,   doseMcg: 250  },
-      "CJC-1295 (with DAC)":                  { vialMg: 2,  waterMl: 2,   doseMcg: 1000 },
-      "CJC-1295 (no DAC / Mod GRF 1-29)":    { vialMg: 2,  waterMl: 2,   doseMcg: 100  },
-      "Ipamorelin":                           { vialMg: 5,  waterMl: 2.5, doseMcg: 200  },
-      "Retatrutide":                          { vialMg: 10, waterMl: 3,   doseMcg: 1000 },
-      "Semaglutide (research analog)":        { vialMg: 5,  waterMl: 2.5, doseMcg: 250  },
-      "TB-500 (Thymosin Beta-4)":             { vialMg: 5,  waterMl: 2,   doseMcg: 2500 },
-      "Tirzepatide (research analog)":        { vialMg: 10, waterMl: 3,   doseMcg: 2500 },
-    };
-
-    const CALC_TO_CATALOG = {
-      "BPC-157": "BPC-157",
-      "CJC-1295 (no DAC / Mod GRF 1-29)": "CJC-1295 (no DAC)",
-      "Ipamorelin": "Ipamorelin",
-      "Retatrutide": "Retatrutide",
-      "Semaglutide (research analog)": "Semaglutide",
-      "TB-500 (Thymosin Beta-4)": "TB-500",
-      "Tirzepatide (research analog)": "Tirzepatide",
-    };
-
-    const PEPTIDE_NAMES = [...Object.keys(PEPTIDE_PRESETS), "Other"];
-
-    const DEFAULTS = {
-      peptide: "BPC-157",
-      customPeptide: "",
-      vialMg: 5,
-      waterMl: 2,
-      doseMode: "flat",
-      doseMcg: 250,
-      doseMcgPerKg: 5,
-      bodyWeightKg: 80,
-    };
-
-    // ── Research goals ──
-    const RESEARCH_GOALS = [
-      {
-        id: "tissue-repair",
-        label: "Tissue Repair & Recovery",
-        icon: "\u{1F9EC}",
-        description: "Wound healing, muscle, tendon, ligament repair",
-        peptides: ["BPC-157", "TB-500", "BPC-157 + TB-500 (Wolverine Blend)", "BPC-157 + TB-500 + GHK-Cu (Glow Blend)"],
-      },
-      {
-        id: "gut-health",
-        label: "Gut Health & Inflammation",
-        icon: "\u{1F52C}",
-        description: "GI tract repair, intestinal lining, inflammation",
-        peptides: ["BPC-157", "KPV", "BPC-157 + TB-500 + KPV + GHK-Cu (Klow Blend)"],
-      },
-      {
-        id: "growth-hormone",
-        label: "Growth Hormone",
-        icon: "\u{1F4C8}",
-        description: "GH secretion, body composition, recovery",
-        peptides: ["CJC-1295 (no DAC) + Ipamorelin (Blend)", "CJC-1295 (no DAC)", "Ipamorelin", "Sermorelin", "CJC-1295 (no DAC) + Ipamorelin + GHRP-2 (Blend)", "Sermorelin + Ipamorelin (Blend)"],
-      },
-      {
-        id: "weight-metabolism",
-        label: "Weight & Metabolic",
-        icon: "\u2696\uFE0F",
-        description: "Appetite regulation, metabolic optimization",
-        peptides: ["Semaglutide", "Tirzepatide", "Retatrutide", "MOTS-c"],
-      },
-      {
-        id: "skin-aging",
-        label: "Skin & Anti-Aging",
-        icon: "\u2728",
-        description: "Collagen, skin regeneration, cellular longevity",
-        peptides: ["GHK-Cu", "BPC-157 + TB-500 + GHK-Cu (Glow Blend)", "NAD+"],
-      },
-      {
-        id: "sleep",
-        label: "Sleep & Stress",
-        icon: "\u{1F319}",
-        description: "Sleep quality, circadian rhythm, stress",
-        peptides: ["DSIP"],
-      },
-      {
-        id: "immune",
-        label: "Immune Support",
-        icon: "\u{1F6E1}\uFE0F",
-        description: "Immune modulation, T-cell function",
-        peptides: ["Thymosin Alpha-1", "KPV"],
-      },
-      {
-        id: "performance",
-        label: "Performance & Energy",
-        icon: "\u26A1",
-        description: "Exercise physiology, mitochondrial function",
-        peptides: ["MOTS-c", "NAD+", "CJC-1295 (no DAC) + Ipamorelin (Blend)", "Ipamorelin"],
-      },
+    const GOALS = [
+      { id:"tissue-repair", label:"Tissue Repair & Recovery", icon:"\u{1F9EC}", desc:"Wound healing, muscle, tendon, ligament",
+        peptides:["BPC-157","TB-500","BPC-157 + TB-500 (Wolverine Blend)","BPC-157 + TB-500 + GHK-Cu (Glow Blend)"] },
+      { id:"gut-health", label:"Gut Health & Inflammation", icon:"\u{1F52C}", desc:"GI repair, intestinal lining, inflammation",
+        peptides:["BPC-157","KPV","BPC-157 + TB-500 + KPV + GHK-Cu (Klow Blend)"] },
+      { id:"growth-hormone", label:"Growth Hormone", icon:"\u{1F4C8}", desc:"GH secretion, body composition, anti-aging",
+        peptides:["CJC-1295 (no DAC) + Ipamorelin (Blend)","CJC-1295 (no DAC)","Ipamorelin","Sermorelin","CJC-1295 (no DAC) + Ipamorelin + GHRP-2 (Blend)","Sermorelin + Ipamorelin (Blend)"] },
+      { id:"weight", label:"Weight & Metabolic", icon:"\u2696\uFE0F", desc:"Appetite, metabolic optimization",
+        peptides:["Semaglutide","Tirzepatide","Retatrutide","MOTS-c"] },
+      { id:"skin", label:"Skin & Anti-Aging", icon:"\u2728", desc:"Collagen, skin regeneration, longevity",
+        peptides:["GHK-Cu","BPC-157 + TB-500 + GHK-Cu (Glow Blend)","NAD+"] },
+      { id:"sleep", label:"Sleep & Stress", icon:"\u{1F319}", desc:"Sleep quality, circadian rhythm",
+        peptides:["DSIP"] },
+      { id:"immune", label:"Immune Support", icon:"\u{1F6E1}\uFE0F", desc:"Immune modulation, T-cell function",
+        peptides:["Thymosin Alpha-1","KPV"] },
+      { id:"performance", label:"Performance & Energy", icon:"\u26A1", desc:"Exercise physiology, mitochondria",
+        peptides:["MOTS-c","NAD+","CJC-1295 (no DAC) + Ipamorelin (Blend)","Ipamorelin"] },
     ];
 
-    // ── URL sharing ──
-    function encodeState(state) {
-      try {
-        const data = { p: state.peptide, v: state.vialMg, w: state.waterMl, m: state.doseMode, d: state.doseMcg, dk: state.doseMcgPerKg, bw: state.bodyWeightKg };
-        if (state.peptide === "Other") data.cp = state.customPeptide;
-        return btoa(JSON.stringify(data));
-      } catch { return ""; }
-    }
-    function decodeState(hash) {
-      try {
-        const data = JSON.parse(atob(hash));
-        return {
-          peptide: data.p || DEFAULTS.peptide,
-          customPeptide: data.cp || "",
-          vialMg: data.v || DEFAULTS.vialMg,
-          waterMl: data.w || DEFAULTS.waterMl,
-          doseMode: data.m || DEFAULTS.doseMode,
-          doseMcg: data.d || DEFAULTS.doseMcg,
-          doseMcgPerKg: data.dk || DEFAULTS.doseMcgPerKg,
-          bodyWeightKg: data.bw || DEFAULTS.bodyWeightKg,
-        };
-      } catch { return null; }
-    }
+    const PRESETS = {
+      "BPC-157":                           { vialMg:5,  waterMl:2,   doseMcg:250  },
+      "CJC-1295 (with DAC)":               { vialMg:2,  waterMl:2,   doseMcg:1000 },
+      "CJC-1295 (no DAC / Mod GRF 1-29)":  { vialMg:2,  waterMl:2,   doseMcg:100  },
+      "Ipamorelin":                         { vialMg:5,  waterMl:2.5, doseMcg:200  },
+      "Retatrutide":                        { vialMg:10, waterMl:3,   doseMcg:1000 },
+      "Semaglutide (research analog)":      { vialMg:5,  waterMl:2.5, doseMcg:250  },
+      "TB-500 (Thymosin Beta-4)":           { vialMg:5,  waterMl:2,   doseMcg:2500 },
+      "Tirzepatide (research analog)":      { vialMg:10, waterMl:3,   doseMcg:2500 },
+    };
+    const CALC_MAP = { "BPC-157":"BPC-157","CJC-1295 (no DAC / Mod GRF 1-29)":"CJC-1295 (no DAC)","Ipamorelin":"Ipamorelin","Retatrutide":"Retatrutide","Semaglutide (research analog)":"Semaglutide","TB-500 (Thymosin Beta-4)":"TB-500","Tirzepatide (research analog)":"Tirzepatide" };
+    const CALC_NAMES = [...Object.keys(PRESETS), "Other"];
+    const DEFAULTS = { peptide:"BPC-157", customPeptide:"", vialMg:5, waterMl:2, doseMode:"flat", doseMcg:250, doseMcgPerKg:5, bodyWeightKg:80 };
 
-    // ── Components ──
+    function encodeState(s) { try { return btoa(JSON.stringify({p:s.peptide,v:s.vialMg,w:s.waterMl,m:s.doseMode,d:s.doseMcg,dk:s.doseMcgPerKg,bw:s.bodyWeightKg,cp:s.customPeptide})); } catch{return "";} }
+    function decodeState(h) { try { const d=JSON.parse(atob(h)); return{peptide:d.p||DEFAULTS.peptide,customPeptide:d.cp||"",vialMg:d.v||DEFAULTS.vialMg,waterMl:d.w||DEFAULTS.waterMl,doseMode:d.m||DEFAULTS.doseMode,doseMcg:d.d||DEFAULTS.doseMcg,doseMcgPerKg:d.dk||DEFAULTS.doseMcgPerKg,bodyWeightKg:d.bw||DEFAULTS.bodyWeightKg}; } catch{return null;} }
+
+    // ── Shared components ──
 
     function DisclaimerBanner() {
       return (
         <div className="disclaimer-bar rounded-xl px-4 py-3 text-center">
-          <p className="text-red-300 font-bold text-xs uppercase tracking-widest">
-            For Research Use Only — Not for Human Consumption
-          </p>
-          <p className="text-red-400/60 text-xs mt-1">
-            This tool is intended solely for laboratory and research purposes.
-          </p>
+          <p className="text-red-300 font-bold text-xs uppercase tracking-widest">For Research Use Only — Not for Human Consumption</p>
+          <p className="text-red-400/60 text-xs mt-1">Intended solely for laboratory and research purposes.</p>
         </div>
       );
     }
 
-    function ProductCard({ catalogKey, compact }) {
-      const product = PRODUCT_CATALOG[catalogKey];
-      if (!product) return null;
+    function ProductCard({ name, compact, showImg = true }) {
+      const p = CATALOG[name];
+      if (!p) return null;
       return (
-        <a
-          href={affLink(product.path)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block glass card-hover rounded-xl p-3.5 group cursor-pointer"
-        >
-          <div className="flex justify-between items-start gap-2">
+        <a href={aff(p.path)} target="_blank" rel="noopener noreferrer"
+          className="block glass card-hover rounded-xl p-3 group cursor-pointer">
+          <div className="flex items-start gap-3">
+            {showImg && <img src={p.img} alt={p.label||name} className="product-img shrink-0" loading="lazy" />}
             <div className="min-w-0 flex-1">
               <div className="flex items-center gap-2 flex-wrap">
-                <p className="text-gray-100 font-semibold text-sm group-hover:text-white transition-colors">
-                  {product.label || catalogKey}
-                </p>
-                {product.isBlend && (
-                  <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full stack-badge text-purple-300">
-                    Blend
-                  </span>
-                )}
+                <p className="text-gray-100 font-semibold text-sm group-hover:text-white transition-colors">{p.label||name}</p>
+                {p.blend && <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full stack-badge text-purple-300">Blend</span>}
               </div>
-              {!compact && <p className="text-gray-400 text-xs mt-1 leading-relaxed">{product.description}</p>}
+              {!compact && <p className="text-gray-400 text-xs mt-1 leading-relaxed">{p.desc}</p>}
               {!compact && (
-                <div className="flex items-center gap-3 mt-2">
-                  <span className="text-[10px] text-gray-500 uppercase tracking-wide">{product.frequency}</span>
+                <div className="flex items-center gap-3 mt-1.5">
+                  <span className="text-[10px] text-gray-500 uppercase tracking-wide">{p.freq}</span>
                   <span className="text-gray-600">|</span>
-                  <span className="text-[10px] text-gray-500 uppercase tracking-wide">{product.route}</span>
+                  <span className="text-[10px] text-gray-500 uppercase tracking-wide">{p.route}</span>
                 </div>
               )}
             </div>
-            <span className="shrink-0 text-xs shop-btn text-white px-3 py-1.5 rounded-lg font-medium whitespace-nowrap">
-              5% off &rarr;
-            </span>
+            <span className="shrink-0 text-xs shop-btn text-white px-3 py-1.5 rounded-lg font-medium whitespace-nowrap">5% off &rarr;</span>
           </div>
         </a>
       );
     }
 
     function StackCard({ stack }) {
+      const blendProduct = stack.blend ? CATALOG[stack.blend] : null;
       return (
         <div className="glass rounded-xl p-4 space-y-2">
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-bold uppercase tracking-wider gradient-text">{stack.name}</span>
-          </div>
+          <span className="text-xs font-bold uppercase tracking-wider gradient-text">{stack.name}</span>
           <p className="text-gray-400 text-xs leading-relaxed">{stack.why}</p>
           <div className="flex flex-wrap gap-1.5 pt-1">
-            {stack.peptides.map((p) => (
-              <span key={p} className="text-[10px] px-2 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">{p}</span>
+            {stack.peptides.map((pp) => (
+              <span key={pp} className="text-[10px] px-2 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">{pp}</span>
             ))}
           </div>
-          {stack.blend && (
-            <a
-              href={affLink(PRODUCT_CATALOG[stack.blend]?.path || "")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 shop-btn text-white text-xs font-medium px-3 py-1.5 rounded-lg mt-1"
-            >
+          {blendProduct && (
+            <a href={aff(blendProduct.path)} target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 shop-btn text-white text-xs font-medium px-3 py-1.5 rounded-lg mt-1">
+              {blendProduct.img && <img src={blendProduct.img} alt="" className="w-5 h-5 rounded object-contain" />}
               Shop as blend — 5% off &rarr;
             </a>
           )}
@@ -566,447 +290,400 @@
       );
     }
 
-    function NumberInput({ label, value, onChange, unit, min, step }) {
+    // ── Step-by-step Peptide Finder (Wizard) ──
+
+    function PeptideFinder() {
+      const [step, setStep] = useState(0);
+      const [goals, setGoals] = useState([]);
+      const [experience, setExperience] = useState(null);
+      const [adminPref, setAdminPref] = useState(null);
+      const [email, setEmail] = useState("");
+      const [emailSubmitted, setEmailSubmitted] = useState(false);
+      const [showStacks, setShowStacks] = useState(false);
+
+      const totalSteps = 4; // goals, experience, admin, results
+      const progress = ((step + 1) / totalSteps) * 100;
+
+      const toggleGoal = (id) => setGoals((prev) => prev.includes(id) ? prev.filter(x=>x!==id) : [...prev, id]);
+
+      const recommendations = useMemo(() => {
+        if (goals.length === 0) return [];
+        const counts = {}, goalMap = {};
+        goals.forEach((id) => {
+          const g = GOALS.find(x=>x.id===id);
+          if (!g) return;
+          g.peptides.forEach((p) => { counts[p]=(counts[p]||0)+1; if(!goalMap[p])goalMap[p]=[]; goalMap[p].push(g.label); });
+        });
+        let results = Object.entries(counts).map(([n,c])=>({name:n,count:c,goals:goalMap[n],product:CATALOG[n]})).filter(r=>r.product);
+        if (experience==="new") results.sort((a,b)=>{ if(a.product.blend&&!b.product.blend)return 1; if(!a.product.blend&&b.product.blend)return -1; return b.count-a.count; });
+        else if (experience==="experienced") results.sort((a,b)=>{ if(a.product.blend&&!b.product.blend)return -1; if(!a.product.blend&&b.product.blend)return 1; return b.count-a.count; });
+        else results.sort((a,b)=>b.count-a.count);
+        if (adminPref==="capsule") results = results.filter(r=>r.product.capsule);
+        return results;
+      }, [goals, experience, adminPref]);
+
+      const relevantStacks = useMemo(() => {
+        if (goals.length===0) return [];
+        const all = new Set();
+        goals.forEach((id)=>{ const g=GOALS.find(x=>x.id===id); if(g)g.peptides.forEach(p=>all.add(p)); });
+        return STACKS.filter(s=>s.peptides.some(p=>all.has(p)));
+      }, [goals]);
+
+      const handleEmailSubmit = (e) => {
+        e.preventDefault();
+        if (!email.trim()) return;
+        // Store email (in production, send to your backend/email service)
+        try { localStorage.setItem("peptide_hub_email", email); } catch {}
+        setEmailSubmitted(true);
+      };
+
+      const canAdvance = () => {
+        if (step===0) return goals.length > 0;
+        if (step===1) return experience !== null;
+        if (step===2) return adminPref !== null;
+        return true;
+      };
+
+      const restart = () => { setStep(0); setGoals([]); setExperience(null); setAdminPref(null); setShowStacks(false); };
+
+      // Preview: show top 2 results free, gate the rest
+      const FREE_PREVIEW = 2;
+
       return (
-        <div className="space-y-1.5">
-          <label className="block text-xs font-medium text-gray-400 uppercase tracking-wide">{label}</label>
-          <div className="relative">
-            <input
-              type="number"
-              value={value}
-              onChange={(e) => onChange(parseFloat(e.target.value) || 0)}
-              min={min || 0}
-              step={step || "any"}
-              className="w-full input-glass rounded-lg px-3 py-2.5 pr-14 text-gray-100"
-            />
-            {unit && (
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 text-xs font-medium">
-                {unit}
-              </span>
+        <div className="space-y-5">
+          {/* Progress bar */}
+          <div className="space-y-2">
+            <div className="flex justify-between text-[10px] text-gray-500 uppercase tracking-wider">
+              <span>Step {step + 1} of {totalSteps}</span>
+              <span>{step===0?"Research Goals":step===1?"Experience":step===2?"Preference":"Your Results"}</span>
+            </div>
+            <div className="progress-bar rounded-full h-1.5">
+              <div className="progress-fill h-full rounded-full" style={{width:`${progress}%`}} />
+            </div>
+          </div>
+
+          {/* Step 0: Goals */}
+          {step === 0 && (
+            <div className="slide-in space-y-4">
+              <div className="text-center space-y-1">
+                <h2 className="text-xl font-bold text-gray-100">What are you researching?</h2>
+                <p className="text-gray-500 text-xs">Select all that apply</p>
+              </div>
+              <div className="grid grid-cols-2 gap-2">
+                {GOALS.map((g) => {
+                  const active = goals.includes(g.id);
+                  return (
+                    <button key={g.id} onClick={()=>toggleGoal(g.id)}
+                      className={`text-left p-3 rounded-xl border transition-all card-hover ${active?"goal-selected":"glass border-white/5 hover:border-white/15"}`}>
+                      <div className="text-base mb-0.5">{g.icon}</div>
+                      <p className={`text-xs font-semibold ${active?"text-purple-300":"text-gray-200"}`}>{g.label}</p>
+                      <p className="text-[10px] text-gray-500 mt-0.5 leading-tight">{g.desc}</p>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Step 1: Experience */}
+          {step === 1 && (
+            <div className="slide-in space-y-4">
+              <div className="text-center space-y-1">
+                <h2 className="text-xl font-bold text-gray-100">What's your experience level?</h2>
+                <p className="text-gray-500 text-xs">This helps us recommend the right products</p>
+              </div>
+              <div className="space-y-2">
+                {[
+                  { id:"new", label:"New to Peptides", desc:"I'm just getting started — show me simple, well-studied options", icon:"\u{1F331}" },
+                  { id:"experienced", label:"Experienced Researcher", desc:"I know what I'm doing — show me blends and advanced stacks", icon:"\u{1F52C}" },
+                ].map((opt) => (
+                  <button key={opt.id} onClick={()=>setExperience(opt.id)}
+                    className={`w-full text-left p-4 rounded-xl border transition-all card-hover flex items-center gap-4 ${experience===opt.id?"goal-selected":"glass border-white/5 hover:border-white/15"}`}>
+                    <span className="text-2xl">{opt.icon}</span>
+                    <div>
+                      <p className={`font-semibold text-sm ${experience===opt.id?"text-purple-300":"text-gray-200"}`}>{opt.label}</p>
+                      <p className="text-xs text-gray-500 mt-0.5">{opt.desc}</p>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Step 2: Administration */}
+          {step === 2 && (
+            <div className="slide-in space-y-4">
+              <div className="text-center space-y-1">
+                <h2 className="text-xl font-bold text-gray-100">Administration preference?</h2>
+                <p className="text-gray-500 text-xs">How will you administer in your research?</p>
+              </div>
+              <div className="space-y-2">
+                {[
+                  { id:"any", label:"No Preference", desc:"Show me all available options", icon:"\u{1F4CB}" },
+                  { id:"injectable", label:"Injectable", desc:"Subcutaneous injection — most common for peptide research", icon:"\u{1F489}" },
+                  { id:"capsule", label:"Capsule / Oral", desc:"Oral capsules — no injection required", icon:"\u{1F48A}" },
+                ].map((opt) => (
+                  <button key={opt.id} onClick={()=>setAdminPref(opt.id)}
+                    className={`w-full text-left p-4 rounded-xl border transition-all card-hover flex items-center gap-4 ${adminPref===opt.id?"goal-selected":"glass border-white/5 hover:border-white/15"}`}>
+                    <span className="text-2xl">{opt.icon}</span>
+                    <div>
+                      <p className={`font-semibold text-sm ${adminPref===opt.id?"text-purple-300":"text-gray-200"}`}>{opt.label}</p>
+                      <p className="text-xs text-gray-500 mt-0.5">{opt.desc}</p>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Step 3: Results */}
+          {step === 3 && (
+            <div className="slide-in space-y-5">
+              <div className="text-center space-y-1">
+                <h2 className="text-xl font-bold text-gray-100">Your Personalized Recommendations</h2>
+                <p className="text-gray-500 text-xs">{recommendations.length} peptides matched your research profile</p>
+              </div>
+
+              {/* Free preview */}
+              <div className="space-y-2">
+                {recommendations.slice(0, FREE_PREVIEW).map(({name, count, goals: g}) => (
+                  <div key={name} className="fade-in">
+                    <ProductCard name={name} />
+                    {count > 1 && <p className="text-[10px] text-purple-400/80 mt-1 ml-14">Matches {count} goals: {g.join(", ")}</p>}
+                  </div>
+                ))}
+              </div>
+
+              {/* Email gate for remaining results */}
+              {recommendations.length > FREE_PREVIEW && !emailSubmitted && (
+                <div className="glass-strong rounded-xl p-5 space-y-3 text-center fade-in">
+                  <div className="space-y-1">
+                    <p className="text-sm font-bold text-gray-100">
+                      +{recommendations.length - FREE_PREVIEW} more recommendations
+                    </p>
+                    <p className="text-xs text-gray-400">Enter your email to unlock your full personalized protocol, stack suggestions, and dosing guide.</p>
+                  </div>
+                  <form onSubmit={handleEmailSubmit} className="flex gap-2">
+                    <input
+                      type="email" required placeholder="you@email.com" value={email}
+                      onChange={(e)=>setEmail(e.target.value)}
+                      className="flex-1 input-glass rounded-lg px-3 py-2.5 text-sm text-gray-100 placeholder-gray-600"
+                    />
+                    <button type="submit" className="pill-active text-white font-semibold px-5 py-2.5 rounded-lg text-sm whitespace-nowrap">
+                      Unlock All
+                    </button>
+                  </form>
+                  <p className="text-[10px] text-gray-600">No spam. Unsubscribe anytime.</p>
+                </div>
+              )}
+
+              {/* Unlocked results */}
+              {emailSubmitted && recommendations.length > FREE_PREVIEW && (
+                <div className="space-y-2 fade-in">
+                  {recommendations.slice(FREE_PREVIEW).map(({name, count, goals: g}) => (
+                    <div key={name}>
+                      <ProductCard name={name} />
+                      {count > 1 && <p className="text-[10px] text-purple-400/80 mt-1 ml-14">Matches {count} goals: {g.join(", ")}</p>}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Stacks */}
+              {relevantStacks.length > 0 && (emailSubmitted || recommendations.length <= FREE_PREVIEW) && (
+                <div className="space-y-3">
+                  <button onClick={()=>setShowStacks(!showStacks)}
+                    className="flex items-center gap-2 text-xs font-bold text-gray-300 uppercase tracking-wider hover:text-white transition-colors">
+                    <span>{showStacks?"\u25BC":"\u25B6"}</span>Synergistic Stacks ({relevantStacks.length})
+                  </button>
+                  {showStacks && (
+                    <div className="space-y-2 fade-in">
+                      {relevantStacks.map((s)=><StackCard key={s.name} stack={s} />)}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Navigation */}
+          <div className="flex gap-2 pt-1">
+            {step > 0 && (
+              <button onClick={()=>setStep(step-1)}
+                className="flex-1 glass hover:bg-white/10 text-gray-400 hover:text-white font-medium py-3 rounded-xl transition-all text-sm">
+                Back
+              </button>
+            )}
+            {step < 3 && (
+              <button onClick={()=>canAdvance()&&setStep(step+1)} disabled={!canAdvance()}
+                className={`flex-1 py-3 rounded-xl text-sm font-semibold transition-all ${canAdvance()?"pill-active text-white cursor-pointer":"pill-track text-gray-600 cursor-not-allowed"}`}>
+                {step===2?"See My Results":"Continue"}
+              </button>
+            )}
+            {step === 3 && (
+              <button onClick={restart}
+                className="flex-1 glass hover:bg-white/10 text-gray-400 hover:text-white font-medium py-3 rounded-xl transition-all text-sm">
+                Start Over
+              </button>
             )}
           </div>
         </div>
       );
     }
 
-    // ── Peptide Finder ──
-
-    function PeptideFinder() {
-      const [selectedGoals, setSelectedGoals] = useState([]);
-      const [experience, setExperience] = useState("any");
-      const [adminPref, setAdminPref] = useState("any");
-      const [showStacks, setShowStacks] = useState(false);
-
-      const toggleGoal = (id) => {
-        setSelectedGoals((prev) =>
-          prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
-        );
-      };
-
-      const recommendations = useMemo(() => {
-        if (selectedGoals.length === 0) return [];
-        const counts = {};
-        const goalMap = {};
-        selectedGoals.forEach((id) => {
-          const goal = RESEARCH_GOALS.find((g) => g.id === id);
-          if (!goal) return;
-          goal.peptides.forEach((p) => {
-            counts[p] = (counts[p] || 0) + 1;
-            if (!goalMap[p]) goalMap[p] = [];
-            goalMap[p].push(goal.label);
-          });
-        });
-
-        let results = Object.entries(counts)
-          .map(([name, count]) => ({ name, count, goals: goalMap[name], product: PRODUCT_CATALOG[name] }))
-          .filter((r) => r.product);
-
-        // Filter by experience: new users see singles first, experienced see blends first
-        if (experience === "new") {
-          results.sort((a, b) => {
-            if (a.product.isBlend && !b.product.isBlend) return 1;
-            if (!a.product.isBlend && b.product.isBlend) return -1;
-            return b.count - a.count;
-          });
-        } else if (experience === "experienced") {
-          results.sort((a, b) => {
-            if (a.product.isBlend && !b.product.isBlend) return -1;
-            if (!a.product.isBlend && b.product.isBlend) return 1;
-            return b.count - a.count;
-          });
-        } else {
-          results.sort((a, b) => b.count - a.count);
-        }
-
-        // Filter by admin preference
-        if (adminPref === "capsule") {
-          results = results.filter((r) => r.product.capsuleAvailable);
-        } else if (adminPref === "injectable") {
-          results = results.filter((r) => !r.product.capsuleAvailable || r.product.route.includes("Subcutaneous"));
-        }
-
-        return results;
-      }, [selectedGoals, experience, adminPref]);
-
-      const relevantStacks = useMemo(() => {
-        if (selectedGoals.length === 0) return [];
-        const allPeptides = new Set();
-        selectedGoals.forEach((id) => {
-          const goal = RESEARCH_GOALS.find((g) => g.id === id);
-          if (goal) goal.peptides.forEach((p) => allPeptides.add(p));
-        });
-        return STACK_SUGGESTIONS.filter((s) =>
-          s.peptides.some((p) => allPeptides.has(p))
-        );
-      }, [selectedGoals]);
-
-      return (
-        <div className="space-y-5 fade-in">
-          {/* Goals grid */}
-          <div className="text-center space-y-1">
-            <h2 className="text-lg font-bold text-gray-100">What are you researching?</h2>
-            <p className="text-gray-500 text-xs">Select your research areas for personalized recommendations</p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-2">
-            {RESEARCH_GOALS.map((goal) => {
-              const active = selectedGoals.includes(goal.id);
-              return (
-                <button
-                  key={goal.id}
-                  onClick={() => toggleGoal(goal.id)}
-                  className={`text-left p-3 rounded-xl border transition-all card-hover ${
-                    active
-                      ? "goal-selected"
-                      : "glass border-white/5 hover:border-white/15"
-                  }`}
-                >
-                  <div className="text-base mb-0.5">{goal.icon}</div>
-                  <p className={`text-xs font-semibold ${active ? "text-purple-300" : "text-gray-200"}`}>
-                    {goal.label}
-                  </p>
-                  <p className="text-[10px] text-gray-500 mt-0.5 leading-tight">{goal.description}</p>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Filters — only show after goal selection */}
-          {selectedGoals.length > 0 && (
-            <div className="space-y-3 fade-in">
-              {/* Experience level */}
-              <div className="space-y-2">
-                <label className="block text-xs font-medium text-gray-400 uppercase tracking-wide">Experience Level</label>
-                <div className="flex gap-1.5">
-                  {[
-                    { id: "new", label: "New to Peptides", desc: "Show simpler options first" },
-                    { id: "experienced", label: "Experienced", desc: "Show blends & stacks first" },
-                    { id: "any", label: "Show All", desc: "" },
-                  ].map((opt) => (
-                    <button
-                      key={opt.id}
-                      onClick={() => setExperience(opt.id)}
-                      className={`flex-1 py-2 px-2 rounded-lg text-xs font-medium transition-all ${
-                        experience === opt.id
-                          ? "pill-active text-white"
-                          : "pill-track text-gray-400 hover:text-gray-200"
-                      }`}
-                    >
-                      {opt.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Administration preference */}
-              <div className="space-y-2">
-                <label className="block text-xs font-medium text-gray-400 uppercase tracking-wide">Administration</label>
-                <div className="flex gap-1.5">
-                  {[
-                    { id: "any", label: "Any" },
-                    { id: "injectable", label: "Injectable" },
-                    { id: "capsule", label: "Capsule / Oral" },
-                  ].map((opt) => (
-                    <button
-                      key={opt.id}
-                      onClick={() => setAdminPref(opt.id)}
-                      className={`flex-1 py-2 px-2 rounded-lg text-xs font-medium transition-all ${
-                        adminPref === opt.id
-                          ? "pill-active text-white"
-                          : "pill-track text-gray-400 hover:text-gray-200"
-                      }`}
-                    >
-                      {opt.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Recommendations */}
-          {recommendations.length > 0 && (
-            <div className="space-y-3 fade-in">
-              <div className="flex items-center justify-between">
-                <h3 className="text-xs font-bold text-gray-300 uppercase tracking-wider">
-                  Recommended for You
-                </h3>
-                <span className="text-[10px] text-emerald-400 font-medium">5% off all products</span>
-              </div>
-              <div className="space-y-2">
-                {recommendations.map(({ name, count, goals }) => (
-                  <div key={name} className="fade-in">
-                    <ProductCard catalogKey={name} />
-                    {count > 1 && (
-                      <p className="text-[10px] text-purple-400/80 mt-1 ml-3">
-                        Matches {count} of your goals: {goals.join(", ")}
-                      </p>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Stacks */}
-          {relevantStacks.length > 0 && selectedGoals.length > 0 && (
-            <div className="space-y-3">
-              <button
-                onClick={() => setShowStacks(!showStacks)}
-                className="flex items-center gap-2 text-xs font-bold text-gray-300 uppercase tracking-wider hover:text-white transition-colors"
-              >
-                <span>{showStacks ? "\u25BC" : "\u25B6"}</span>
-                Synergistic Stacks ({relevantStacks.length})
-              </button>
-              {showStacks && (
-                <div className="space-y-2 fade-in">
-                  {relevantStacks.map((stack) => (
-                    <StackCard key={stack.name} stack={stack} />
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
-
-          {selectedGoals.length > 0 && (
-            <button
-              onClick={() => { setSelectedGoals([]); setExperience("any"); setAdminPref("any"); }}
-              className="w-full glass hover:bg-white/10 text-gray-400 hover:text-gray-200 font-medium py-2 rounded-xl transition-all text-xs"
-            >
-              Clear All
-            </button>
-          )}
-        </div>
-      );
-    }
-
     // ── Calculator ──
 
-    function PeptideSelector({ peptide, customPeptide, onSelect, onChange }) {
-      const catalogKey = CALC_TO_CATALOG[peptide];
-      const product = catalogKey ? PRODUCT_CATALOG[catalogKey] : null;
+    function NumberInput({ label, value, onChange, unit, min, step }) {
       return (
-        <div className="space-y-3">
-          <label className="block text-xs font-medium text-gray-400 uppercase tracking-wide">Peptide</label>
-          <select
-            value={peptide}
-            onChange={(e) => onSelect(e.target.value)}
-            className="w-full input-glass rounded-lg px-3 py-2.5 text-gray-100 appearance-none cursor-pointer"
-          >
-            {PEPTIDE_NAMES.map((p) => (
-              <option key={p} value={p}>{p}</option>
-            ))}
-          </select>
-          {peptide === "Other" && (
-            <input
-              type="text"
-              placeholder="Enter peptide name"
-              value={customPeptide}
-              onChange={(e) => onChange("customPeptide", e.target.value)}
-              className="w-full input-glass rounded-lg px-3 py-2.5 text-gray-100 placeholder-gray-600"
-            />
-          )}
-          {PEPTIDE_PRESETS[peptide] && (
-            <p className="text-[10px] text-gray-500">
-              Recommended: {PEPTIDE_PRESETS[peptide].vialMg} mg vial + {PEPTIDE_PRESETS[peptide].waterMl} mL bac water, typical dose {PEPTIDE_PRESETS[peptide].doseMcg} mcg
-            </p>
-          )}
-          {/* Dosing info card */}
-          {product && (
-            <div className="glass rounded-lg p-3 space-y-2">
-              <div className="grid grid-cols-2 gap-2">
-                <div>
-                  <p className="text-[10px] text-gray-500 uppercase tracking-wide">Frequency</p>
-                  <p className="text-xs text-gray-200 font-medium">{product.frequency}</p>
-                </div>
-                <div>
-                  <p className="text-[10px] text-gray-500 uppercase tracking-wide">Route</p>
-                  <p className="text-xs text-gray-200 font-medium">{product.route}</p>
-                </div>
-              </div>
-              {product.notes && (
-                <p className="text-[10px] text-gray-400 leading-relaxed">{product.notes}</p>
-              )}
-              <a
-                href={affLink(product.path)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full text-center shop-btn text-white text-xs font-semibold px-4 py-2 rounded-lg"
-              >
-                Shop {product.label || catalogKey} — 5% Off
-              </a>
-            </div>
-          )}
+        <div className="space-y-1.5">
+          <label className="block text-xs font-medium text-gray-400 uppercase tracking-wide">{label}</label>
+          <div className="relative">
+            <input type="number" value={value} onChange={(e)=>onChange(parseFloat(e.target.value)||0)} min={min||0} step={step||"any"}
+              className="w-full input-glass rounded-lg px-3 py-2.5 pr-14 text-gray-100" />
+            {unit && <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 text-xs font-medium">{unit}</span>}
+          </div>
         </div>
       );
     }
 
-    function InputSection({ state, onChange }) {
-      return (
-        <div className="space-y-4">
-          <h3 className="text-xs font-bold text-gray-300 uppercase tracking-wider">Vial & Reconstitution</h3>
-          <div className="grid grid-cols-2 gap-3">
-            <NumberInput label="Vial Amount" value={state.vialMg} onChange={(v) => onChange("vialMg", v)} unit="mg" min={0.1} step={0.5} />
-            <NumberInput label="Bac Water" value={state.waterMl} onChange={(v) => onChange("waterMl", v)} unit="mL" min={0.1} step={0.5} />
-          </div>
+    function CalcTab() {
+      const initHash = window.location.hash.startsWith("#calc=") ? decodeState(window.location.hash.slice(6)) : null;
+      const [state, setState] = useState(initHash || {...DEFAULTS});
+      const onChange = useCallback((k,v)=>setState(p=>({...p,[k]:v})),[]);
+      const onSelect = useCallback((name)=>{
+        const pr=PRESETS[name]; if(pr) setState(p=>({...p,peptide:name,vialMg:pr.vialMg,waterMl:pr.waterMl,doseMcg:pr.doseMcg,doseMode:"flat"}));
+        else setState(p=>({...p,peptide:name}));
+      },[]);
+      const reset = ()=>{ setState({...DEFAULTS}); window.history.replaceState(null,"",window.location.pathname); };
 
-          <h3 className="text-xs font-bold text-gray-300 uppercase tracking-wider pt-1">Dose</h3>
-          <div className="flex gap-1.5">
-            <button
-              onClick={() => onChange("doseMode", "flat")}
-              className={`flex-1 py-2 rounded-lg text-xs font-medium transition-all ${
-                state.doseMode === "flat" ? "pill-active text-white" : "pill-track text-gray-400 hover:text-gray-200"
-              }`}
-            >
-              Flat Dose (mcg)
-            </button>
-            <button
-              onClick={() => onChange("doseMode", "perkg")}
-              className={`flex-1 py-2 rounded-lg text-xs font-medium transition-all ${
-                state.doseMode === "perkg" ? "pill-active text-white" : "pill-track text-gray-400 hover:text-gray-200"
-              }`}
-            >
-              Per Body Weight
-            </button>
-          </div>
+      const catKey = CALC_MAP[state.peptide];
+      const product = catKey ? CATALOG[catKey] : null;
 
-          {state.doseMode === "flat" ? (
-            <NumberInput label="Dose" value={state.doseMcg} onChange={(v) => onChange("doseMcg", v)} unit="mcg" min={1} step={10} />
-          ) : (
-            <div className="grid grid-cols-2 gap-3">
-              <NumberInput label="Dose per kg" value={state.doseMcgPerKg} onChange={(v) => onChange("doseMcgPerKg", v)} unit="mcg/kg" min={0.1} step={0.5} />
-              <NumberInput label="Body Weight" value={state.bodyWeightKg} onChange={(v) => onChange("bodyWeightKg", v)} unit="kg" min={1} step={1} />
-            </div>
-          )}
-        </div>
-      );
-    }
-
-    function ResultsCard({ state, onShare }) {
-      const totalMcg = state.vialMg * 1000;
-      const concentration = state.waterMl > 0 ? totalMcg / state.waterMl : 0;
-      const effectiveDose = state.doseMode === "flat" ? state.doseMcg : state.doseMcgPerKg * state.bodyWeightKg;
-      const volumeMl = concentration > 0 ? effectiveDose / concentration : 0;
-      const syringeUnits = volumeMl * 100;
-      const dosesPerVial = effectiveDose > 0 ? totalMcg / effectiveDose : 0;
-
-      const peptideName = state.peptide === "Other" ? state.customPeptide || "Custom Peptide" : state.peptide;
+      const totalMcg = state.vialMg*1000;
+      const conc = state.waterMl>0?totalMcg/state.waterMl:0;
+      const dose = state.doseMode==="flat"?state.doseMcg:state.doseMcgPerKg*state.bodyWeightKg;
+      const vol = conc>0?dose/conc:0;
+      const units = vol*100;
+      const doses = dose>0?totalMcg/dose:0;
+      const pName = state.peptide==="Other"?state.customPeptide||"Custom Peptide":state.peptide;
+      const valid = state.vialMg>0 && state.waterMl>0 && dose>0;
 
       const instructions = [
-        `Reconstitute the ${state.vialMg} mg vial of ${peptideName} with ${state.waterMl} mL of bacteriostatic water.`,
-        `Resulting concentration: ${concentration.toFixed(1)} mcg/mL.`,
-        `For a ${effectiveDose.toFixed(1)} mcg dose, draw ${volumeMl.toFixed(4)} mL (${syringeUnits.toFixed(1)} units on a U-100 insulin syringe).`,
-        `This vial provides approximately ${Math.floor(dosesPerVial)} doses at this dosage.`,
+        `Reconstitute the ${state.vialMg} mg vial of ${pName} with ${state.waterMl} mL of bacteriostatic water.`,
+        `Resulting concentration: ${conc.toFixed(1)} mcg/mL.`,
+        `For a ${dose.toFixed(1)} mcg dose, draw ${vol.toFixed(4)} mL (${units.toFixed(1)} units on a U-100 insulin syringe).`,
+        `This vial provides approximately ${Math.floor(doses)} doses at this dosage.`,
       ];
-
-      const fullText = [
-        `--- ${peptideName} Reconstitution Instructions ---`,
-        `FOR RESEARCH USE ONLY`, "",
-        ...instructions.map((s, i) => `${i + 1}. ${s}`), "",
-        "Safety: Use aseptic technique. Store reconstituted peptide at 2-8\u00B0C.", "",
-        "DISCLAIMER: For research use only. Not for human consumption.",
-      ].join("\n");
+      const fullText = [`--- ${pName} Reconstitution ---`,"FOR RESEARCH USE ONLY","", ...instructions.map((s,i)=>`${i+1}. ${s}`),"","Safety: Aseptic technique. Store at 2-8\u00B0C.","","DISCLAIMER: Research use only."].join("\n");
 
       const [copied, setCopied] = useState(false);
       const [shareMsg, setShareMsg] = useState("");
-      const handleCopy = async () => {
-        try { await navigator.clipboard.writeText(fullText); } catch {
-          const ta = document.createElement("textarea"); ta.value = fullText;
-          document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
-        }
-        setCopied(true); setTimeout(() => setCopied(false), 2000);
+      const copy = async (text, setFn) => {
+        try{await navigator.clipboard.writeText(text)}catch{const t=document.createElement("textarea");t.value=text;document.body.appendChild(t);t.select();document.execCommand("copy");document.body.removeChild(t)}
+        setFn(true); setTimeout(()=>setFn(false),2000);
       };
 
-      const handleShare = async () => {
-        const url = `${window.location.origin}${window.location.pathname}#calc=${encodeState(state)}`;
-        try { await navigator.clipboard.writeText(url); } catch {
-          const ta = document.createElement("textarea"); ta.value = url;
-          document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
-        }
-        setShareMsg("Link copied!"); setTimeout(() => setShareMsg(""), 2000);
-      };
-
-      const isValid = state.vialMg > 0 && state.waterMl > 0 && effectiveDose > 0;
-
-      const ResultRow = ({ label, value }) => (
-        <div className="flex justify-between items-center py-2">
-          <span className="text-gray-500 text-xs">{label}</span>
-          <span className="num-highlight font-bold text-lg">{value}</span>
-        </div>
-      );
+      const Row = ({label,value})=>(<div className="flex justify-between items-center py-2"><span className="text-gray-500 text-xs">{label}</span><span className="num-highlight font-bold text-lg">{value}</span></div>);
 
       return (
         <div className="space-y-4 fade-in">
-          <h3 className="text-xs font-bold text-gray-300 uppercase tracking-wider">Results</h3>
-
-          {!isValid ? (
-            <div className="glass rounded-xl p-6 text-gray-500 text-center text-sm">
-              Enter valid values above to see results.
+          <div className="glass-strong rounded-2xl p-5 space-y-5 shadow-2xl">
+            {/* Peptide selector */}
+            <div className="space-y-3">
+              <label className="block text-xs font-medium text-gray-400 uppercase tracking-wide">Peptide</label>
+              <select value={state.peptide} onChange={(e)=>onSelect(e.target.value)}
+                className="w-full input-glass rounded-lg px-3 py-2.5 text-gray-100 appearance-none cursor-pointer">
+                {CALC_NAMES.map((p)=><option key={p} value={p}>{p}</option>)}
+              </select>
+              {state.peptide==="Other" && (
+                <input type="text" placeholder="Enter peptide name" value={state.customPeptide}
+                  onChange={(e)=>onChange("customPeptide",e.target.value)}
+                  className="w-full input-glass rounded-lg px-3 py-2.5 text-gray-100 placeholder-gray-600" />
+              )}
+              {PRESETS[state.peptide] && (
+                <p className="text-[10px] text-gray-500">Recommended: {PRESETS[state.peptide].vialMg} mg vial + {PRESETS[state.peptide].waterMl} mL bac water, typical dose {PRESETS[state.peptide].doseMcg} mcg</p>
+              )}
+              {product && (
+                <div className="glass rounded-lg p-3 space-y-2">
+                  <div className="flex items-center gap-3">
+                    <img src={product.img} alt="" className="w-10 h-10 rounded object-contain bg-white/5" />
+                    <div className="flex-1 grid grid-cols-2 gap-1">
+                      <div><p className="text-[10px] text-gray-500 uppercase">Frequency</p><p className="text-xs text-gray-200 font-medium">{product.freq}</p></div>
+                      <div><p className="text-[10px] text-gray-500 uppercase">Route</p><p className="text-xs text-gray-200 font-medium">{product.route}</p></div>
+                    </div>
+                  </div>
+                  {product.notes && <p className="text-[10px] text-gray-400">{product.notes}</p>}
+                  <a href={aff(product.path)} target="_blank" rel="noopener noreferrer"
+                    className="block w-full text-center shop-btn text-white text-xs font-semibold px-4 py-2 rounded-lg">
+                    Shop {product.label||catKey} — 5% Off
+                  </a>
+                </div>
+              )}
             </div>
-          ) : (
-            <>
-              <div className="glass rounded-xl p-4 divide-y divide-white/5">
-                <ResultRow label="Concentration" value={`${concentration.toFixed(1)} mcg/mL`} />
-                <ResultRow label="Effective Dose" value={`${effectiveDose.toFixed(1)} mcg`} />
-                <ResultRow label="Volume per Dose" value={`${volumeMl.toFixed(4)} mL`} />
-                <ResultRow label="Syringe Draw (U-100)" value={`${syringeUnits.toFixed(1)} units`} />
-                <ResultRow label="Doses per Vial" value={`~${Math.floor(dosesPerVial)}`} />
+            <div className="border-t border-white/5" />
+            {/* Inputs */}
+            <div className="space-y-4">
+              <h3 className="text-xs font-bold text-gray-300 uppercase tracking-wider">Vial & Reconstitution</h3>
+              <div className="grid grid-cols-2 gap-3">
+                <NumberInput label="Vial Amount" value={state.vialMg} onChange={(v)=>onChange("vialMg",v)} unit="mg" min={0.1} step={0.5} />
+                <NumberInput label="Bac Water" value={state.waterMl} onChange={(v)=>onChange("waterMl",v)} unit="mL" min={0.1} step={0.5} />
               </div>
+              <h3 className="text-xs font-bold text-gray-300 uppercase tracking-wider pt-1">Dose</h3>
+              <div className="flex gap-1.5">
+                <button onClick={()=>onChange("doseMode","flat")} className={`flex-1 py-2 rounded-lg text-xs font-medium transition-all ${state.doseMode==="flat"?"pill-active text-white":"pill-track text-gray-400 hover:text-gray-200"}`}>Flat Dose (mcg)</button>
+                <button onClick={()=>onChange("doseMode","perkg")} className={`flex-1 py-2 rounded-lg text-xs font-medium transition-all ${state.doseMode==="perkg"?"pill-active text-white":"pill-track text-gray-400 hover:text-gray-200"}`}>Per Body Weight</button>
+              </div>
+              {state.doseMode==="flat"
+                ? <NumberInput label="Dose" value={state.doseMcg} onChange={(v)=>onChange("doseMcg",v)} unit="mcg" min={1} step={10} />
+                : <div className="grid grid-cols-2 gap-3">
+                    <NumberInput label="Dose/kg" value={state.doseMcgPerKg} onChange={(v)=>onChange("doseMcgPerKg",v)} unit="mcg/kg" min={0.1} step={0.5} />
+                    <NumberInput label="Body Weight" value={state.bodyWeightKg} onChange={(v)=>onChange("bodyWeightKg",v)} unit="kg" min={1} step={1} />
+                  </div>
+              }
+            </div>
+          </div>
 
-              <div className="glass rounded-xl p-4 space-y-2">
-                <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Step-by-Step Instructions</h4>
-                <ol className="space-y-1.5">
-                  {instructions.map((step, i) => (
-                    <li key={i} className="text-gray-300 text-xs flex gap-2">
-                      <span className="num-highlight font-bold shrink-0">{i + 1}.</span>
-                      <span>{step}</span>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-
-              <div className="disclaimer-bar rounded-xl p-3">
-                <p className="text-red-400/80 text-[10px] font-medium">
-                  Safety: Use proper aseptic technique. Store reconstituted peptide refrigerated at 2-8 °C. Use within recommended timeframe per protocol.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  onClick={handleCopy}
-                  className="glass hover:bg-white/10 text-gray-300 hover:text-white font-medium py-2.5 rounded-xl transition-all text-xs"
-                >
-                  {copied ? "\u2713 Copied!" : "Copy Instructions"}
-                </button>
-                <button
-                  onClick={handleShare}
-                  className="glass hover:bg-white/10 text-gray-300 hover:text-white font-medium py-2.5 rounded-xl transition-all text-xs"
-                >
-                  {shareMsg || "Share Calculation"}
-                </button>
-              </div>
-            </>
-          )}
+          {/* Results */}
+          <div className="glass-strong rounded-2xl p-5 shadow-2xl space-y-4">
+            <h3 className="text-xs font-bold text-gray-300 uppercase tracking-wider">Results</h3>
+            {!valid ? (
+              <div className="glass rounded-xl p-6 text-gray-500 text-center text-sm">Enter valid values above.</div>
+            ) : (
+              <>
+                <div className="glass rounded-xl p-4 divide-y divide-white/5">
+                  <Row label="Concentration" value={`${conc.toFixed(1)} mcg/mL`} />
+                  <Row label="Effective Dose" value={`${dose.toFixed(1)} mcg`} />
+                  <Row label="Volume per Dose" value={`${vol.toFixed(4)} mL`} />
+                  <Row label="Syringe Draw (U-100)" value={`${units.toFixed(1)} units`} />
+                  <Row label="Doses per Vial" value={`~${Math.floor(doses)}`} />
+                </div>
+                <div className="glass rounded-xl p-4 space-y-2">
+                  <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Step-by-Step</h4>
+                  <ol className="space-y-1.5">
+                    {instructions.map((s,i)=>(
+                      <li key={i} className="text-gray-300 text-xs flex gap-2">
+                        <span className="num-highlight font-bold shrink-0">{i+1}.</span><span>{s}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+                <div className="disclaimer-bar rounded-xl p-3">
+                  <p className="text-red-400/80 text-[10px] font-medium">Safety: Aseptic technique. Store at 2-8 °C. Use within recommended timeframe.</p>
+                </div>
+                <div className="grid grid-cols-2 gap-2">
+                  <button onClick={()=>copy(fullText,setCopied)}
+                    className="glass hover:bg-white/10 text-gray-300 hover:text-white font-medium py-2.5 rounded-xl transition-all text-xs">
+                    {copied?"\u2713 Copied!":"Copy Instructions"}
+                  </button>
+                  <button onClick={()=>{const u=`${location.origin}${location.pathname}#calc=${encodeState(state)}`;copy(u,(v)=>setShareMsg(v?"Link copied!":""));}}
+                    className="glass hover:bg-white/10 text-gray-300 hover:text-white font-medium py-2.5 rounded-xl transition-all text-xs">
+                    {shareMsg||"Share Calculation"}
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+          <button onClick={reset} className="w-full glass hover:bg-white/10 text-gray-500 hover:text-gray-200 font-medium py-2.5 rounded-xl transition-all text-sm">Reset to Defaults</button>
         </div>
       );
     }
@@ -1014,112 +691,42 @@
     // ── App ──
 
     function App() {
-      // Check URL for shared calculator state
-      const initialTab = window.location.hash.startsWith("#calc=") ? "calculator" : "finder";
-      const initialState = (() => {
-        if (window.location.hash.startsWith("#calc=")) {
-          const decoded = decodeState(window.location.hash.slice(6));
-          if (decoded) return decoded;
-        }
-        return { ...DEFAULTS };
-      })();
-
-      const [tab, setTab] = useState(initialTab);
-      const [state, setState] = useState(initialState);
-
-      const onChange = useCallback((key, value) => {
-        setState((prev) => ({ ...prev, [key]: value }));
-      }, []);
-
-      const onSelectPeptide = useCallback((name) => {
-        const preset = PEPTIDE_PRESETS[name];
-        if (preset) {
-          setState((prev) => ({ ...prev, peptide: name, vialMg: preset.vialMg, waterMl: preset.waterMl, doseMcg: preset.doseMcg, doseMode: "flat" }));
-        } else {
-          setState((prev) => ({ ...prev, peptide: name }));
-        }
-      }, []);
-
-      const handleReset = () => { setState({ ...DEFAULTS }); window.history.replaceState(null, "", window.location.pathname); };
+      const initTab = window.location.hash.startsWith("#calc=") ? "calculator" : "finder";
+      const [tab, setTab] = useState(initTab);
 
       return (
         <div className="max-w-lg mx-auto px-4 py-8 space-y-6">
-          {/* Header */}
           <header className="text-center space-y-2">
-            <h1 className="text-3xl font-extrabold gradient-text tracking-tight">
-              Peptide Research Hub
-            </h1>
-            <p className="text-gray-500 text-sm">
-              Find the right peptides &middot; Calculate reconstitution &middot; Shop with 5% off
-            </p>
+            <h1 className="text-3xl font-extrabold gradient-text tracking-tight">Peptide Research Hub</h1>
+            <p className="text-gray-500 text-sm">Find the right peptides &middot; Calculate dosing &middot; 5% off</p>
           </header>
 
           <DisclaimerBanner />
 
-          {/* Tab switcher */}
           <div className="flex gap-1 glass rounded-xl p-1">
-            {[
-              { id: "finder", label: "Peptide Finder" },
-              { id: "calculator", label: "Calculator" },
-            ].map((t) => (
-              <button
-                key={t.id}
-                onClick={() => setTab(t.id)}
-                className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${
-                  tab === t.id
-                    ? "pill-active text-white"
-                    : "text-gray-500 hover:text-gray-300"
-                }`}
-              >
+            {[{id:"finder",label:"Peptide Finder"},{id:"calculator",label:"Calculator"}].map((t)=>(
+              <button key={t.id} onClick={()=>setTab(t.id)}
+                className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${tab===t.id?"pill-active text-white":"text-gray-500 hover:text-gray-300"}`}>
                 {t.label}
               </button>
             ))}
           </div>
 
-          {/* Tab content */}
-          {tab === "finder" ? (
-            <div className="glass-strong rounded-2xl p-5 shadow-2xl">
-              <PeptideFinder />
-            </div>
+          {tab==="finder" ? (
+            <div className="glass-strong rounded-2xl p-5 shadow-2xl"><PeptideFinder /></div>
           ) : (
-            <div className="space-y-4 fade-in">
-              <div className="glass-strong rounded-2xl p-5 space-y-5 shadow-2xl">
-                <PeptideSelector peptide={state.peptide} customPeptide={state.customPeptide} onSelect={onSelectPeptide} onChange={onChange} />
-                <div className="border-t border-white/5" />
-                <InputSection state={state} onChange={onChange} />
-              </div>
-              <div className="glass-strong rounded-2xl p-5 shadow-2xl">
-                <ResultsCard state={state} />
-              </div>
-              <button
-                onClick={handleReset}
-                className="w-full glass hover:bg-white/10 text-gray-500 hover:text-gray-200 font-medium py-2.5 rounded-xl transition-all text-sm"
-              >
-                Reset to Defaults
-              </button>
-            </div>
+            <CalcTab />
           )}
 
-          {/* Shop CTA */}
-          <a
-            href={affLink("")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block glass card-hover rounded-2xl p-5 text-center group"
-          >
-            <p className="text-lg font-bold gradient-text group-hover:opacity-90 transition-opacity">
-              Shop All Peptides
-            </p>
-            <p className="text-gray-500 text-xs mt-1">
-              Peptide Restore &middot; Get 5% off with our exclusive discount
-            </p>
+          <a href={aff("")} target="_blank" rel="noopener noreferrer" className="block glass card-hover rounded-2xl p-5 text-center group">
+            <p className="text-lg font-bold gradient-text group-hover:opacity-90 transition-opacity">Shop All Peptides</p>
+            <p className="text-gray-500 text-xs mt-1">Peptide Restore &middot; Get 5% off your entire order</p>
           </a>
 
           <DisclaimerBanner />
-
           <footer className="text-center text-gray-600 text-[10px] pb-6 space-y-1">
             <p>Research tool only. Verify all calculations independently.</p>
-            <p>Not affiliated with any pharmaceutical company. All peptides are sold for research purposes only.</p>
+            <p>All peptides sold for research purposes only.</p>
           </footer>
         </div>
       );
