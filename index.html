@@ -15,6 +15,19 @@
   <meta name="twitter:description" content="Free peptide reconstitution calculator. Find peptides, calculate dosing, shop with 5% off." />
   <meta name="twitter:image" content="https://monsterbench.github.io/peptide-calculator/og-image.png" />
   <meta name="theme-color" content="#08080f" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Peptide Research Hub",
+    "url": "https://monsterbench.github.io/peptide-calculator/",
+    "description": "Free peptide reconstitution calculator and research tool. Find the right peptides for your goals, calculate dosing, and compare products.",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "featureList": ["Peptide Finder", "Reconstitution Calculator", "Protocol Builder", "Peptide Comparison Tool"]
+  }
+  </script>
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -90,6 +103,14 @@
 
     /* Weekly calendar dot */
     .cal-dot { width: 100%; aspect-ratio: 1; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 8px; }
+
+    /* Sticky bottom bar */
+    .sticky-bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 40; background: rgba(8,8,15,.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-top: 1px solid rgba(255,255,255,.08); transform: translateY(100%); transition: transform .3s ease; }
+    .sticky-bar.visible { transform: translateY(0); }
+
+    /* Tab transitions */
+    .tab-content { animation: tabFade .3s ease-out; }
+    @keyframes tabFade { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
 
     /* Print styles */
     @media print {
@@ -300,6 +321,39 @@
       "Semaglutide (research analog)":      { vialMg:5,  waterMl:2.5, doseMcg:250  },
       "TB-500 (Thymosin Beta-4)":           { vialMg:5,  waterMl:2,   doseMcg:2500 },
       "Tirzepatide (research analog)":      { vialMg:10, waterMl:3,   doseMcg:2500 },
+    };
+    const TITRATIONS = {
+      "Semaglutide (research analog)": {
+        unit: "mg", freq: "1x weekly",
+        weeks: [
+          { week: "1-4", dose: "0.25 mg" },
+          { week: "5-8", dose: "0.5 mg" },
+          { week: "9-12", dose: "1.0 mg" },
+          { week: "13-16", dose: "1.7 mg" },
+          { week: "17+", dose: "2.4 mg" },
+        ],
+      },
+      "Tirzepatide (research analog)": {
+        unit: "mg", freq: "1x weekly",
+        weeks: [
+          { week: "1-4", dose: "2.5 mg" },
+          { week: "5-8", dose: "5.0 mg" },
+          { week: "9-12", dose: "7.5 mg" },
+          { week: "13-16", dose: "10.0 mg" },
+          { week: "17-20", dose: "12.5 mg" },
+          { week: "21+", dose: "15.0 mg" },
+        ],
+      },
+      "Retatrutide": {
+        unit: "mg", freq: "1x weekly",
+        weeks: [
+          { week: "1-4", dose: "1.0 mg" },
+          { week: "5-8", dose: "2.0 mg" },
+          { week: "9-12", dose: "4.0 mg" },
+          { week: "13-16", dose: "8.0 mg" },
+          { week: "17+", dose: "12.0 mg" },
+        ],
+      },
     };
     const CALC_MAP = { "BPC-157":"BPC-157","CJC-1295 (no DAC / Mod GRF 1-29)":"CJC-1295 (no DAC)","Ipamorelin":"Ipamorelin","Retatrutide":"Retatrutide","Semaglutide (research analog)":"Semaglutide","TB-500 (Thymosin Beta-4)":"TB-500","Tirzepatide (research analog)":"Tirzepatide" };
     const CALC_NAMES = [...Object.keys(PRESETS), "Other"];
@@ -544,7 +598,9 @@
       }, [entries]);
       const [addPeptide, setAddPeptide] = useState("");
       const [copied, setCopied] = useState(false);
+      const [searchFilter, setSearchFilter] = useState("");
       const catalogKeys = Object.keys(CATALOG);
+      const filteredKeys = searchFilter ? catalogKeys.filter(k => (CATALOG[k].label || k).toLowerCase().includes(searchFilter.toLowerCase())) : catalogKeys;
 
       const addEntry = () => {
         if (!addPeptide || !CATALOG[addPeptide]) return;
@@ -586,10 +642,13 @@
           {/* Add peptide */}
           <div className="glass-strong rounded-2xl p-5 space-y-4">
             <div className="space-y-2">
+              <input type="text" placeholder="Search peptides..." value={searchFilter}
+                onChange={(e) => setSearchFilter(e.target.value)}
+                className="w-full input-glass rounded-lg px-3 py-2 text-gray-100 text-sm placeholder-gray-400" />
               <select value={addPeptide} onChange={(e) => setAddPeptide(e.target.value)}
                 className="w-full input-glass rounded-lg px-3 py-2.5 text-gray-100 text-sm appearance-none cursor-pointer">
                 <option value="">Select a peptide to add...</option>
-                {catalogKeys.map(k => <option key={k} value={k}>{CATALOG[k].label || k}</option>)}
+                {filteredKeys.map(k => <option key={k} value={k}>{CATALOG[k].label || k}</option>)}
               </select>
               <button onClick={addEntry} disabled={!addPeptide}
                 className={`w-full py-2.5 rounded-lg text-sm font-semibold transition-all ${addPeptide ? "pill-active text-white" : "glass text-gray-400 cursor-not-allowed"}`}>
@@ -662,15 +721,27 @@
                 </div>
               ))}
 
-              <div className="grid grid-cols-2 gap-2 pt-2">
-                <button onClick={copyProtocol}
-                  className="glass hover:bg-white/10 text-gray-300 hover:text-white font-medium py-2.5 rounded-xl transition-all text-xs">
-                  {copied ? "\u2713 Copied!" : "Copy Protocol"}
+              <div className="space-y-2 pt-2">
+                <button onClick={() => {
+                  const unique = [...new Set(entries.map(e => e.peptide))];
+                  unique.forEach((p, i) => {
+                    const cat = CATALOG[p];
+                    if (cat) setTimeout(() => window.open(aff(cat.path), "_blank"), i * 300);
+                  });
+                }}
+                  className="w-full shop-btn text-white font-semibold py-2.5 rounded-xl text-xs">
+                  Shop This Protocol — 5% Off Each
                 </button>
-                <a href={aff("")} target="_blank" rel="noopener noreferrer"
-                  className="block text-center shop-btn text-white font-medium py-2.5 rounded-xl text-xs">
-                  Shop All — 5% Off
-                </a>
+                <div className="grid grid-cols-2 gap-2">
+                  <button onClick={copyProtocol}
+                    className="glass hover:bg-white/10 text-gray-300 hover:text-white font-medium py-2.5 rounded-xl transition-all text-xs">
+                    {copied ? "\u2713 Copied!" : "Copy Protocol"}
+                  </button>
+                  <a href={aff("")} target="_blank" rel="noopener noreferrer"
+                    className="block text-center glass hover:bg-white/10 text-gray-300 hover:text-white font-medium py-2.5 rounded-xl text-xs">
+                    Browse All
+                  </a>
+                </div>
               </div>
             </div>
           )}
@@ -1041,6 +1112,26 @@
                 {/* Syringe Visual */}
                 <SyringeVisual units={units} />
 
+                {/* Titration Guide */}
+                {TITRATIONS[state.peptide] && (
+                  <div className="glass rounded-xl p-4 space-y-2">
+                    <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Titration Schedule</h4>
+                    <p className="text-[10px] text-gray-300">Typical titration — {TITRATIONS[state.peptide].freq}</p>
+                    <div className="space-y-1">
+                      {TITRATIONS[state.peptide].weeks.map((w, i) => (
+                        <div key={i} className="flex items-center gap-2">
+                          <span className="text-[10px] text-gray-400 w-16 shrink-0">Wk {w.week}</span>
+                          <div className="flex-1 h-1.5 rounded-full bg-white/5 overflow-hidden">
+                            <div className="h-full rounded-full" style={{width: `${((i+1)/TITRATIONS[state.peptide].weeks.length)*100}%`, background:"linear-gradient(90deg,#7c3aed,#2563eb)"}}></div>
+                          </div>
+                          <span className="text-xs font-semibold text-gray-200 w-16 text-right">{w.dose}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <p className="text-[10px] text-yellow-400/80 mt-1">Titrate only under research protocol guidance. Individual responses vary.</p>
+                  </div>
+                )}
+
                 <div className="glass rounded-xl p-4 space-y-2">
                   <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Step-by-Step</h4>
                   <ol className="space-y-1.5">
@@ -1068,6 +1159,49 @@
             )}
           </div>
           <button onClick={reset} className="w-full glass hover:bg-white/10 text-gray-400 hover:text-gray-100 font-medium py-2.5 rounded-xl transition-all text-sm">Reset to Defaults</button>
+
+          {/* Unit Converter */}
+          <UnitConverter />
+        </div>
+      );
+    }
+
+    function UnitConverter() {
+      const [open, setOpen] = useState(false);
+      const [lbs, setLbs] = useState(176);
+      const [mg, setMg] = useState(5);
+      return (
+        <div className="glass rounded-xl overflow-hidden">
+          <button onClick={() => setOpen(!open)} className="w-full flex items-center justify-between p-3.5">
+            <span className="text-xs font-medium text-gray-300">Unit Converter</span>
+            <span className={`text-gray-400 text-xs transition-transform duration-200 ${open ? "rotate-180" : ""}`}>{"\u25BC"}</span>
+          </button>
+          {open && (
+            <div className="px-3.5 pb-3.5 space-y-3 fade-in">
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <label className="text-[10px] text-gray-400 uppercase font-medium">Pounds</label>
+                  <input type="number" value={lbs} onChange={(e) => setLbs(parseFloat(e.target.value)||0)}
+                    className="w-full input-glass rounded-lg px-3 py-2 text-gray-100 text-sm" />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-[10px] text-gray-400 uppercase font-medium">Kilograms</label>
+                  <div className="input-glass rounded-lg px-3 py-2 text-gray-200 text-sm font-medium">{(lbs * 0.453592).toFixed(1)}</div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <label className="text-[10px] text-gray-400 uppercase font-medium">Milligrams</label>
+                  <input type="number" value={mg} onChange={(e) => setMg(parseFloat(e.target.value)||0)}
+                    className="w-full input-glass rounded-lg px-3 py-2 text-gray-100 text-sm" />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-[10px] text-gray-400 uppercase font-medium">Micrograms</label>
+                  <div className="input-glass rounded-lg px-3 py-2 text-gray-200 text-sm font-medium">{(mg * 1000).toLocaleString()}</div>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       );
     }
@@ -1138,9 +1272,11 @@
     function CompareTab() {
       const catalogKeys = Object.keys(CATALOG);
       const [selected, setSelected] = useState(["", "", ""]);
+      const [compareSearch, setCompareSearch] = useState("");
 
       const updateSel = (idx, val) => setSelected(prev => { const n = [...prev]; n[idx] = val; return n; });
       const activeItems = selected.filter(s => s && CATALOG[s]);
+      const filteredCompare = compareSearch ? catalogKeys.filter(k => (CATALOG[k].label || k).toLowerCase().includes(compareSearch.toLowerCase())) : catalogKeys;
 
       return (
         <div className="space-y-5 fade-in">
@@ -1150,11 +1286,14 @@
           </div>
 
           <div className="glass-strong rounded-2xl p-5 space-y-3">
+            <input type="text" placeholder="Search peptides..." value={compareSearch}
+              onChange={(e) => setCompareSearch(e.target.value)}
+              className="w-full input-glass rounded-lg px-3 py-2 text-gray-100 text-sm placeholder-gray-400" />
             {[0,1,2].map(i => (
               <select key={i} value={selected[i]} onChange={(e) => updateSel(i, e.target.value)}
                 className="w-full input-glass rounded-lg px-3 py-2.5 text-gray-100 text-sm appearance-none cursor-pointer">
                 <option value="">{i === 0 ? "Select first peptide..." : i === 1 ? "Select second peptide..." : "Select third peptide (optional)..."}</option>
-                {catalogKeys.map(k => <option key={k} value={k}>{CATALOG[k].label || k}</option>)}
+                {filteredCompare.map(k => <option key={k} value={k}>{CATALOG[k].label || k}</option>)}
               </select>
             ))}
           </div>
@@ -1265,6 +1404,20 @@
         };
       }, [emailCaptured]);
 
+      // Update page title on tab change
+      const TAB_TITLES = { finder: "Find Peptides", calculator: "Reconstitution Calculator", protocol: "Protocol Builder", compare: "Compare Peptides" };
+      useEffect(() => {
+        document.title = `${TAB_TITLES[tab] || "Peptide Research Hub"} — Peptide Research Hub`;
+      }, [tab]);
+
+      // Sticky bar scroll detection
+      const [showSticky, setShowSticky] = useState(false);
+      useEffect(() => {
+        const onScroll = () => setShowSticky(window.scrollY > 400);
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => window.removeEventListener("scroll", onScroll);
+      }, []);
+
       const TABS = [
         { id: "finder", label: "Find" },
         { id: "calculator", label: "Calculate" },
@@ -1300,22 +1453,24 @@
           </div>
 
           {/* Tab content */}
-          {tab === "finder" && (
-            <div className="glass-strong rounded-2xl p-5 shadow-2xl">
-              <PeptideFinder emailCaptured={emailCaptured} onEmailSubmit={handleEmailCaptured} />
-            </div>
-          )}
-          {tab === "calculator" && <CalcTab />}
-          {tab === "protocol" && (
-            <div className="glass-strong rounded-2xl p-5 shadow-2xl">
-              <ProtocolBuilder emailCaptured={emailCaptured} onRequestEmail={() => setShowExitIntent(true)} />
-            </div>
-          )}
-          {tab === "compare" && (
-            <div className="glass-strong rounded-2xl p-5 shadow-2xl">
-              <CompareTab />
-            </div>
-          )}
+          <div key={tab} className="tab-content">
+            {tab === "finder" && (
+              <div className="glass-strong rounded-2xl p-5 shadow-2xl">
+                <PeptideFinder emailCaptured={emailCaptured} onEmailSubmit={handleEmailCaptured} />
+              </div>
+            )}
+            {tab === "calculator" && <CalcTab />}
+            {tab === "protocol" && (
+              <div className="glass-strong rounded-2xl p-5 shadow-2xl">
+                <ProtocolBuilder emailCaptured={emailCaptured} onRequestEmail={() => setShowExitIntent(true)} />
+              </div>
+            )}
+            {tab === "compare" && (
+              <div className="glass-strong rounded-2xl p-5 shadow-2xl">
+                <CompareTab />
+              </div>
+            )}
+          </div>
 
           {/* Shop CTA */}
           <a href={aff("")} target="_blank" rel="noopener noreferrer" className="block glass card-hover rounded-2xl p-5 text-center group">
@@ -1327,10 +1482,25 @@
           <FAQSection />
 
           <DisclaimerBanner />
-          <footer className="text-center text-gray-500 text-[10px] pb-6 space-y-1">
+          <footer className="text-center text-gray-500 text-[10px] pb-16 space-y-1">
             <p>Research tool only. Verify all calculations independently.</p>
             <p>All peptides sold for research purposes only.</p>
+            <p className="pt-1 text-gray-600">Last updated: February 2026</p>
           </footer>
+
+          {/* Sticky bottom CTA */}
+          <div className={`sticky-bar ${showSticky ? "visible" : ""}`}>
+            <div className="max-w-lg mx-auto px-4 py-3 flex items-center justify-between gap-3">
+              <div className="min-w-0">
+                <p className="text-xs font-semibold text-gray-200 truncate">5% off all peptides</p>
+                <p className="text-[10px] text-gray-400">Code applied automatically</p>
+              </div>
+              <a href={aff("")} target="_blank" rel="noopener noreferrer"
+                className="shrink-0 shop-btn text-white text-xs font-bold px-5 py-2.5 rounded-xl">
+                Shop Now &rarr;
+              </a>
+            </div>
+          </div>
         </div>
       );
     }
