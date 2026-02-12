@@ -9,9 +9,14 @@
   <meta property="og:description" content="Find the right peptides for your research, calculate reconstitution volumes, and shop with 5% off at Peptide Restore." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://monsterbench.github.io/peptide-calculator/" />
+  <meta property="og:image" content="https://monsterbench.github.io/peptide-calculator/og-image.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Peptide Research Hub" />
   <meta name="twitter:description" content="Free peptide reconstitution calculator. Find peptides, calculate dosing, shop with 5% off." />
+  <meta name="twitter:image" content="https://monsterbench.github.io/peptide-calculator/og-image.png" />
+  <meta name="theme-color" content="#08080f" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -56,27 +61,74 @@
     ::-webkit-scrollbar-track { background: transparent; }
     ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 3px; }
     .product-img { width: 56px; height: 56px; object-fit: contain; border-radius: 8px; background: rgba(255,255,255,.05); flex-shrink: 0; }
-    @media (max-width: 380px) {
-      .product-img { width: 44px; height: 44px; }
-    }
+    @media (max-width: 380px) { .product-img { width: 44px; height: 44px; } }
+
+    /* Skeleton loader */
+    .skeleton { border-radius: 12px; background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.07) 50%, rgba(255,255,255,0.03) 75%); background-size: 200% 100%; animation: shimmer 1.5s ease-in-out infinite; }
+    @keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+    /* Modal overlay */
+    .modal-overlay { position: fixed; inset: 0; z-index: 50; background: rgba(0,0,0,.7); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; animation: fadeOverlay .3s ease-out; }
+    @keyframes fadeOverlay { from{opacity:0} to{opacity:1} }
+    .modal-card { animation: modalPop .3s ease-out; }
+    @keyframes modalPop { from{opacity:0;transform:scale(.95) translateY(10px)} to{opacity:1;transform:scale(1) translateY(0)} }
+
+    /* FAQ */
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .3s ease; }
+    .faq-answer.open { max-height: 200px; }
+
+    /* Syringe */
+    .syringe-fill { transition: width .4s ease; }
+
+    /* Success checkmark */
+    .success-check { animation: checkPop .4s ease-out; }
+    @keyframes checkPop { 0%{transform:scale(0)} 50%{transform:scale(1.2)} 100%{transform:scale(1)} }
+
+    /* Pulse dot */
+    .pulse-dot { animation: pulseDot 2s ease-in-out infinite; }
+    @keyframes pulseDot { 0%,100%{opacity:.6} 50%{opacity:1} }
   </style>
 </head>
 <body class="text-gray-100 min-h-screen relative">
   <div class="bg-scene"><div class="bg-blob bg-blob-1"></div><div class="bg-blob bg-blob-2"></div><div class="bg-blob bg-blob-3"></div></div>
-  <div id="root" class="relative z-10"></div>
+
+  <!-- Loading skeleton (replaced by React) -->
+  <div id="root" class="relative z-10">
+    <div class="max-w-lg mx-auto px-4 py-8 space-y-6">
+      <div class="text-center space-y-3">
+        <div class="skeleton h-9 w-64 mx-auto"></div>
+        <div class="skeleton h-4 w-48 mx-auto"></div>
+      </div>
+      <div class="skeleton h-12 w-full"></div>
+      <div class="skeleton h-10 w-full"></div>
+      <div class="space-y-3">
+        <div class="skeleton h-5 w-40"></div>
+        <div class="grid grid-cols-2 gap-2">
+          <div class="skeleton h-20"></div><div class="skeleton h-20"></div>
+          <div class="skeleton h-20"></div><div class="skeleton h-20"></div>
+          <div class="skeleton h-20"></div><div class="skeleton h-20"></div>
+        </div>
+      </div>
+      <div class="skeleton h-16 w-full"></div>
+    </div>
+  </div>
 
   <script type="text/babel">
-    const { useState, useCallback, useMemo } = React;
+    const { useState, useCallback, useMemo, useEffect, useRef } = React;
 
     const AFF_BASE = "https://peptiderestore.com";
     const DISCOUNT = "?discount=DKE4PDRM";
     const aff = (path) => `${AFF_BASE}${path}${DISCOUNT}`;
     const IMG = "https://cms.peptiderestore.com/uploads/";
 
-    // Google Sheets endpoint — replace with your own Apps Script URL
-    // See setup instructions: create a Google Sheet, go to Extensions > Apps Script,
-    // paste the doPost function, deploy as web app, and paste the URL below.
     const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbxgagbrED6ibRPyT6ZAfHAbKQbjhNea26ScZi2qEYGMvGePlWk9METEZW_6j44xKmI/exec";
+
+    // PWA manifest
+    (() => {
+      const m = { name:"Peptide Research Hub", short_name:"PeptideHub", start_url:".", display:"standalone", background_color:"#08080f", theme_color:"#08080f", description:"Find peptides, calculate dosing, shop with 5% off.", icons:[] };
+      const b = new Blob([JSON.stringify(m)], {type:"application/json"});
+      const l = document.createElement("link"); l.rel="manifest"; l.href=URL.createObjectURL(b); document.head.appendChild(l);
+    })();
 
     const CATALOG = {
       "BPC-157": {
@@ -234,8 +286,33 @@
     const CALC_NAMES = [...Object.keys(PRESETS), "Other"];
     const DEFAULTS = { peptide:"BPC-157", customPeptide:"", vialMg:5, waterMl:2, doseMode:"flat", doseMcg:250, doseMcgPerKg:5, bodyWeightKg:80 };
 
+    const FAQS = [
+      { q: "What is bacteriostatic water?", a: "Bacteriostatic water is sterile water containing 0.9% benzyl alcohol to prevent bacterial growth. It's the standard solvent for reconstituting lyophilized (freeze-dried) peptides in research settings." },
+      { q: "What syringe should I use?", a: "U-100 insulin syringes are standard for peptide research. 1 mL = 100 units. For most doses, 0.5 mL (50-unit) or 1 mL (100-unit) syringes work well. Use the smallest syringe that fits your dose volume for best accuracy." },
+      { q: "How do I store reconstituted peptides?", a: "Refrigerate at 2\u20138\u00B0C (36\u201346\u00B0F). Most reconstituted peptides remain stable for 3\u20134 weeks when refrigerated. Never freeze reconstituted solutions. Protect from light and avoid repeated temperature fluctuations." },
+      { q: "How do I reconstitute a peptide vial?", a: "1) Wipe both vial tops with alcohol swabs. 2) Draw the desired volume of bacteriostatic water. 3) Inject slowly into the peptide vial, aiming the stream at the glass wall — not directly onto the powder. 4) Gently swirl until fully dissolved. Never shake." },
+      { q: "What does 'units' mean on an insulin syringe?", a: "On a U-100 syringe, 100 units = 1 mL. So 10 units = 0.1 mL, 50 units = 0.5 mL, and so on. This calculator automatically converts your peptide dose into both mL and syringe units for convenience." },
+      { q: "Can I mix peptides in the same syringe?", a: "Some peptides are commonly combined (like CJC-1295 and Ipamorelin), which is why pre-made blends exist. Mixing arbitrary peptides in a syringe may cause degradation or interactions. When possible, use pre-made blends or inject separately." },
+    ];
+
+    const TIME_LABELS = { morning: "Morning", afternoon: "Afternoon", evening: "Evening", "before-bed": "Before Bed" };
+    const TIME_ICONS = { morning: "\u2600\uFE0F", afternoon: "\u{1F324}\uFE0F", evening: "\u{1F305}", "before-bed": "\u{1F319}" };
+
     function encodeState(s) { try { return btoa(JSON.stringify({p:s.peptide,v:s.vialMg,w:s.waterMl,m:s.doseMode,d:s.doseMcg,dk:s.doseMcgPerKg,bw:s.bodyWeightKg,cp:s.customPeptide})); } catch{return "";} }
     function decodeState(h) { try { const d=JSON.parse(atob(h)); return{peptide:d.p||DEFAULTS.peptide,customPeptide:d.cp||"",vialMg:d.v||DEFAULTS.vialMg,waterMl:d.w||DEFAULTS.waterMl,doseMode:d.m||DEFAULTS.doseMode,doseMcg:d.d||DEFAULTS.doseMcg,doseMcgPerKg:d.dk||DEFAULTS.doseMcgPerKg,bodyWeightKg:d.bw||DEFAULTS.bodyWeightKg}; } catch{return null;} }
+
+    function sendEmail(email, extra = {}) {
+      try { localStorage.setItem("peptide_hub_email", email); } catch {}
+      if (SHEET_ENDPOINT) {
+        try {
+          fetch(SHEET_ENDPOINT, {
+            method: "POST", mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: email.trim(), timestamp: new Date().toISOString(), ...extra }),
+          });
+        } catch {}
+      }
+    }
 
     // ── Shared components ──
 
@@ -298,15 +375,294 @@
       );
     }
 
-    // ── Peptide Finder (all-at-once layout) ──
+    // ── Syringe Visual ──
 
-    function PeptideFinder() {
+    function SyringeVisual({ units }) {
+      const clamped = Math.min(Math.max(units, 0), 100);
+      const overMax = units > 100;
+      const fillPct = clamped / 100;
+      const barX = 50, barW = 220, barY = 18, barH = 24;
+      const fillW = fillPct * barW;
+
+      return (
+        <div className="glass rounded-xl p-4 space-y-2">
+          <div className="flex items-center justify-between">
+            <span className="text-xs text-gray-400 uppercase tracking-wide font-bold">Syringe Draw</span>
+            <span className={`font-bold text-lg ${overMax ? "text-red-400" : ""}`} style={overMax ? {} : {background:"linear-gradient(135deg,#34d399,#38bdf8)",WebkitBackgroundClip:"text",WebkitTextFillColor:"transparent"}}>
+              {units.toFixed(1)} units
+            </span>
+          </div>
+          <svg viewBox="0 0 320 56" className="w-full" role="img" aria-label={`Syringe showing ${units.toFixed(1)} units`}>
+            <defs>
+              <linearGradient id="syringeFill" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor={overMax ? "#ef4444" : "#34d399"} />
+                <stop offset="100%" stopColor={overMax ? "#f87171" : "#38bdf8"} />
+              </linearGradient>
+            </defs>
+            {/* Plunger handle */}
+            <rect x={barX - 30} y={barY + 4} width={10} height={barH - 8} rx={2} fill="rgba(255,255,255,0.2)" />
+            {/* Plunger rod */}
+            <rect x={barX - 20} y={barY + 8} width={20 + barW - fillW} height={barH - 16} rx={1} fill="rgba(255,255,255,0.1)" />
+            {/* Barrel outline */}
+            <rect x={barX} y={barY} width={barW} height={barH} rx={3} fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.15)" strokeWidth={1} />
+            {/* Fill */}
+            <rect x={barX + barW - fillW} y={barY} width={fillW} height={barH} rx={3} fill="url(#syringeFill)" opacity={0.5} className="syringe-fill" />
+            {/* Tick marks */}
+            {[0,10,20,30,40,50,60,70,80,90,100].map(tick => {
+              const x = barX + (tick / 100) * barW;
+              const major = tick % 50 === 0;
+              return (
+                <g key={tick}>
+                  <line x1={x} y1={barY} x2={x} y2={barY + (major ? 8 : 5)} stroke="rgba(255,255,255,0.25)" strokeWidth={major ? 1 : 0.5} />
+                  {major && <text x={x} y={barY + barH + 12} textAnchor="middle" fill="rgba(255,255,255,0.3)" fontSize="7" fontFamily="Inter, sans-serif">{tick}u</text>}
+                </g>
+              );
+            })}
+            {/* Dose indicator */}
+            {clamped > 0 && (
+              <line x1={barX + barW - fillW} y1={barY - 3} x2={barX + barW - fillW} y2={barY + barH + 3} stroke={overMax ? "#ef4444" : "#34d399"} strokeWidth={1.5} strokeDasharray="3,2" />
+            )}
+            {/* Needle hub */}
+            <rect x={barX + barW} y={barY + 6} width={12} height={barH - 12} rx={1} fill="rgba(255,255,255,0.12)" />
+            {/* Needle */}
+            <line x1={barX + barW + 12} y1={barY + barH/2} x2={barX + barW + 40} y2={barY + barH/2} stroke="rgba(255,255,255,0.3)" strokeWidth={1.5} />
+            <line x1={barX + barW + 40} y1={barY + barH/2} x2={barX + barW + 48} y2={barY + barH/2} stroke="rgba(255,255,255,0.15)" strokeWidth={0.7} />
+          </svg>
+          {overMax && (
+            <p className="text-red-400 text-[10px] font-medium text-center">
+              Exceeds 100-unit (1 mL) syringe capacity. Consider using a larger syringe or adjusting reconstitution volume.
+            </p>
+          )}
+        </div>
+      );
+    }
+
+    // ── FAQ ──
+
+    function FAQItem({ faq }) {
+      const [open, setOpen] = useState(false);
+      return (
+        <button onClick={() => setOpen(!open)} className="w-full text-left glass rounded-xl overflow-hidden transition-all">
+          <div className="flex items-center justify-between p-3.5">
+            <span className="text-sm font-medium text-gray-200 pr-4">{faq.q}</span>
+            <span className={`text-gray-500 text-xs transition-transform duration-200 shrink-0 ${open ? "rotate-180" : ""}`}>{"\u25BC"}</span>
+          </div>
+          <div className={`faq-answer ${open ? "open" : ""}`} style={{maxHeight: open ? "200px" : "0", padding: open ? "0 14px 14px" : "0 14px"}}>
+            <p className="text-gray-400 text-xs leading-relaxed">{faq.a}</p>
+          </div>
+        </button>
+      );
+    }
+
+    function FAQSection() {
+      return (
+        <div className="space-y-3">
+          <h3 className="text-xs font-bold text-gray-300 uppercase tracking-wider text-center">Frequently Asked Questions</h3>
+          <div className="space-y-2">
+            {FAQS.map((faq, i) => <FAQItem key={i} faq={faq} />)}
+          </div>
+        </div>
+      );
+    }
+
+    // ── Exit Intent Modal ──
+
+    function ExitIntentModal({ show, onClose, emailCaptured }) {
+      const [email, setEmail] = useState("");
+      const [submitted, setSubmitted] = useState(false);
+
+      if (!show || emailCaptured) return null;
+
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!email.trim()) return;
+        sendEmail(email.trim(), { source: "exit_intent" });
+        setSubmitted(true);
+        setTimeout(onClose, 2000);
+      };
+
+      return (
+        <div className="modal-overlay" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
+          <div className="modal-card glass-strong rounded-2xl p-6 mx-4 max-w-sm w-full space-y-4">
+            {submitted ? (
+              <div className="text-center space-y-3 py-4">
+                <div className="success-check text-4xl">{"\u2705"}</div>
+                <p className="text-lg font-bold text-gray-100">You're in!</p>
+                <p className="text-gray-400 text-sm">Check your inbox for your personalized protocol guide.</p>
+              </div>
+            ) : (
+              <>
+                <button onClick={onClose} className="absolute top-3 right-3 text-gray-500 hover:text-gray-300 text-lg">&times;</button>
+                <div className="text-center space-y-2">
+                  <p className="text-2xl">{"\u{1F9EC}"}</p>
+                  <h3 className="text-lg font-bold text-gray-100">Wait — Don't Miss Out</h3>
+                  <p className="text-gray-400 text-sm leading-relaxed">Get your <span className="text-purple-300 font-semibold">free personalized peptide protocol</span> plus 5% off your first order.</p>
+                </div>
+                <form onSubmit={handleSubmit} className="space-y-3">
+                  <input type="email" required placeholder="you@email.com" value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full input-glass rounded-lg px-3 py-3 text-sm text-gray-100 placeholder-gray-600" autoFocus />
+                  <button type="submit" className="w-full pill-active text-white font-bold py-3 rounded-lg text-sm">
+                    Get My Free Protocol
+                  </button>
+                </form>
+                <p className="text-[10px] text-gray-600 text-center">No spam. Unsubscribe anytime.</p>
+              </>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    // ── Protocol Builder ──
+
+    function ProtocolBuilder({ emailCaptured, onRequestEmail }) {
+      const [entries, setEntries] = useState([]);
+      const [addPeptide, setAddPeptide] = useState("");
+      const [copied, setCopied] = useState(false);
+      const catalogKeys = Object.keys(CATALOG);
+
+      const addEntry = () => {
+        if (!addPeptide || !CATALOG[addPeptide]) return;
+        const cat = CATALOG[addPeptide];
+        const suggestedTime = cat.freq?.includes("evening") || cat.freq?.includes("bed") ? "before-bed"
+          : cat.freq?.includes("morning") ? "morning" : "morning";
+        setEntries(prev => [...prev, { id: Date.now(), peptide: addPeptide, timeOfDay: suggestedTime }]);
+        setAddPeptide("");
+      };
+
+      const removeEntry = (id) => setEntries(prev => prev.filter(e => e.id !== id));
+      const updateTime = (id, time) => setEntries(prev => prev.map(e => e.id === id ? {...e, timeOfDay: time} : e));
+
+      const schedule = useMemo(() => {
+        const s = { morning: [], afternoon: [], evening: [], "before-bed": [] };
+        entries.forEach(e => { if (s[e.timeOfDay]) s[e.timeOfDay].push(e); });
+        return s;
+      }, [entries]);
+
+      const hasEntries = entries.length > 0;
+      const scheduleText = Object.entries(schedule)
+        .filter(([,items]) => items.length > 0)
+        .map(([time, items]) => `${TIME_ICONS[time]} ${TIME_LABELS[time]}:\n${items.map(e => `  - ${CATALOG[e.peptide]?.label || e.peptide} (${CATALOG[e.peptide]?.freq}, ${CATALOG[e.peptide]?.route})`).join("\n")}`)
+        .join("\n\n");
+      const fullProtocol = `--- My Peptide Research Protocol ---\nFOR RESEARCH USE ONLY\n\n${scheduleText}\n\nAll peptides from Peptide Restore (5% off): ${aff("")}\n\nDISCLAIMER: Research use only.`;
+
+      const copyProtocol = async () => {
+        try { await navigator.clipboard.writeText(fullProtocol); } catch { const t=document.createElement("textarea");t.value=fullProtocol;document.body.appendChild(t);t.select();document.execCommand("copy");document.body.removeChild(t); }
+        setCopied(true); setTimeout(() => setCopied(false), 2000);
+      };
+
+      return (
+        <div className="space-y-5 fade-in">
+          <div className="text-center space-y-1">
+            <h2 className="text-lg font-bold text-gray-100">Build Your Protocol</h2>
+            <p className="text-gray-500 text-xs">Add peptides and schedule them throughout your day</p>
+          </div>
+
+          {/* Add peptide */}
+          <div className="glass-strong rounded-2xl p-5 space-y-4">
+            <div className="flex gap-2">
+              <select value={addPeptide} onChange={(e) => setAddPeptide(e.target.value)}
+                className="flex-1 input-glass rounded-lg px-3 py-2.5 text-gray-100 text-sm appearance-none cursor-pointer">
+                <option value="">Select a peptide to add...</option>
+                {catalogKeys.map(k => <option key={k} value={k}>{CATALOG[k].label || k}</option>)}
+              </select>
+              <button onClick={addEntry} disabled={!addPeptide}
+                className={`px-4 py-2.5 rounded-lg text-sm font-semibold transition-all ${addPeptide ? "pill-active text-white" : "glass text-gray-600 cursor-not-allowed"}`}>
+                + Add
+              </button>
+            </div>
+
+            {/* Entries list */}
+            {entries.length === 0 ? (
+              <div className="glass rounded-xl p-8 text-center">
+                <p className="text-gray-500 text-sm">No peptides added yet</p>
+                <p className="text-gray-600 text-xs mt-1">Select a peptide above to start building your protocol</p>
+              </div>
+            ) : (
+              <div className="space-y-2">
+                {entries.map(entry => {
+                  const cat = CATALOG[entry.peptide];
+                  return (
+                    <div key={entry.id} className="glass rounded-xl p-3 fade-in">
+                      <div className="flex items-start gap-3">
+                        <img src={cat.img} alt="" className="w-10 h-10 rounded object-contain bg-white/5 shrink-0" />
+                        <div className="flex-1 min-w-0 space-y-2">
+                          <div className="flex items-center justify-between gap-2">
+                            <p className="text-sm font-semibold text-gray-100 truncate">{cat.label || entry.peptide}</p>
+                            <button onClick={() => removeEntry(entry.id)} className="text-gray-600 hover:text-red-400 text-xs shrink-0 transition-colors">&times; Remove</button>
+                          </div>
+                          <div className="flex items-center gap-2 text-[10px] text-gray-500">
+                            <span>{cat.freq}</span><span className="text-gray-700">|</span><span>{cat.route}</span>
+                          </div>
+                          <div className="flex gap-1">
+                            {Object.entries(TIME_LABELS).map(([k, label]) => (
+                              <button key={k} onClick={() => updateTime(entry.id, k)}
+                                className={`flex-1 py-1.5 rounded-md text-[10px] font-medium transition-all ${entry.timeOfDay === k ? "pill-active text-white" : "pill-track text-gray-500 hover:text-gray-300"}`}>
+                                {TIME_ICONS[k]} {label}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          {/* Daily Schedule */}
+          {hasEntries && (
+            <div className="glass-strong rounded-2xl p-5 space-y-4 fade-in">
+              <h3 className="text-xs font-bold text-gray-300 uppercase tracking-wider">Daily Schedule</h3>
+              {Object.entries(schedule).filter(([,items]) => items.length > 0).map(([time, items]) => (
+                <div key={time} className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm">{TIME_ICONS[time]}</span>
+                    <span className="text-xs font-semibold text-gray-200">{TIME_LABELS[time]}</span>
+                  </div>
+                  <div className="space-y-1 ml-6">
+                    {items.map(e => {
+                      const cat = CATALOG[e.peptide];
+                      return (
+                        <a key={e.id} href={aff(cat.path)} target="_blank" rel="noopener noreferrer"
+                          className="flex items-center gap-2 glass rounded-lg p-2 group hover:border-white/20 transition-all">
+                          <img src={cat.img} alt="" className="w-7 h-7 rounded object-contain bg-white/5" />
+                          <span className="text-xs text-gray-300 group-hover:text-white flex-1">{cat.label || e.peptide}</span>
+                          <span className="text-[10px] text-gray-600">{cat.freq}</span>
+                        </a>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+
+              <div className="grid grid-cols-2 gap-2 pt-2">
+                <button onClick={copyProtocol}
+                  className="glass hover:bg-white/10 text-gray-300 hover:text-white font-medium py-2.5 rounded-xl transition-all text-xs">
+                  {copied ? "\u2713 Copied!" : "Copy Protocol"}
+                </button>
+                <a href={aff("")} target="_blank" rel="noopener noreferrer"
+                  className="block text-center shop-btn text-white font-medium py-2.5 rounded-xl text-xs">
+                  Shop All — 5% Off
+                </a>
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    // ── Peptide Finder ──
+
+    function PeptideFinder({ emailCaptured, onEmailSubmit }) {
       const [goals, setGoals] = useState([]);
       const [experience, setExperience] = useState("any");
       const [adminPref, setAdminPref] = useState("any");
       const [email, setEmail] = useState("");
-      const [emailSubmitted, setEmailSubmitted] = useState(false);
       const [showStacks, setShowStacks] = useState(false);
+      const [justUnlocked, setJustUnlocked] = useState(false);
 
       const toggleGoal = (id) => setGoals((prev) => prev.includes(id) ? prev.filter(x=>x!==id) : [...prev, id]);
 
@@ -338,26 +694,16 @@
         e.preventDefault();
         if (!email.trim()) return;
         setSubmitting(true);
-        // Save locally as backup
-        try { localStorage.setItem("peptide_hub_email", email); } catch {}
-        // Send to Google Sheet if endpoint is configured
-        if (SHEET_ENDPOINT) {
-          try {
-            await fetch(SHEET_ENDPOINT, {
-              method: "POST", mode: "no-cors",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                email: email.trim(),
-                goals: goals.map(id => GOALS.find(g=>g.id===id)?.label).filter(Boolean).join(", "),
-                experience,
-                adminPref,
-                timestamp: new Date().toISOString(),
-              }),
-            });
-          } catch {}
-        }
+        sendEmail(email.trim(), {
+          goals: goals.map(id => GOALS.find(g=>g.id===id)?.label).filter(Boolean).join(", "),
+          experience,
+          adminPref,
+          source: "finder_gate",
+        });
         setSubmitting(false);
-        setEmailSubmitted(true);
+        setJustUnlocked(true);
+        setTimeout(() => setJustUnlocked(false), 3000);
+        onEmailSubmit(email.trim());
       };
 
       const FREE_PREVIEW = 2;
@@ -383,7 +729,7 @@
             })}
           </div>
 
-          {/* Filters — show after goal selection */}
+          {/* Filters */}
           {goals.length > 0 && (
             <div className="space-y-3 fade-in">
               <div className="space-y-2">
@@ -411,7 +757,7 @@
             </div>
           )}
 
-          {/* Recommendations — free preview */}
+          {/* Recommendations */}
           {recommendations.length > 0 && (
             <div className="space-y-3 fade-in">
               <div className="flex items-center justify-between">
@@ -428,7 +774,7 @@
               </div>
 
               {/* Email gate */}
-              {recommendations.length > FREE_PREVIEW && !emailSubmitted && (
+              {recommendations.length > FREE_PREVIEW && !emailCaptured && (
                 <div className="glass-strong rounded-xl p-5 space-y-3 text-center fade-in">
                   <div className="space-y-1">
                     <p className="text-sm font-bold text-gray-100">+{recommendations.length - FREE_PREVIEW} more recommendations</p>
@@ -438,14 +784,26 @@
                     <input type="email" required placeholder="you@email.com" value={email}
                       onChange={(e)=>setEmail(e.target.value)}
                       className="flex-1 input-glass rounded-lg px-3 py-2.5 text-sm text-gray-100 placeholder-gray-600" />
-                    <button type="submit" className="pill-active text-white font-semibold px-5 py-2.5 rounded-lg text-sm whitespace-nowrap">Unlock All</button>
+                    <button type="submit" disabled={submitting}
+                      className="pill-active text-white font-semibold px-5 py-2.5 rounded-lg text-sm whitespace-nowrap">
+                      {submitting ? "Unlocking..." : "Unlock All"}
+                    </button>
                   </form>
                   <p className="text-[10px] text-gray-600">No spam. Unsubscribe anytime.</p>
                 </div>
               )}
 
+              {/* Thank-you banner */}
+              {justUnlocked && (
+                <div className="glass-strong rounded-xl p-4 text-center fade-in space-y-2" style={{borderColor:"rgba(52,211,153,.3)"}}>
+                  <div className="success-check text-3xl">{"\u2705"}</div>
+                  <p className="text-sm font-bold text-emerald-300">Protocol Unlocked!</p>
+                  <p className="text-xs text-gray-400">Here are all your personalized recommendations. Shop any product for 5% off.</p>
+                </div>
+              )}
+
               {/* Unlocked results */}
-              {emailSubmitted && recommendations.length > FREE_PREVIEW && (
+              {emailCaptured && recommendations.length > FREE_PREVIEW && (
                 <div className="space-y-2 fade-in">
                   {recommendations.slice(FREE_PREVIEW).map(({name, count, goals: g}) => (
                     <div key={name}>
@@ -457,7 +815,7 @@
               )}
 
               {/* Stacks */}
-              {relevantStacks.length > 0 && (emailSubmitted || recommendations.length <= FREE_PREVIEW) && (
+              {relevantStacks.length > 0 && (emailCaptured || recommendations.length <= FREE_PREVIEW) && (
                 <div className="space-y-3">
                   <button onClick={()=>setShowStacks(!showStacks)}
                     className="flex items-center gap-2 text-xs font-bold text-gray-300 uppercase tracking-wider hover:text-white transition-colors">
@@ -609,6 +967,10 @@
                   <Row label="Syringe Draw (U-100)" value={`${units.toFixed(1)} units`} />
                   <Row label="Doses per Vial" value={`~${Math.floor(doses)}`} />
                 </div>
+
+                {/* Syringe Visual */}
+                <SyringeVisual units={units} />
+
                 <div className="glass rounded-xl p-4 space-y-2">
                   <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Step-by-Step</h4>
                   <ol className="space-y-1.5">
@@ -645,35 +1007,97 @@
     function App() {
       const initTab = window.location.hash.startsWith("#calc=") ? "calculator" : "finder";
       const [tab, setTab] = useState(initTab);
+      const [emailCaptured, setEmailCaptured] = useState(() => {
+        try { return !!localStorage.getItem("peptide_hub_email"); } catch { return false; }
+      });
+      const [showExitIntent, setShowExitIntent] = useState(false);
+      const exitShown = useRef(false);
+
+      const handleEmailCaptured = (email) => {
+        setEmailCaptured(true);
+        exitShown.current = true; // Don't show exit intent after email capture
+      };
+
+      // Exit intent detection
+      useEffect(() => {
+        if (emailCaptured) return;
+
+        const handleMouseLeave = (e) => {
+          if (e.clientY <= 0 && !exitShown.current) {
+            exitShown.current = true;
+            setShowExitIntent(true);
+          }
+        };
+        document.addEventListener("mouseleave", handleMouseLeave);
+
+        // Mobile fallback: show after 60 seconds
+        const timer = setTimeout(() => {
+          if (!exitShown.current) {
+            exitShown.current = true;
+            setShowExitIntent(true);
+          }
+        }, 60000);
+
+        return () => {
+          document.removeEventListener("mouseleave", handleMouseLeave);
+          clearTimeout(timer);
+        };
+      }, [emailCaptured]);
+
+      const TABS = [
+        { id: "finder", label: "Find" },
+        { id: "calculator", label: "Calculate" },
+        { id: "protocol", label: "Protocol" },
+      ];
 
       return (
         <div className="max-w-lg mx-auto px-4 py-8 space-y-6">
+          {/* Exit intent modal */}
+          <ExitIntentModal show={showExitIntent} onClose={() => setShowExitIntent(false)} emailCaptured={emailCaptured} />
+
           <header className="text-center space-y-2">
             <h1 className="text-3xl font-extrabold gradient-text tracking-tight">Peptide Research Hub</h1>
             <p className="text-gray-500 text-sm">Find the right peptides &middot; Calculate dosing &middot; 5% off</p>
+            {/* Social proof */}
+            <div className="flex items-center justify-center gap-2 pt-1">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 pulse-dot"></span>
+              <span className="text-gray-500 text-[11px]">Trusted by <span className="text-emerald-400 font-semibold">2,000+</span> researchers</span>
+            </div>
           </header>
 
           <DisclaimerBanner />
 
+          {/* Tabs */}
           <div className="flex gap-1 glass rounded-xl p-1">
-            {[{id:"finder",label:"Peptide Finder"},{id:"calculator",label:"Calculator"}].map((t)=>(
-              <button key={t.id} onClick={()=>setTab(t.id)}
-                className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${tab===t.id?"pill-active text-white":"text-gray-500 hover:text-gray-300"}`}>
+            {TABS.map((t) => (
+              <button key={t.id} onClick={() => setTab(t.id)}
+                className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${tab === t.id ? "pill-active text-white" : "text-gray-500 hover:text-gray-300"}`}>
                 {t.label}
               </button>
             ))}
           </div>
 
-          {tab==="finder" ? (
-            <div className="glass-strong rounded-2xl p-5 shadow-2xl"><PeptideFinder /></div>
-          ) : (
-            <CalcTab />
+          {/* Tab content */}
+          {tab === "finder" && (
+            <div className="glass-strong rounded-2xl p-5 shadow-2xl">
+              <PeptideFinder emailCaptured={emailCaptured} onEmailSubmit={handleEmailCaptured} />
+            </div>
+          )}
+          {tab === "calculator" && <CalcTab />}
+          {tab === "protocol" && (
+            <div className="glass-strong rounded-2xl p-5 shadow-2xl">
+              <ProtocolBuilder emailCaptured={emailCaptured} onRequestEmail={() => setShowExitIntent(true)} />
+            </div>
           )}
 
+          {/* Shop CTA */}
           <a href={aff("")} target="_blank" rel="noopener noreferrer" className="block glass card-hover rounded-2xl p-5 text-center group">
             <p className="text-lg font-bold gradient-text group-hover:opacity-90 transition-opacity">Shop All Peptides</p>
             <p className="text-gray-500 text-xs mt-1">Peptide Restore &middot; Get 5% off your entire order</p>
           </a>
+
+          {/* FAQ */}
+          <FAQSection />
 
           <DisclaimerBanner />
           <footer className="text-center text-gray-600 text-[10px] pb-6 space-y-1">
