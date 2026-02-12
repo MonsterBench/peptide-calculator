@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Peptide Reconstitution Calculator</title>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            dark: { 800: '#1e1e2e', 900: '#11111b', 700: '#313244' }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-dark-900 text-gray-100 min-h-screen">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useCallback } = React;
+
+    const PEPTIDES = [
+      "BPC-157",
+      "CJC-1295 (with DAC)",
+      "CJC-1295 (no DAC / Mod GRF 1-29)",
+      "Ipamorelin",
+      "Retatrutide",
+      "Semaglutide (research analog)",
+      "TB-500 (Thymosin Beta-4)",
+      "Tirzepatide (research analog)",
+      "Other",
+    ];
+
+    const DEFAULTS = {
+      peptide: "BPC-157",
+      customPeptide: "",
+      vialMg: 5,
+      waterMl: 2,
+      doseMode: "flat",
+      doseMcg: 250,
+      doseMcgPerKg: 5,
+      bodyWeightKg: 80,
+    };
+
+    function DisclaimerBanner() {
+      return (
+        <div className="bg-red-900/80 border border-red-500 rounded-lg px-4 py-3 text-center">
+          <p className="text-red-200 font-bold text-sm uppercase tracking-wide">
+            For Research Use Only — Not for Human Consumption
+          </p>
+          <p className="text-red-300/80 text-xs mt-1">
+            This calculator is intended solely for laboratory and research purposes.
+            Always follow institutional protocols and safety guidelines.
+          </p>
+        </div>
+      );
+    }
+
+    function PeptideSelector({ peptide, customPeptide, onChange }) {
+      return (
+        <div className="space-y-2">
+          <label className="block text-sm font-medium text-gray-300">Peptide</label>
+          <select
+            value={peptide}
+            onChange={(e) => onChange("peptide", e.target.value)}
+            className="w-full bg-dark-700 border border-gray-600 rounded-lg px-3 py-2.5 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          >
+            {PEPTIDES.map((p) => (
+              <option key={p} value={p}>{p}</option>
+            ))}
+          </select>
+          {peptide === "Other" && (
+            <input
+              type="text"
+              placeholder="Enter peptide name"
+              value={customPeptide}
+              onChange={(e) => onChange("customPeptide", e.target.value)}
+              className="w-full bg-dark-700 border border-gray-600 rounded-lg px-3 py-2.5 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          )}
+        </div>
+      );
+    }
+
+    function NumberInput({ label, value, onChange, unit, min, step }) {
+      return (
+        <div className="space-y-1">
+          <label className="block text-sm font-medium text-gray-300">{label}</label>
+          <div className="relative">
+            <input
+              type="number"
+              value={value}
+              onChange={(e) => onChange(parseFloat(e.target.value) || 0)}
+              min={min || 0}
+              step={step || "any"}
+              className="w-full bg-dark-700 border border-gray-600 rounded-lg px-3 py-2.5 pr-14 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+            {unit && (
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">
+                {unit}
+              </span>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    function InputSection({ state, onChange }) {
+      return (
+        <div className="space-y-4">
+          <h2 className="text-lg font-semibold text-gray-200">Vial & Reconstitution</h2>
+          <div className="grid grid-cols-2 gap-4">
+            <NumberInput
+              label="Vial Amount"
+              value={state.vialMg}
+              onChange={(v) => onChange("vialMg", v)}
+              unit="mg"
+              min={0.1}
+              step={0.5}
+            />
+            <NumberInput
+              label="Bacteriostatic Water"
+              value={state.waterMl}
+              onChange={(v) => onChange("waterMl", v)}
+              unit="mL"
+              min={0.1}
+              step={0.5}
+            />
+          </div>
+
+          <h2 className="text-lg font-semibold text-gray-200 pt-2">Dose</h2>
+          <div className="flex gap-2">
+            <button
+              onClick={() => onChange("doseMode", "flat")}
+              className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
+                state.doseMode === "flat"
+                  ? "bg-blue-600 text-white"
+                  : "bg-dark-700 text-gray-400 hover:bg-gray-600"
+              }`}
+            >
+              Flat Dose (mcg)
+            </button>
+            <button
+              onClick={() => onChange("doseMode", "perkg")}
+              className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
+                state.doseMode === "perkg"
+                  ? "bg-blue-600 text-white"
+                  : "bg-dark-700 text-gray-400 hover:bg-gray-600"
+              }`}
+            >
+              Per Body Weight (mcg/kg)
+            </button>
+          </div>
+
+          {state.doseMode === "flat" ? (
+            <NumberInput
+              label="Dose"
+              value={state.doseMcg}
+              onChange={(v) => onChange("doseMcg", v)}
+              unit="mcg"
+              min={1}
+              step={10}
+            />
+          ) : (
+            <div className="grid grid-cols-2 gap-4">
+              <NumberInput
+                label="Dose per kg"
+                value={state.doseMcgPerKg}
+                onChange={(v) => onChange("doseMcgPerKg", v)}
+                unit="mcg/kg"
+                min={0.1}
+                step={0.5}
+              />
+              <NumberInput
+                label="Body Weight"
+                value={state.bodyWeightKg}
+                onChange={(v) => onChange("bodyWeightKg", v)}
+                unit="kg"
+                min={1}
+                step={1}
+              />
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    function ResultsCard({ state }) {
+      const totalMcg = state.vialMg * 1000;
+      const concentration = state.waterMl > 0 ? totalMcg / state.waterMl : 0;
+      const effectiveDose =
+        state.doseMode === "flat"
+          ? state.doseMcg
+          : state.doseMcgPerKg * state.bodyWeightKg;
+      const volumeMl = concentration > 0 ? effectiveDose / concentration : 0;
+      const syringeUnits = volumeMl * 100;
+      const dosesPerVial = effectiveDose > 0 ? totalMcg / effectiveDose : 0;
+
+      const peptideName =
+        state.peptide === "Other"
+          ? state.customPeptide || "Custom Peptide"
+          : state.peptide;
+
+      const instructions = [
+        `Reconstitute the ${state.vialMg} mg vial of ${peptideName} with ${state.waterMl} mL of bacteriostatic water.`,
+        `Resulting concentration: ${concentration.toFixed(1)} mcg/mL.`,
+        `For a ${effectiveDose.toFixed(1)} mcg dose, draw ${volumeMl.toFixed(4)} mL (${syringeUnits.toFixed(1)} units on a U-100 insulin syringe).`,
+        `This vial provides approximately ${Math.floor(dosesPerVial)} doses at this dosage.`,
+      ];
+
+      const fullText = [
+        `--- ${peptideName} Reconstitution Instructions ---`,
+        `FOR RESEARCH USE ONLY`,
+        "",
+        ...instructions.map((s, i) => `${i + 1}. ${s}`),
+        "",
+        "Safety: Use proper aseptic technique. Store reconstituted peptide refrigerated (2-8°C). Use within recommended timeframe per protocol.",
+        "",
+        "DISCLAIMER: For research use only. Not for human consumption.",
+      ].join("\n");
+
+      const [copied, setCopied] = useState(false);
+      const handleCopy = async () => {
+        try {
+          await navigator.clipboard.writeText(fullText);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+        } catch {
+          // Fallback
+          const ta = document.createElement("textarea");
+          ta.value = fullText;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          document.body.removeChild(ta);
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+        }
+      };
+
+      const isValid = state.vialMg > 0 && state.waterMl > 0 && effectiveDose > 0;
+
+      return (
+        <div className="space-y-4">
+          <h2 className="text-lg font-semibold text-gray-200">Results</h2>
+
+          {!isValid ? (
+            <div className="bg-dark-700 rounded-lg p-4 text-gray-400 text-center">
+              Enter valid values above to see results.
+            </div>
+          ) : (
+            <>
+              <div className="bg-dark-700 rounded-lg p-4 space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">Concentration</span>
+                  <span className="text-green-400 font-bold text-lg">
+                    {concentration.toFixed(1)} mcg/mL
+                  </span>
+                </div>
+                <div className="border-t border-gray-600" />
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">Effective Dose</span>
+                  <span className="text-green-400 font-bold text-lg">
+                    {effectiveDose.toFixed(1)} mcg
+                  </span>
+                </div>
+                <div className="border-t border-gray-600" />
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">Volume per Dose</span>
+                  <span className="text-green-400 font-bold text-lg">
+                    {volumeMl.toFixed(4)} mL
+                  </span>
+                </div>
+                <div className="border-t border-gray-600" />
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">Syringe Draw (U-100)</span>
+                  <span className="text-green-400 font-bold text-lg">
+                    {syringeUnits.toFixed(1)} units
+                  </span>
+                </div>
+                <div className="border-t border-gray-600" />
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-400 text-sm">Doses per Vial</span>
+                  <span className="text-green-400 font-bold text-lg">
+                    ~{Math.floor(dosesPerVial)}
+                  </span>
+                </div>
+              </div>
+
+              <div className="bg-dark-700 rounded-lg p-4 space-y-2">
+                <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide">
+                  Step-by-Step Instructions
+                </h3>
+                <ol className="list-decimal list-inside space-y-1.5 text-gray-300 text-sm">
+                  {instructions.map((step, i) => (
+                    <li key={i}>{step}</li>
+                  ))}
+                </ol>
+              </div>
+
+              <div className="bg-red-900/30 border border-red-800 rounded-lg p-3">
+                <p className="text-red-400 text-xs font-medium">
+                  Safety: Use proper aseptic technique. Store reconstituted peptide
+                  refrigerated (2–8 °C). Use within recommended timeframe per protocol.
+                </p>
+              </div>
+
+              <button
+                onClick={handleCopy}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg transition-colors"
+              >
+                {copied ? "Copied!" : "Copy Instructions"}
+              </button>
+            </>
+          )}
+        </div>
+      );
+    }
+
+    function App() {
+      const [state, setState] = useState({ ...DEFAULTS });
+
+      const onChange = useCallback((key, value) => {
+        setState((prev) => ({ ...prev, [key]: value }));
+      }, []);
+
+      const handleReset = () => setState({ ...DEFAULTS });
+
+      return (
+        <div className="max-w-lg mx-auto px-4 py-6 space-y-6">
+          <header className="text-center space-y-1">
+            <h1 className="text-2xl font-bold text-gray-100">
+              Peptide Reconstitution Calculator
+            </h1>
+            <p className="text-gray-400 text-sm">
+              Calculate reconstitution volumes and syringe draws
+            </p>
+          </header>
+
+          <DisclaimerBanner />
+
+          <div className="bg-dark-800 rounded-xl p-5 space-y-5 shadow-lg">
+            <PeptideSelector
+              peptide={state.peptide}
+              customPeptide={state.customPeptide}
+              onChange={onChange}
+            />
+            <InputSection state={state} onChange={onChange} />
+          </div>
+
+          <div className="bg-dark-800 rounded-xl p-5 shadow-lg">
+            <ResultsCard state={state} />
+          </div>
+
+          <button
+            onClick={handleReset}
+            className="w-full bg-gray-700 hover:bg-gray-600 text-gray-300 font-medium py-2.5 rounded-lg transition-colors"
+          >
+            Reset to Defaults
+          </button>
+
+          <DisclaimerBanner />
+
+          <footer className="text-center text-gray-500 text-xs pb-4">
+            Research tool only. Verify all calculations independently.
+          </footer>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
