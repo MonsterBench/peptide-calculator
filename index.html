@@ -27,6 +27,109 @@
   <script type="text/babel">
     const { useState, useCallback } = React;
 
+    const AFFILIATE_BASE = "https://peptiderestore.com";
+    const DISCOUNT_TAG = "?discount=DKE4PDRM";
+    const affLink = (path) => `${AFFILIATE_BASE}${path}${DISCOUNT_TAG}`;
+
+    // ── Product catalog with links to Peptide Restore ──
+    const PRODUCT_CATALOG = {
+      "BPC-157": {
+        path: "/peptides/bpc-157",
+        description: "Gastric pentadecapeptide studied for tissue repair, gut health, and wound healing.",
+      },
+      "CJC-1295 (no DAC)": {
+        path: "/peptides/cjc-1295",
+        description: "Growth hormone releasing hormone analog studied for GH secretion.",
+      },
+      "Ipamorelin": {
+        path: "/peptides/ipamorelin",
+        description: "Selective growth hormone secretagogue studied for GH release without cortisol/prolactin increase.",
+      },
+      "Retatrutide": {
+        path: "/peptides/retatrutide",
+        label: "GLP-3 R (Retatrutide)",
+        description: "Triple agonist (GIP/GLP-1/glucagon) studied for metabolic optimization.",
+      },
+      "Semaglutide": {
+        path: "/peptides/semaglutide",
+        label: "GLP-1 S (Semaglutide)",
+        description: "GLP-1 receptor agonist studied for metabolic and appetite regulation.",
+      },
+      "TB-500": {
+        path: "/peptides/tb-500",
+        description: "Thymosin Beta-4 fragment studied for tissue repair, inflammation, and recovery.",
+      },
+      "Tirzepatide": {
+        path: "/peptides/glp-2-t",
+        label: "GLP-2 T (Tirzepatide)",
+        description: "Dual GIP/GLP-1 agonist studied for metabolic optimization.",
+      },
+      "GHK-Cu": {
+        path: "/peptides/ghk-cu",
+        description: "Copper peptide studied for skin regeneration, collagen synthesis, and anti-aging.",
+      },
+      "NAD+": {
+        path: "/peptides/nad",
+        description: "Coenzyme studied for cellular energy, DNA repair, and longevity.",
+      },
+      "MOTS-c": {
+        path: "/peptides/mots-c",
+        description: "Mitochondrial peptide studied for metabolic regulation and exercise physiology.",
+      },
+      "KPV": {
+        path: "/peptides/kpv",
+        description: "Anti-inflammatory tripeptide studied for gut health and immune modulation.",
+      },
+      "DSIP": {
+        path: "/peptides/dsip",
+        description: "Delta sleep-inducing peptide studied for sleep regulation and stress response.",
+      },
+      "Thymosin Alpha-1": {
+        path: "/peptides/thymosin-alpha-1",
+        description: "Immune-modulating peptide studied for immune system support.",
+      },
+      "Sermorelin": {
+        path: "/peptides/sermorelin",
+        description: "GHRH analog studied for growth hormone stimulation.",
+      },
+      "Melanotan II": {
+        path: "/peptides/melanotan-ii",
+        description: "Melanocortin receptor agonist studied for pigmentation research.",
+      },
+      // Blends
+      "BPC-157 + TB-500 (Wolverine Blend)": {
+        path: "/peptides/bpc-157-tb-500-wolverine-blend",
+        description: "Blend studied for enhanced tissue repair and recovery.",
+        isBlend: true,
+      },
+      "BPC-157 + TB-500 + GHK-Cu (Glow Blend)": {
+        path: "/peptides/bpc-157-tb-500-ghk-cu-glow-blend",
+        description: "Blend studied for tissue repair with skin and collagen support.",
+        isBlend: true,
+      },
+      "BPC-157 + TB-500 + KPV + GHK-Cu (Klow Blend)": {
+        path: "/peptides/klow-blend",
+        description: "Comprehensive blend studied for repair, inflammation, and skin health.",
+        isBlend: true,
+      },
+      "CJC-1295 (no DAC) + Ipamorelin (Blend)": {
+        path: "/peptides/cjc-1295-no-dac-ipamorelin-blend",
+        description: "Synergistic GH blend studied for optimized growth hormone release.",
+        isBlend: true,
+      },
+      "CJC-1295 (no DAC) + Ipamorelin + GHRP-2 (Blend)": {
+        path: "/peptides/cjc-1295-no-dac-ipamorelin-ghrp-2-blend",
+        description: "Triple GH blend studied for maximized growth hormone secretion.",
+        isBlend: true,
+      },
+      "Sermorelin + Ipamorelin (Blend)": {
+        path: "/peptides/sermorelin-ipamorelin-blend",
+        description: "Dual GHRH/GHSS blend studied for growth hormone optimization.",
+        isBlend: true,
+      },
+    };
+
+    // ── Calculator presets ──
     const PEPTIDE_PRESETS = {
       "BPC-157":                              { vialMg: 5,  waterMl: 2,   doseMcg: 250  },
       "CJC-1295 (with DAC)":                  { vialMg: 2,  waterMl: 2,   doseMcg: 1000 },
@@ -36,6 +139,17 @@
       "Semaglutide (research analog)":        { vialMg: 5,  waterMl: 2.5, doseMcg: 250  },
       "TB-500 (Thymosin Beta-4)":             { vialMg: 5,  waterMl: 2,   doseMcg: 2500 },
       "Tirzepatide (research analog)":        { vialMg: 10, waterMl: 3,   doseMcg: 2500 },
+    };
+
+    // Map calculator peptide names to catalog keys
+    const CALC_TO_CATALOG = {
+      "BPC-157": "BPC-157",
+      "CJC-1295 (no DAC / Mod GRF 1-29)": "CJC-1295 (no DAC)",
+      "Ipamorelin": "Ipamorelin",
+      "Retatrutide": "Retatrutide",
+      "Semaglutide (research analog)": "Semaglutide",
+      "TB-500 (Thymosin Beta-4)": "TB-500",
+      "Tirzepatide (research analog)": "Tirzepatide",
     };
 
     const PEPTIDE_NAMES = [...Object.keys(PEPTIDE_PRESETS), "Other"];
@@ -51,6 +165,68 @@
       bodyWeightKg: 80,
     };
 
+    // ── Peptide Finder: research goals → peptide recommendations ──
+    const RESEARCH_GOALS = [
+      {
+        id: "tissue-repair",
+        label: "Tissue Repair & Recovery",
+        icon: "🔬",
+        description: "Wound healing, muscle/tendon/ligament repair, post-injury recovery",
+        peptides: ["BPC-157", "TB-500", "BPC-157 + TB-500 (Wolverine Blend)", "BPC-157 + TB-500 + GHK-Cu (Glow Blend)"],
+      },
+      {
+        id: "gut-health",
+        label: "Gut Health & Inflammation",
+        icon: "🧫",
+        description: "GI tract repair, intestinal lining, inflammatory response",
+        peptides: ["BPC-157", "KPV", "BPC-157 + TB-500 + KPV + GHK-Cu (Klow Blend)"],
+      },
+      {
+        id: "growth-hormone",
+        label: "Growth Hormone Optimization",
+        icon: "📈",
+        description: "GH secretion, body composition, recovery, anti-aging",
+        peptides: ["CJC-1295 (no DAC) + Ipamorelin (Blend)", "CJC-1295 (no DAC)", "Ipamorelin", "Sermorelin", "CJC-1295 (no DAC) + Ipamorelin + GHRP-2 (Blend)", "Sermorelin + Ipamorelin (Blend)"],
+      },
+      {
+        id: "weight-metabolism",
+        label: "Weight & Metabolic Research",
+        icon: "⚖️",
+        description: "Appetite regulation, metabolic optimization, body composition",
+        peptides: ["Semaglutide", "Tirzepatide", "Retatrutide", "MOTS-c"],
+      },
+      {
+        id: "skin-aging",
+        label: "Skin, Hair & Anti-Aging",
+        icon: "✨",
+        description: "Collagen synthesis, skin regeneration, cellular longevity",
+        peptides: ["GHK-Cu", "BPC-157 + TB-500 + GHK-Cu (Glow Blend)", "NAD+"],
+      },
+      {
+        id: "sleep",
+        label: "Sleep & Stress",
+        icon: "🌙",
+        description: "Sleep quality, circadian rhythm, stress response",
+        peptides: ["DSIP"],
+      },
+      {
+        id: "immune",
+        label: "Immune Support",
+        icon: "🛡️",
+        description: "Immune modulation, T-cell function, immune system optimization",
+        peptides: ["Thymosin Alpha-1", "KPV"],
+      },
+      {
+        id: "performance",
+        label: "Performance & Energy",
+        icon: "⚡",
+        description: "Exercise physiology, mitochondrial function, endurance",
+        peptides: ["MOTS-c", "NAD+", "CJC-1295 (no DAC) + Ipamorelin (Blend)", "Ipamorelin"],
+      },
+    ];
+
+    // ── Components ──
+
     function DisclaimerBanner() {
       return (
         <div className="bg-red-900/80 border border-red-500 rounded-lg px-4 py-3 text-center">
@@ -65,7 +241,50 @@
       );
     }
 
+    function ShopButton({ catalogKey, className }) {
+      const product = PRODUCT_CATALOG[catalogKey];
+      if (!product) return null;
+      return (
+        <a
+          href={affLink(product.path)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium px-3 py-1.5 rounded-lg transition-colors ${className || ""}`}
+        >
+          Shop {product.label || catalogKey}
+          <span className="text-emerald-200 text-xs">(5% off)</span>
+        </a>
+      );
+    }
+
+    function ProductCard({ catalogKey }) {
+      const product = PRODUCT_CATALOG[catalogKey];
+      if (!product) return null;
+      return (
+        <a
+          href={affLink(product.path)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block bg-dark-700 hover:bg-gray-600/50 border border-gray-600 hover:border-emerald-500/50 rounded-lg p-3 transition-all group"
+        >
+          <div className="flex justify-between items-start gap-2">
+            <div className="min-w-0">
+              <p className="text-gray-100 font-medium text-sm group-hover:text-emerald-400 transition-colors">
+                {product.label || catalogKey}
+                {product.isBlend && <span className="ml-1.5 text-xs bg-blue-600/30 text-blue-300 px-1.5 py-0.5 rounded">Blend</span>}
+              </p>
+              <p className="text-gray-400 text-xs mt-0.5">{product.description}</p>
+            </div>
+            <span className="shrink-0 text-xs bg-emerald-600/20 text-emerald-400 px-2 py-1 rounded font-medium">
+              5% off →
+            </span>
+          </div>
+        </a>
+      );
+    }
+
     function PeptideSelector({ peptide, customPeptide, onSelect, onChange }) {
+      const catalogKey = CALC_TO_CATALOG[peptide];
       return (
         <div className="space-y-2">
           <label className="block text-sm font-medium text-gray-300">Peptide</label>
@@ -91,6 +310,9 @@
             <p className="text-xs text-gray-500">
               Recommended: {PEPTIDE_PRESETS[peptide].vialMg} mg vial with {PEPTIDE_PRESETS[peptide].waterMl} mL bac water, typical dose {PEPTIDE_PRESETS[peptide].doseMcg} mcg
             </p>
+          )}
+          {catalogKey && (
+            <ShopButton catalogKey={catalogKey} className="w-full justify-center mt-1" />
           )}
         </div>
       );
@@ -240,7 +462,6 @@
           setCopied(true);
           setTimeout(() => setCopied(false), 2000);
         } catch {
-          // Fallback
           const ta = document.createElement("textarea");
           ta.value = fullText;
           document.body.appendChild(ta);
@@ -315,7 +536,7 @@
               <div className="bg-red-900/30 border border-red-800 rounded-lg p-3">
                 <p className="text-red-400 text-xs font-medium">
                   Safety: Use proper aseptic technique. Store reconstituted peptide
-                  refrigerated (2–8 °C). Use within recommended timeframe per protocol.
+                  refrigerated (2-8 °C). Use within recommended timeframe per protocol.
                 </p>
               </div>
 
@@ -331,7 +552,105 @@
       );
     }
 
+    // ── Peptide Finder ──
+
+    function PeptideFinder() {
+      const [selected, setSelected] = useState([]);
+
+      const toggle = (id) => {
+        setSelected((prev) =>
+          prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+        );
+      };
+
+      // Collect recommended peptides from selected goals, ranked by frequency
+      const recommendations = (() => {
+        if (selected.length === 0) return [];
+        const counts = {};
+        const goalMap = {};
+        selected.forEach((id) => {
+          const goal = RESEARCH_GOALS.find((g) => g.id === id);
+          if (!goal) return;
+          goal.peptides.forEach((p) => {
+            counts[p] = (counts[p] || 0) + 1;
+            if (!goalMap[p]) goalMap[p] = [];
+            goalMap[p].push(goal.label);
+          });
+        });
+        return Object.entries(counts)
+          .sort((a, b) => b[1] - a[1])
+          .map(([name, count]) => ({ name, count, goals: goalMap[name] }));
+      })();
+
+      return (
+        <div className="space-y-4">
+          <div className="text-center space-y-1">
+            <h2 className="text-lg font-semibold text-gray-200">What are you researching?</h2>
+            <p className="text-gray-400 text-xs">Select one or more research areas to get peptide recommendations</p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2">
+            {RESEARCH_GOALS.map((goal) => {
+              const active = selected.includes(goal.id);
+              return (
+                <button
+                  key={goal.id}
+                  onClick={() => toggle(goal.id)}
+                  className={`text-left p-3 rounded-lg border transition-all ${
+                    active
+                      ? "bg-blue-600/20 border-blue-500 ring-1 ring-blue-500/50"
+                      : "bg-dark-700 border-gray-600 hover:border-gray-500"
+                  }`}
+                >
+                  <div className="text-lg mb-0.5">{goal.icon}</div>
+                  <p className={`text-sm font-medium ${active ? "text-blue-300" : "text-gray-200"}`}>
+                    {goal.label}
+                  </p>
+                  <p className="text-xs text-gray-500 mt-0.5 leading-tight">{goal.description}</p>
+                </button>
+              );
+            })}
+          </div>
+
+          {recommendations.length > 0 && (
+            <div className="space-y-3 pt-2">
+              <div className="flex items-center justify-between">
+                <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide">
+                  Recommended Peptides
+                </h3>
+                <span className="text-xs text-emerald-400">5% off with our link</span>
+              </div>
+              <div className="space-y-2">
+                {recommendations.map(({ name, count, goals }) => (
+                  <div key={name}>
+                    <ProductCard catalogKey={name} />
+                    {count > 1 && (
+                      <p className="text-xs text-blue-400 mt-0.5 ml-3">
+                        Matches {count} of your research areas: {goals.join(", ")}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {selected.length > 0 && (
+            <button
+              onClick={() => setSelected([])}
+              className="w-full bg-gray-700 hover:bg-gray-600 text-gray-300 font-medium py-2 rounded-lg transition-colors text-sm"
+            >
+              Clear Selections
+            </button>
+          )}
+        </div>
+      );
+    }
+
+    // ── App ──
+
     function App() {
+      const [tab, setTab] = useState("finder");
       const [state, setState] = useState({ ...DEFAULTS });
 
       const onChange = useCallback((key, value) => {
@@ -360,35 +679,82 @@
         <div className="max-w-lg mx-auto px-4 py-6 space-y-6">
           <header className="text-center space-y-1">
             <h1 className="text-2xl font-bold text-gray-100">
-              Peptide Reconstitution Calculator
+              Peptide Research Hub
             </h1>
             <p className="text-gray-400 text-sm">
-              Calculate reconstitution volumes and syringe draws
+              Find the right peptides and calculate reconstitution
             </p>
           </header>
 
           <DisclaimerBanner />
 
-          <div className="bg-dark-800 rounded-xl p-5 space-y-5 shadow-lg">
-            <PeptideSelector
-              peptide={state.peptide}
-              customPeptide={state.customPeptide}
-              onSelect={onSelectPeptide}
-              onChange={onChange}
-            />
-            <InputSection state={state} onChange={onChange} />
+          {/* Tab switcher */}
+          <div className="flex gap-1 bg-dark-800 p-1 rounded-lg">
+            <button
+              onClick={() => setTab("finder")}
+              className={`flex-1 py-2.5 rounded-md text-sm font-medium transition-colors ${
+                tab === "finder"
+                  ? "bg-blue-600 text-white shadow"
+                  : "text-gray-400 hover:text-gray-200"
+              }`}
+            >
+              Peptide Finder
+            </button>
+            <button
+              onClick={() => setTab("calculator")}
+              className={`flex-1 py-2.5 rounded-md text-sm font-medium transition-colors ${
+                tab === "calculator"
+                  ? "bg-blue-600 text-white shadow"
+                  : "text-gray-400 hover:text-gray-200"
+              }`}
+            >
+              Reconstitution Calculator
+            </button>
           </div>
 
-          <div className="bg-dark-800 rounded-xl p-5 shadow-lg">
-            <ResultsCard state={state} />
-          </div>
+          {tab === "finder" ? (
+            <div className="bg-dark-800 rounded-xl p-5 shadow-lg">
+              <PeptideFinder />
+            </div>
+          ) : (
+            <>
+              <div className="bg-dark-800 rounded-xl p-5 space-y-5 shadow-lg">
+                <PeptideSelector
+                  peptide={state.peptide}
+                  customPeptide={state.customPeptide}
+                  onSelect={onSelectPeptide}
+                  onChange={onChange}
+                />
+                <InputSection state={state} onChange={onChange} />
+              </div>
 
-          <button
-            onClick={handleReset}
-            className="w-full bg-gray-700 hover:bg-gray-600 text-gray-300 font-medium py-2.5 rounded-lg transition-colors"
+              <div className="bg-dark-800 rounded-xl p-5 shadow-lg">
+                <ResultsCard state={state} />
+              </div>
+
+              <button
+                onClick={handleReset}
+                className="w-full bg-gray-700 hover:bg-gray-600 text-gray-300 font-medium py-2.5 rounded-lg transition-colors"
+              >
+                Reset to Defaults
+              </button>
+            </>
+          )}
+
+          {/* Shop CTA */}
+          <a
+            href={affLink("")}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block bg-emerald-600/10 border border-emerald-500/30 hover:border-emerald-500/60 rounded-xl p-4 text-center transition-all group"
           >
-            Reset to Defaults
-          </button>
+            <p className="text-emerald-400 font-semibold group-hover:text-emerald-300 transition-colors">
+              Shop All Peptides at Peptide Restore
+            </p>
+            <p className="text-emerald-500/70 text-xs mt-1">
+              Get 5% off your order with our exclusive discount
+            </p>
+          </a>
 
           <DisclaimerBanner />
 
