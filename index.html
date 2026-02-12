@@ -341,9 +341,9 @@
               {!compact && <p className="text-gray-400 text-xs mt-1 leading-relaxed">{p.desc}</p>}
               {!compact && (
                 <div className="flex items-center gap-3 mt-1.5">
-                  <span className="text-[10px] text-gray-500 uppercase tracking-wide">{p.freq}</span>
-                  <span className="text-gray-600">|</span>
-                  <span className="text-[10px] text-gray-500 uppercase tracking-wide">{p.route}</span>
+                  <span className="text-[10px] text-gray-400 uppercase tracking-wide">{p.freq}</span>
+                  <span className="text-gray-500">|</span>
+                  <span className="text-[10px] text-gray-400 uppercase tracking-wide">{p.route}</span>
                 </div>
               )}
             </div>
@@ -445,7 +445,7 @@
         <button onClick={() => setOpen(!open)} className="w-full text-left glass rounded-xl overflow-hidden transition-all">
           <div className="flex items-center justify-between p-3.5">
             <span className="text-sm font-medium text-gray-200 pr-4">{faq.q}</span>
-            <span className={`text-gray-500 text-xs transition-transform duration-200 shrink-0 ${open ? "rotate-180" : ""}`}>{"\u25BC"}</span>
+            <span className={`text-gray-400 text-xs transition-transform duration-200 shrink-0 ${open ? "rotate-180" : ""}`}>{"\u25BC"}</span>
           </div>
           <div className={`faq-answer ${open ? "open" : ""}`} style={{maxHeight: open ? "200px" : "0", padding: open ? "0 14px 14px" : "0 14px"}}>
             <p className="text-gray-400 text-xs leading-relaxed">{faq.a}</p>
@@ -501,12 +501,12 @@
                 <form onSubmit={handleSubmit} className="space-y-3">
                   <input type="email" required placeholder="you@email.com" value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full input-glass rounded-lg px-3 py-3 text-sm text-gray-100 placeholder-gray-600" autoFocus />
+                    className="w-full input-glass rounded-lg px-3 py-3 text-sm text-gray-100 placeholder-gray-500" autoFocus />
                   <button type="submit" className="w-full pill-active text-white font-bold py-3 rounded-lg text-sm">
                     Get My Free Protocol
                   </button>
                 </form>
-                <p className="text-[10px] text-gray-600 text-center">No spam. Unsubscribe anytime.</p>
+                <p className="text-[10px] text-gray-500 text-center">No spam. Unsubscribe anytime.</p>
               </>
             )}
           </div>
@@ -556,7 +556,7 @@
         <div className="space-y-5 fade-in">
           <div className="text-center space-y-1">
             <h2 className="text-lg font-bold text-gray-100">Build Your Protocol</h2>
-            <p className="text-gray-500 text-xs">Add peptides and schedule them throughout your day</p>
+            <p className="text-gray-400 text-xs">Add peptides and schedule them throughout your day</p>
           </div>
 
           {/* Add peptide */}
@@ -568,7 +568,7 @@
                 {catalogKeys.map(k => <option key={k} value={k}>{CATALOG[k].label || k}</option>)}
               </select>
               <button onClick={addEntry} disabled={!addPeptide}
-                className={`px-4 py-2.5 rounded-lg text-sm font-semibold transition-all ${addPeptide ? "pill-active text-white" : "glass text-gray-600 cursor-not-allowed"}`}>
+                className={`px-4 py-2.5 rounded-lg text-sm font-semibold transition-all ${addPeptide ? "pill-active text-white" : "glass text-gray-500 cursor-not-allowed"}`}>
                 + Add
               </button>
             </div>
@@ -576,8 +576,8 @@
             {/* Entries list */}
             {entries.length === 0 ? (
               <div className="glass rounded-xl p-8 text-center">
-                <p className="text-gray-500 text-sm">No peptides added yet</p>
-                <p className="text-gray-600 text-xs mt-1">Select a peptide above to start building your protocol</p>
+                <p className="text-gray-400 text-sm">No peptides added yet</p>
+                <p className="text-gray-500 text-xs mt-1">Select a peptide above to start building your protocol</p>
               </div>
             ) : (
               <div className="space-y-2">
@@ -590,15 +590,15 @@
                         <div className="flex-1 min-w-0 space-y-2">
                           <div className="flex items-center justify-between gap-2">
                             <p className="text-sm font-semibold text-gray-100 truncate">{cat.label || entry.peptide}</p>
-                            <button onClick={() => removeEntry(entry.id)} className="text-gray-600 hover:text-red-400 text-xs shrink-0 transition-colors">&times; Remove</button>
+                            <button onClick={() => removeEntry(entry.id)} className="text-gray-400 hover:text-red-400 text-xs shrink-0 transition-colors">&times; Remove</button>
                           </div>
-                          <div className="flex items-center gap-2 text-[10px] text-gray-500">
-                            <span>{cat.freq}</span><span className="text-gray-700">|</span><span>{cat.route}</span>
+                          <div className="flex items-center gap-2 text-[10px] text-gray-400">
+                            <span>{cat.freq}</span><span className="text-gray-500">|</span><span>{cat.route}</span>
                           </div>
                           <div className="flex gap-1">
                             {Object.entries(TIME_LABELS).map(([k, label]) => (
                               <button key={k} onClick={() => updateTime(entry.id, k)}
-                                className={`flex-1 py-1.5 rounded-md text-[10px] font-medium transition-all ${entry.timeOfDay === k ? "pill-active text-white" : "pill-track text-gray-500 hover:text-gray-300"}`}>
+                                className={`flex-1 py-1.5 rounded-md text-[10px] font-medium transition-all ${entry.timeOfDay === k ? "pill-active text-white" : "pill-track text-gray-300 hover:text-gray-100"}`}>
                                 {TIME_ICONS[k]} {label}
                               </button>
                             ))}
@@ -630,7 +630,7 @@
                           className="flex items-center gap-2 glass rounded-lg p-2 group hover:border-white/20 transition-all">
                           <img src={cat.img} alt="" className="w-7 h-7 rounded object-contain bg-white/5" />
                           <span className="text-xs text-gray-300 group-hover:text-white flex-1">{cat.label || e.peptide}</span>
-                          <span className="text-[10px] text-gray-600">{cat.freq}</span>
+                          <span className="text-[10px] text-gray-400">{cat.freq}</span>
                         </a>
                       );
                     })}
@@ -713,7 +713,7 @@
           {/* Goals */}
           <div className="text-center space-y-1">
             <h2 className="text-lg font-bold text-gray-100">What are you researching?</h2>
-            <p className="text-gray-500 text-xs">Select your research areas for personalized recommendations</p>
+            <p className="text-gray-400 text-xs">Select your research areas for personalized recommendations</p>
           </div>
           <div className="grid grid-cols-2 gap-2">
             {GOALS.map((g) => {
@@ -723,7 +723,7 @@
                   className={`text-left p-3 rounded-xl border transition-all card-hover ${active?"goal-selected":"glass border-white/5 hover:border-white/15"}`}>
                   <div className="text-base mb-0.5">{g.icon}</div>
                   <p className={`text-xs font-semibold ${active?"text-purple-300":"text-gray-200"}`}>{g.label}</p>
-                  <p className="text-[10px] text-gray-500 mt-0.5 leading-tight">{g.desc}</p>
+                  <p className="text-[10px] text-gray-400 mt-0.5 leading-tight">{g.desc}</p>
                 </button>
               );
             })}
@@ -783,13 +783,13 @@
                   <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-2">
                     <input type="email" required placeholder="you@email.com" value={email}
                       onChange={(e)=>setEmail(e.target.value)}
-                      className="flex-1 input-glass rounded-lg px-3 py-2.5 text-sm text-gray-100 placeholder-gray-600" />
+                      className="flex-1 input-glass rounded-lg px-3 py-2.5 text-sm text-gray-100 placeholder-gray-500" />
                     <button type="submit" disabled={submitting}
                       className="pill-active text-white font-semibold px-5 py-2.5 rounded-lg text-sm whitespace-nowrap">
                       {submitting ? "Unlocking..." : "Unlock All"}
                     </button>
                   </form>
-                  <p className="text-[10px] text-gray-600">No spam. Unsubscribe anytime.</p>
+                  <p className="text-[10px] text-gray-500">No spam. Unsubscribe anytime.</p>
                 </div>
               )}
 
@@ -833,7 +833,7 @@
 
           {goals.length > 0 && (
             <button onClick={()=>{setGoals([]);setExperience("any");setAdminPref("any");setShowStacks(false);}}
-              className="w-full glass hover:bg-white/10 text-gray-400 hover:text-gray-200 font-medium py-2 rounded-xl transition-all text-xs">
+              className="w-full glass hover:bg-white/10 text-gray-300 hover:text-gray-100 font-medium py-2 rounded-xl transition-all text-xs">
               Clear All
             </button>
           )}
@@ -850,7 +850,7 @@
           <div className="relative">
             <input type="number" value={value} onChange={(e)=>onChange(parseFloat(e.target.value)||0)} min={min||0} step={step||"any"}
               className="w-full input-glass rounded-lg px-3 py-2.5 pr-14 text-gray-100" />
-            {unit && <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 text-xs font-medium">{unit}</span>}
+            {unit && <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs font-medium">{unit}</span>}
           </div>
         </div>
       );
@@ -893,7 +893,7 @@
         setFn(true); setTimeout(()=>setFn(false),2000);
       };
 
-      const Row = ({label,value})=>(<div className="flex justify-between items-center py-2"><span className="text-gray-500 text-xs">{label}</span><span className="num-highlight font-bold text-lg">{value}</span></div>);
+      const Row = ({label,value})=>(<div className="flex justify-between items-center py-2"><span className="text-gray-400 text-xs">{label}</span><span className="num-highlight font-bold text-lg">{value}</span></div>);
 
       return (
         <div className="space-y-4 fade-in">
@@ -908,18 +908,18 @@
               {state.peptide==="Other" && (
                 <input type="text" placeholder="Enter peptide name" value={state.customPeptide}
                   onChange={(e)=>onChange("customPeptide",e.target.value)}
-                  className="w-full input-glass rounded-lg px-3 py-2.5 text-gray-100 placeholder-gray-600" />
+                  className="w-full input-glass rounded-lg px-3 py-2.5 text-gray-100 placeholder-gray-500" />
               )}
               {PRESETS[state.peptide] && (
-                <p className="text-[10px] text-gray-500">Recommended: {PRESETS[state.peptide].vialMg} mg vial + {PRESETS[state.peptide].waterMl} mL bac water, typical dose {PRESETS[state.peptide].doseMcg} mcg</p>
+                <p className="text-[10px] text-gray-400">Recommended: {PRESETS[state.peptide].vialMg} mg vial + {PRESETS[state.peptide].waterMl} mL bac water, typical dose {PRESETS[state.peptide].doseMcg} mcg</p>
               )}
               {product && (
                 <div className="glass rounded-lg p-3 space-y-2">
                   <div className="flex items-center gap-3">
                     <img src={product.img} alt="" className="w-10 h-10 rounded object-contain bg-white/5" />
                     <div className="flex-1 grid grid-cols-2 gap-1">
-                      <div><p className="text-[10px] text-gray-500 uppercase">Frequency</p><p className="text-xs text-gray-200 font-medium">{product.freq}</p></div>
-                      <div><p className="text-[10px] text-gray-500 uppercase">Route</p><p className="text-xs text-gray-200 font-medium">{product.route}</p></div>
+                      <div><p className="text-[10px] text-gray-400 uppercase">Frequency</p><p className="text-xs text-gray-200 font-medium">{product.freq}</p></div>
+                      <div><p className="text-[10px] text-gray-400 uppercase">Route</p><p className="text-xs text-gray-200 font-medium">{product.route}</p></div>
                     </div>
                   </div>
                   {product.notes && <p className="text-[10px] text-gray-400">{product.notes}</p>}
@@ -957,7 +957,7 @@
           <div className="glass-strong rounded-2xl p-5 shadow-2xl space-y-4">
             <h3 className="text-xs font-bold text-gray-300 uppercase tracking-wider">Results</h3>
             {!valid ? (
-              <div className="glass rounded-xl p-6 text-gray-500 text-center text-sm">Enter valid values above.</div>
+              <div className="glass rounded-xl p-6 text-gray-400 text-center text-sm">Enter valid values above.</div>
             ) : (
               <>
                 <div className="glass rounded-xl p-4 divide-y divide-white/5">
@@ -997,7 +997,7 @@
               </>
             )}
           </div>
-          <button onClick={reset} className="w-full glass hover:bg-white/10 text-gray-500 hover:text-gray-200 font-medium py-2.5 rounded-xl transition-all text-sm">Reset to Defaults</button>
+          <button onClick={reset} className="w-full glass hover:bg-white/10 text-gray-400 hover:text-gray-100 font-medium py-2.5 rounded-xl transition-all text-sm">Reset to Defaults</button>
         </div>
       );
     }
@@ -1057,11 +1057,11 @@
 
           <header className="text-center space-y-2">
             <h1 className="text-3xl font-extrabold gradient-text tracking-tight">Peptide Research Hub</h1>
-            <p className="text-gray-500 text-sm">Find the right peptides &middot; Calculate dosing &middot; 5% off</p>
+            <p className="text-gray-400 text-sm">Find the right peptides &middot; Calculate dosing &middot; 5% off</p>
             {/* Social proof */}
             <div className="flex items-center justify-center gap-2 pt-1">
               <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 pulse-dot"></span>
-              <span className="text-gray-500 text-[11px]">Trusted by <span className="text-emerald-400 font-semibold">2,000+</span> researchers</span>
+              <span className="text-gray-400 text-[11px]">Trusted by <span className="text-emerald-400 font-semibold">2,000+</span> researchers</span>
             </div>
           </header>
 
@@ -1071,7 +1071,7 @@
           <div className="flex gap-1 glass rounded-xl p-1">
             {TABS.map((t) => (
               <button key={t.id} onClick={() => setTab(t.id)}
-                className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${tab === t.id ? "pill-active text-white" : "text-gray-500 hover:text-gray-300"}`}>
+                className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${tab === t.id ? "pill-active text-white" : "text-gray-400 hover:text-gray-200"}`}>
                 {t.label}
               </button>
             ))}
@@ -1093,14 +1093,14 @@
           {/* Shop CTA */}
           <a href={aff("")} target="_blank" rel="noopener noreferrer" className="block glass card-hover rounded-2xl p-5 text-center group">
             <p className="text-lg font-bold gradient-text group-hover:opacity-90 transition-opacity">Shop All Peptides</p>
-            <p className="text-gray-500 text-xs mt-1">Peptide Restore &middot; Get 5% off your entire order</p>
+            <p className="text-gray-400 text-xs mt-1">Peptide Restore &middot; Get 5% off your entire order</p>
           </a>
 
           {/* FAQ */}
           <FAQSection />
 
           <DisclaimerBanner />
-          <footer className="text-center text-gray-600 text-[10px] pb-6 space-y-1">
+          <footer className="text-center text-gray-500 text-[10px] pb-6 space-y-1">
             <p>Research tool only. Verify all calculations independently.</p>
             <p>All peptides sold for research purposes only.</p>
           </footer>
