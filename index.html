@@ -3,131 +3,369 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Peptide Reconstitution Calculator</title>
+  <title>Peptide Research Hub — Find, Calculate & Shop Peptides</title>
+  <meta name="description" content="Free peptide reconstitution calculator and research tool. Find the right peptides for your research goals, calculate dosing, and shop with 5% off." />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Peptide Research Hub" />
+  <meta property="og:description" content="Find the right peptides for your research, calculate reconstitution volumes, and shop with 5% off at Peptide Restore." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://monsterbench.github.io/peptide-calculator/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Peptide Research Hub" />
+  <meta name="twitter:description" content="Free peptide reconstitution calculator. Find peptides, calculate dosing, shop with 5% off." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
   <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
-          colors: {
-            dark: { 800: '#1e1e2e', 900: '#11111b', 700: '#313244' }
-          }
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
         }
       }
     }
   </script>
+  <style>
+    body { font-family: 'Inter', system-ui, sans-serif; }
+
+    /* Animated gradient background */
+    .bg-scene {
+      position: fixed; inset: 0; z-index: 0; overflow: hidden;
+      background: #08080f;
+    }
+    .bg-blob {
+      position: absolute; border-radius: 50%; filter: blur(100px); opacity: .18;
+      animation: drift 20s ease-in-out infinite alternate;
+    }
+    .bg-blob-1 { width: 600px; height: 600px; background: #6d28d9; top: -10%; left: -10%; animation-delay: 0s; }
+    .bg-blob-2 { width: 500px; height: 500px; background: #0ea5e9; bottom: -10%; right: -10%; animation-delay: -7s; }
+    .bg-blob-3 { width: 400px; height: 400px; background: #10b981; top: 40%; left: 50%; animation-delay: -14s; }
+    @keyframes drift {
+      0% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -40px) scale(1.05); }
+      66% { transform: translate(-20px, 30px) scale(.95); }
+      100% { transform: translate(10px, -10px) scale(1.02); }
+    }
+
+    /* Glassmorphism card */
+    .glass {
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .glass-strong {
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #a78bfa, #38bdf8, #34d399);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Smooth transitions */
+    .fade-in { animation: fadeIn .4s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Card hover lift */
+    .card-hover { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+    .card-hover:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,.3); }
+
+    /* Pill toggle */
+    .pill-track { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); }
+    .pill-active {
+      background: linear-gradient(135deg, #7c3aed, #2563eb);
+      box-shadow: 0 2px 12px rgba(124,58,237,.35);
+    }
+
+    /* Number highlight */
+    .num-highlight {
+      background: linear-gradient(135deg, #34d399, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Shop button gradient */
+    .shop-btn {
+      background: linear-gradient(135deg, #059669, #0d9488);
+      transition: all .2s ease;
+    }
+    .shop-btn:hover {
+      background: linear-gradient(135deg, #047857, #0f766e);
+      box-shadow: 0 4px 15px rgba(5,150,105,.3);
+      transform: translateY(-1px);
+    }
+
+    /* Goal card selection ring */
+    .goal-selected {
+      border-color: rgba(139,92,246,.6);
+      background: rgba(139,92,246,.1);
+      box-shadow: 0 0 20px rgba(139,92,246,.15), inset 0 0 20px rgba(139,92,246,.05);
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.15); border-radius: 3px; }
+
+    /* Input styling */
+    .input-glass {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+    .input-glass:focus {
+      border-color: rgba(139,92,246,.5);
+      box-shadow: 0 0 0 3px rgba(139,92,246,.15);
+      outline: none;
+    }
+
+    /* Stack badge */
+    .stack-badge {
+      background: linear-gradient(135deg, rgba(139,92,246,.2), rgba(56,189,248,.2));
+      border: 1px solid rgba(139,92,246,.3);
+    }
+
+    /* Disclaimer pulse */
+    .disclaimer-bar {
+      background: linear-gradient(135deg, rgba(239,68,68,.12), rgba(239,68,68,.06));
+      border: 1px solid rgba(239,68,68,.25);
+    }
+
+    /* Select dropdown */
+    select option { background: #1a1a2e; color: #e5e7eb; }
+  </style>
 </head>
-<body class="bg-dark-900 text-gray-100 min-h-screen">
-  <div id="root"></div>
+<body class="text-gray-100 min-h-screen relative">
+  <!-- Animated background -->
+  <div class="bg-scene">
+    <div class="bg-blob bg-blob-1"></div>
+    <div class="bg-blob bg-blob-2"></div>
+    <div class="bg-blob bg-blob-3"></div>
+  </div>
+
+  <div id="root" class="relative z-10"></div>
 
   <script type="text/babel">
-    const { useState, useCallback } = React;
+    const { useState, useCallback, useEffect, useMemo } = React;
 
     const AFFILIATE_BASE = "https://peptiderestore.com";
     const DISCOUNT_TAG = "?discount=DKE4PDRM";
     const affLink = (path) => `${AFFILIATE_BASE}${path}${DISCOUNT_TAG}`;
 
-    // ── Product catalog with links to Peptide Restore ──
+    // ── Full product catalog ──
     const PRODUCT_CATALOG = {
       "BPC-157": {
         path: "/peptides/bpc-157",
         description: "Gastric pentadecapeptide studied for tissue repair, gut health, and wound healing.",
+        frequency: "2x daily",
+        route: "Subcutaneous",
+        notes: "Inject close to area of interest when possible. Stable peptide.",
+        capsuleAvailable: true,
       },
       "CJC-1295 (no DAC)": {
         path: "/peptides/cjc-1295",
-        description: "Growth hormone releasing hormone analog studied for GH secretion.",
+        description: "Growth hormone releasing hormone analog for pulsatile GH secretion.",
+        frequency: "1-3x daily",
+        route: "Subcutaneous",
+        notes: "Best administered before bed and/or morning on empty stomach.",
       },
       "Ipamorelin": {
         path: "/peptides/ipamorelin",
-        description: "Selective growth hormone secretagogue studied for GH release without cortisol/prolactin increase.",
+        description: "Selective GH secretagogue — promotes GH release without cortisol/prolactin spike.",
+        frequency: "2-3x daily",
+        route: "Subcutaneous",
+        notes: "Often paired with CJC-1295 (no DAC) for synergistic GH release.",
       },
       "Retatrutide": {
         path: "/peptides/retatrutide",
         label: "GLP-3 R (Retatrutide)",
-        description: "Triple agonist (GIP/GLP-1/glucagon) studied for metabolic optimization.",
+        description: "Triple agonist (GIP/GLP-1/glucagon) for metabolic optimization research.",
+        frequency: "1x weekly",
+        route: "Subcutaneous",
+        notes: "Titrate up slowly over weeks. Most potent metabolic peptide available.",
       },
       "Semaglutide": {
         path: "/peptides/semaglutide",
         label: "GLP-1 S (Semaglutide)",
-        description: "GLP-1 receptor agonist studied for metabolic and appetite regulation.",
+        description: "GLP-1 receptor agonist studied for appetite regulation and metabolic function.",
+        frequency: "1x weekly",
+        route: "Subcutaneous",
+        notes: "Start low and titrate up every 4 weeks. Take on same day each week.",
       },
       "TB-500": {
         path: "/peptides/tb-500",
         description: "Thymosin Beta-4 fragment studied for tissue repair, inflammation, and recovery.",
+        frequency: "2x weekly",
+        route: "Subcutaneous",
+        notes: "Higher loading dose first 4-6 weeks, then reduce to maintenance.",
       },
       "Tirzepatide": {
         path: "/peptides/glp-2-t",
         label: "GLP-2 T (Tirzepatide)",
-        description: "Dual GIP/GLP-1 agonist studied for metabolic optimization.",
+        description: "Dual GIP/GLP-1 agonist for metabolic optimization and body composition.",
+        frequency: "1x weekly",
+        route: "Subcutaneous",
+        notes: "Titrate up slowly. Take on same day each week.",
       },
       "GHK-Cu": {
         path: "/peptides/ghk-cu",
-        description: "Copper peptide studied for skin regeneration, collagen synthesis, and anti-aging.",
+        description: "Copper peptide for skin regeneration, collagen synthesis, and anti-aging research.",
+        frequency: "1x daily",
+        route: "Subcutaneous / Topical",
+        notes: "Can be used topically for localized skin research or injected systemically.",
       },
       "NAD+": {
         path: "/peptides/nad",
-        description: "Coenzyme studied for cellular energy, DNA repair, and longevity.",
+        description: "Coenzyme for cellular energy production, DNA repair, and longevity research.",
+        frequency: "2-3x weekly",
+        route: "Subcutaneous / IV",
+        notes: "Subcutaneous is most practical. IV administration used in clinical settings.",
       },
       "MOTS-c": {
         path: "/peptides/mots-c",
-        description: "Mitochondrial peptide studied for metabolic regulation and exercise physiology.",
+        description: "Mitochondrial peptide for metabolic regulation and exercise physiology.",
+        frequency: "3-5x weekly",
+        route: "Subcutaneous",
+        notes: "Often administered pre-exercise for metabolic research.",
       },
       "KPV": {
         path: "/peptides/kpv",
-        description: "Anti-inflammatory tripeptide studied for gut health and immune modulation.",
+        description: "Anti-inflammatory tripeptide for gut health and immune modulation research.",
+        frequency: "1-2x daily",
+        route: "Subcutaneous / Oral",
+        notes: "Oral administration studied for direct GI tract benefits.",
+        capsuleAvailable: true,
       },
       "DSIP": {
         path: "/peptides/dsip",
-        description: "Delta sleep-inducing peptide studied for sleep regulation and stress response.",
+        description: "Delta sleep-inducing peptide for sleep regulation and stress response research.",
+        frequency: "1x daily (evening)",
+        route: "Subcutaneous",
+        notes: "Administer 30-60 min before desired sleep time.",
       },
       "Thymosin Alpha-1": {
         path: "/peptides/thymosin-alpha-1",
-        description: "Immune-modulating peptide studied for immune system support.",
+        description: "Immune-modulating peptide for T-cell function and immune system research.",
+        frequency: "2-3x weekly",
+        route: "Subcutaneous",
+        notes: "Well-studied immune peptide. Used in clinical research worldwide.",
       },
       "Sermorelin": {
         path: "/peptides/sermorelin",
-        description: "GHRH analog studied for growth hormone stimulation.",
+        description: "GHRH analog for growth hormone stimulation research.",
+        frequency: "1x daily (evening)",
+        route: "Subcutaneous",
+        notes: "Best administered before bed to align with natural GH pulse.",
       },
       "Melanotan II": {
         path: "/peptides/melanotan-ii",
-        description: "Melanocortin receptor agonist studied for pigmentation research.",
+        description: "Melanocortin receptor agonist for pigmentation and dermatology research.",
+        frequency: "Every other day",
+        route: "Subcutaneous",
+        notes: "Low starting dose recommended. Loading phase then maintenance.",
       },
       // Blends
       "BPC-157 + TB-500 (Wolverine Blend)": {
         path: "/peptides/bpc-157-tb-500-wolverine-blend",
-        description: "Blend studied for enhanced tissue repair and recovery.",
+        description: "Synergistic tissue repair blend combining two of the most studied healing peptides.",
+        frequency: "Daily or 5x weekly",
+        route: "Subcutaneous",
+        notes: "Convenient single-vial blend. Inject near area of interest.",
         isBlend: true,
       },
       "BPC-157 + TB-500 + GHK-Cu (Glow Blend)": {
         path: "/peptides/bpc-157-tb-500-ghk-cu-glow-blend",
-        description: "Blend studied for tissue repair with skin and collagen support.",
+        description: "Repair + skin rejuvenation blend with copper peptide for collagen support.",
+        frequency: "Daily or 5x weekly",
+        route: "Subcutaneous",
+        notes: "Combined healing and anti-aging in a single vial.",
         isBlend: true,
       },
       "BPC-157 + TB-500 + KPV + GHK-Cu (Klow Blend)": {
         path: "/peptides/klow-blend",
-        description: "Comprehensive blend studied for repair, inflammation, and skin health.",
+        description: "Comprehensive 4-peptide blend for repair, inflammation, gut, and skin research.",
+        frequency: "Daily or 5x weekly",
+        route: "Subcutaneous",
+        notes: "Most comprehensive blend — covers healing, inflammation, and skin.",
         isBlend: true,
       },
       "CJC-1295 (no DAC) + Ipamorelin (Blend)": {
         path: "/peptides/cjc-1295-no-dac-ipamorelin-blend",
-        description: "Synergistic GH blend studied for optimized growth hormone release.",
+        description: "The gold-standard GH blend — synergistic growth hormone release.",
+        frequency: "1-2x daily",
+        route: "Subcutaneous",
+        notes: "Most popular GH blend. Best taken before bed and/or morning.",
         isBlend: true,
       },
       "CJC-1295 (no DAC) + Ipamorelin + GHRP-2 (Blend)": {
         path: "/peptides/cjc-1295-no-dac-ipamorelin-ghrp-2-blend",
-        description: "Triple GH blend studied for maximized growth hormone secretion.",
+        description: "Triple GH blend for maximized growth hormone secretion research.",
+        frequency: "1-2x daily",
+        route: "Subcutaneous",
+        notes: "Most aggressive GH stack available in a single vial.",
         isBlend: true,
       },
       "Sermorelin + Ipamorelin (Blend)": {
         path: "/peptides/sermorelin-ipamorelin-blend",
-        description: "Dual GHRH/GHSS blend studied for growth hormone optimization.",
+        description: "Dual GHRH/GHS blend for balanced growth hormone optimization.",
+        frequency: "1x daily (evening)",
+        route: "Subcutaneous",
+        notes: "Gentle GH blend — good starting point for GH research.",
         isBlend: true,
       },
     };
+
+    // ── Stacks: synergistic pairings ──
+    const STACK_SUGGESTIONS = [
+      {
+        name: "Tissue Repair Stack",
+        peptides: ["BPC-157", "TB-500"],
+        blend: "BPC-157 + TB-500 (Wolverine Blend)",
+        why: "BPC-157 targets tissue repair from inside out, TB-500 promotes cell migration and reduces inflammation. Together they cover complementary healing pathways.",
+      },
+      {
+        name: "Growth Hormone Stack",
+        peptides: ["CJC-1295 (no DAC)", "Ipamorelin"],
+        blend: "CJC-1295 (no DAC) + Ipamorelin (Blend)",
+        why: "CJC-1295 extends GH release duration while Ipamorelin amplifies the pulse. Synergistic effect exceeds either alone.",
+      },
+      {
+        name: "Total Recovery Stack",
+        peptides: ["BPC-157", "TB-500", "GHK-Cu"],
+        blend: "BPC-157 + TB-500 + GHK-Cu (Glow Blend)",
+        why: "Full spectrum recovery — tissue repair, inflammation reduction, and collagen synthesis for skin and connective tissue.",
+      },
+      {
+        name: "Metabolic + Gut Protection",
+        peptides: ["Semaglutide", "BPC-157"],
+        why: "GLP-1 agonists can cause GI side effects. BPC-157 is studied for its gastroprotective properties — a logical pairing.",
+      },
+      {
+        name: "Anti-Aging Stack",
+        peptides: ["GHK-Cu", "NAD+"],
+        why: "GHK-Cu promotes collagen and skin regeneration while NAD+ supports cellular energy and DNA repair — both key aging pathways.",
+      },
+      {
+        name: "Immune + Gut Health",
+        peptides: ["Thymosin Alpha-1", "KPV", "BPC-157"],
+        why: "Thymosin Alpha-1 modulates systemic immunity, KPV reduces gut inflammation, BPC-157 repairs the GI lining.",
+      },
+    ];
 
     // ── Calculator presets ──
     const PEPTIDE_PRESETS = {
@@ -141,7 +379,6 @@
       "Tirzepatide (research analog)":        { vialMg: 10, waterMl: 3,   doseMcg: 2500 },
     };
 
-    // Map calculator peptide names to catalog keys
     const CALC_TO_CATALOG = {
       "BPC-157": "BPC-157",
       "CJC-1295 (no DAC / Mod GRF 1-29)": "CJC-1295 (no DAC)",
@@ -165,83 +402,106 @@
       bodyWeightKg: 80,
     };
 
-    // ── Peptide Finder: research goals → peptide recommendations ──
+    // ── Research goals ──
     const RESEARCH_GOALS = [
       {
         id: "tissue-repair",
         label: "Tissue Repair & Recovery",
-        icon: "🔬",
-        description: "Wound healing, muscle/tendon/ligament repair, post-injury recovery",
+        icon: "\u{1F9EC}",
+        description: "Wound healing, muscle, tendon, ligament repair",
         peptides: ["BPC-157", "TB-500", "BPC-157 + TB-500 (Wolverine Blend)", "BPC-157 + TB-500 + GHK-Cu (Glow Blend)"],
       },
       {
         id: "gut-health",
         label: "Gut Health & Inflammation",
-        icon: "🧫",
-        description: "GI tract repair, intestinal lining, inflammatory response",
+        icon: "\u{1F52C}",
+        description: "GI tract repair, intestinal lining, inflammation",
         peptides: ["BPC-157", "KPV", "BPC-157 + TB-500 + KPV + GHK-Cu (Klow Blend)"],
       },
       {
         id: "growth-hormone",
-        label: "Growth Hormone Optimization",
-        icon: "📈",
-        description: "GH secretion, body composition, recovery, anti-aging",
+        label: "Growth Hormone",
+        icon: "\u{1F4C8}",
+        description: "GH secretion, body composition, recovery",
         peptides: ["CJC-1295 (no DAC) + Ipamorelin (Blend)", "CJC-1295 (no DAC)", "Ipamorelin", "Sermorelin", "CJC-1295 (no DAC) + Ipamorelin + GHRP-2 (Blend)", "Sermorelin + Ipamorelin (Blend)"],
       },
       {
         id: "weight-metabolism",
-        label: "Weight & Metabolic Research",
-        icon: "⚖️",
-        description: "Appetite regulation, metabolic optimization, body composition",
+        label: "Weight & Metabolic",
+        icon: "\u2696\uFE0F",
+        description: "Appetite regulation, metabolic optimization",
         peptides: ["Semaglutide", "Tirzepatide", "Retatrutide", "MOTS-c"],
       },
       {
         id: "skin-aging",
-        label: "Skin, Hair & Anti-Aging",
-        icon: "✨",
-        description: "Collagen synthesis, skin regeneration, cellular longevity",
+        label: "Skin & Anti-Aging",
+        icon: "\u2728",
+        description: "Collagen, skin regeneration, cellular longevity",
         peptides: ["GHK-Cu", "BPC-157 + TB-500 + GHK-Cu (Glow Blend)", "NAD+"],
       },
       {
         id: "sleep",
         label: "Sleep & Stress",
-        icon: "🌙",
-        description: "Sleep quality, circadian rhythm, stress response",
+        icon: "\u{1F319}",
+        description: "Sleep quality, circadian rhythm, stress",
         peptides: ["DSIP"],
       },
       {
         id: "immune",
         label: "Immune Support",
-        icon: "🛡️",
-        description: "Immune modulation, T-cell function, immune system optimization",
+        icon: "\u{1F6E1}\uFE0F",
+        description: "Immune modulation, T-cell function",
         peptides: ["Thymosin Alpha-1", "KPV"],
       },
       {
         id: "performance",
         label: "Performance & Energy",
-        icon: "⚡",
-        description: "Exercise physiology, mitochondrial function, endurance",
+        icon: "\u26A1",
+        description: "Exercise physiology, mitochondrial function",
         peptides: ["MOTS-c", "NAD+", "CJC-1295 (no DAC) + Ipamorelin (Blend)", "Ipamorelin"],
       },
     ];
+
+    // ── URL sharing ──
+    function encodeState(state) {
+      try {
+        const data = { p: state.peptide, v: state.vialMg, w: state.waterMl, m: state.doseMode, d: state.doseMcg, dk: state.doseMcgPerKg, bw: state.bodyWeightKg };
+        if (state.peptide === "Other") data.cp = state.customPeptide;
+        return btoa(JSON.stringify(data));
+      } catch { return ""; }
+    }
+    function decodeState(hash) {
+      try {
+        const data = JSON.parse(atob(hash));
+        return {
+          peptide: data.p || DEFAULTS.peptide,
+          customPeptide: data.cp || "",
+          vialMg: data.v || DEFAULTS.vialMg,
+          waterMl: data.w || DEFAULTS.waterMl,
+          doseMode: data.m || DEFAULTS.doseMode,
+          doseMcg: data.d || DEFAULTS.doseMcg,
+          doseMcgPerKg: data.dk || DEFAULTS.doseMcgPerKg,
+          bodyWeightKg: data.bw || DEFAULTS.bodyWeightKg,
+        };
+      } catch { return null; }
+    }
 
     // ── Components ──
 
     function DisclaimerBanner() {
       return (
-        <div className="bg-red-900/80 border border-red-500 rounded-lg px-4 py-3 text-center">
-          <p className="text-red-200 font-bold text-sm uppercase tracking-wide">
+        <div className="disclaimer-bar rounded-xl px-4 py-3 text-center">
+          <p className="text-red-300 font-bold text-xs uppercase tracking-widest">
             For Research Use Only — Not for Human Consumption
           </p>
-          <p className="text-red-300/80 text-xs mt-1">
-            This calculator is intended solely for laboratory and research purposes.
-            Always follow institutional protocols and safety guidelines.
+          <p className="text-red-400/60 text-xs mt-1">
+            This tool is intended solely for laboratory and research purposes.
           </p>
         </div>
       );
     }
 
-    function ShopButton({ catalogKey, className }) {
+    function ProductCard({ catalogKey, compact }) {
       const product = PRODUCT_CATALOG[catalogKey];
       if (!product) return null;
       return (
@@ -249,49 +509,309 @@
           href={affLink(product.path)}
           target="_blank"
           rel="noopener noreferrer"
-          className={`inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium px-3 py-1.5 rounded-lg transition-colors ${className || ""}`}
-        >
-          Shop {product.label || catalogKey}
-          <span className="text-emerald-200 text-xs">(5% off)</span>
-        </a>
-      );
-    }
-
-    function ProductCard({ catalogKey }) {
-      const product = PRODUCT_CATALOG[catalogKey];
-      if (!product) return null;
-      return (
-        <a
-          href={affLink(product.path)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="block bg-dark-700 hover:bg-gray-600/50 border border-gray-600 hover:border-emerald-500/50 rounded-lg p-3 transition-all group"
+          className="block glass card-hover rounded-xl p-3.5 group cursor-pointer"
         >
           <div className="flex justify-between items-start gap-2">
-            <div className="min-w-0">
-              <p className="text-gray-100 font-medium text-sm group-hover:text-emerald-400 transition-colors">
-                {product.label || catalogKey}
-                {product.isBlend && <span className="ml-1.5 text-xs bg-blue-600/30 text-blue-300 px-1.5 py-0.5 rounded">Blend</span>}
-              </p>
-              <p className="text-gray-400 text-xs mt-0.5">{product.description}</p>
+            <div className="min-w-0 flex-1">
+              <div className="flex items-center gap-2 flex-wrap">
+                <p className="text-gray-100 font-semibold text-sm group-hover:text-white transition-colors">
+                  {product.label || catalogKey}
+                </p>
+                {product.isBlend && (
+                  <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full stack-badge text-purple-300">
+                    Blend
+                  </span>
+                )}
+              </div>
+              {!compact && <p className="text-gray-400 text-xs mt-1 leading-relaxed">{product.description}</p>}
+              {!compact && (
+                <div className="flex items-center gap-3 mt-2">
+                  <span className="text-[10px] text-gray-500 uppercase tracking-wide">{product.frequency}</span>
+                  <span className="text-gray-600">|</span>
+                  <span className="text-[10px] text-gray-500 uppercase tracking-wide">{product.route}</span>
+                </div>
+              )}
             </div>
-            <span className="shrink-0 text-xs bg-emerald-600/20 text-emerald-400 px-2 py-1 rounded font-medium">
-              5% off →
+            <span className="shrink-0 text-xs shop-btn text-white px-3 py-1.5 rounded-lg font-medium whitespace-nowrap">
+              5% off &rarr;
             </span>
           </div>
         </a>
       );
     }
 
+    function StackCard({ stack }) {
+      return (
+        <div className="glass rounded-xl p-4 space-y-2">
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-bold uppercase tracking-wider gradient-text">{stack.name}</span>
+          </div>
+          <p className="text-gray-400 text-xs leading-relaxed">{stack.why}</p>
+          <div className="flex flex-wrap gap-1.5 pt-1">
+            {stack.peptides.map((p) => (
+              <span key={p} className="text-[10px] px-2 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">{p}</span>
+            ))}
+          </div>
+          {stack.blend && (
+            <a
+              href={affLink(PRODUCT_CATALOG[stack.blend]?.path || "")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 shop-btn text-white text-xs font-medium px-3 py-1.5 rounded-lg mt-1"
+            >
+              Shop as blend — 5% off &rarr;
+            </a>
+          )}
+        </div>
+      );
+    }
+
+    function NumberInput({ label, value, onChange, unit, min, step }) {
+      return (
+        <div className="space-y-1.5">
+          <label className="block text-xs font-medium text-gray-400 uppercase tracking-wide">{label}</label>
+          <div className="relative">
+            <input
+              type="number"
+              value={value}
+              onChange={(e) => onChange(parseFloat(e.target.value) || 0)}
+              min={min || 0}
+              step={step || "any"}
+              className="w-full input-glass rounded-lg px-3 py-2.5 pr-14 text-gray-100"
+            />
+            {unit && (
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 text-xs font-medium">
+                {unit}
+              </span>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    // ── Peptide Finder ──
+
+    function PeptideFinder() {
+      const [selectedGoals, setSelectedGoals] = useState([]);
+      const [experience, setExperience] = useState("any");
+      const [adminPref, setAdminPref] = useState("any");
+      const [showStacks, setShowStacks] = useState(false);
+
+      const toggleGoal = (id) => {
+        setSelectedGoals((prev) =>
+          prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+        );
+      };
+
+      const recommendations = useMemo(() => {
+        if (selectedGoals.length === 0) return [];
+        const counts = {};
+        const goalMap = {};
+        selectedGoals.forEach((id) => {
+          const goal = RESEARCH_GOALS.find((g) => g.id === id);
+          if (!goal) return;
+          goal.peptides.forEach((p) => {
+            counts[p] = (counts[p] || 0) + 1;
+            if (!goalMap[p]) goalMap[p] = [];
+            goalMap[p].push(goal.label);
+          });
+        });
+
+        let results = Object.entries(counts)
+          .map(([name, count]) => ({ name, count, goals: goalMap[name], product: PRODUCT_CATALOG[name] }))
+          .filter((r) => r.product);
+
+        // Filter by experience: new users see singles first, experienced see blends first
+        if (experience === "new") {
+          results.sort((a, b) => {
+            if (a.product.isBlend && !b.product.isBlend) return 1;
+            if (!a.product.isBlend && b.product.isBlend) return -1;
+            return b.count - a.count;
+          });
+        } else if (experience === "experienced") {
+          results.sort((a, b) => {
+            if (a.product.isBlend && !b.product.isBlend) return -1;
+            if (!a.product.isBlend && b.product.isBlend) return 1;
+            return b.count - a.count;
+          });
+        } else {
+          results.sort((a, b) => b.count - a.count);
+        }
+
+        // Filter by admin preference
+        if (adminPref === "capsule") {
+          results = results.filter((r) => r.product.capsuleAvailable);
+        } else if (adminPref === "injectable") {
+          results = results.filter((r) => !r.product.capsuleAvailable || r.product.route.includes("Subcutaneous"));
+        }
+
+        return results;
+      }, [selectedGoals, experience, adminPref]);
+
+      const relevantStacks = useMemo(() => {
+        if (selectedGoals.length === 0) return [];
+        const allPeptides = new Set();
+        selectedGoals.forEach((id) => {
+          const goal = RESEARCH_GOALS.find((g) => g.id === id);
+          if (goal) goal.peptides.forEach((p) => allPeptides.add(p));
+        });
+        return STACK_SUGGESTIONS.filter((s) =>
+          s.peptides.some((p) => allPeptides.has(p))
+        );
+      }, [selectedGoals]);
+
+      return (
+        <div className="space-y-5 fade-in">
+          {/* Goals grid */}
+          <div className="text-center space-y-1">
+            <h2 className="text-lg font-bold text-gray-100">What are you researching?</h2>
+            <p className="text-gray-500 text-xs">Select your research areas for personalized recommendations</p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-2">
+            {RESEARCH_GOALS.map((goal) => {
+              const active = selectedGoals.includes(goal.id);
+              return (
+                <button
+                  key={goal.id}
+                  onClick={() => toggleGoal(goal.id)}
+                  className={`text-left p-3 rounded-xl border transition-all card-hover ${
+                    active
+                      ? "goal-selected"
+                      : "glass border-white/5 hover:border-white/15"
+                  }`}
+                >
+                  <div className="text-base mb-0.5">{goal.icon}</div>
+                  <p className={`text-xs font-semibold ${active ? "text-purple-300" : "text-gray-200"}`}>
+                    {goal.label}
+                  </p>
+                  <p className="text-[10px] text-gray-500 mt-0.5 leading-tight">{goal.description}</p>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Filters — only show after goal selection */}
+          {selectedGoals.length > 0 && (
+            <div className="space-y-3 fade-in">
+              {/* Experience level */}
+              <div className="space-y-2">
+                <label className="block text-xs font-medium text-gray-400 uppercase tracking-wide">Experience Level</label>
+                <div className="flex gap-1.5">
+                  {[
+                    { id: "new", label: "New to Peptides", desc: "Show simpler options first" },
+                    { id: "experienced", label: "Experienced", desc: "Show blends & stacks first" },
+                    { id: "any", label: "Show All", desc: "" },
+                  ].map((opt) => (
+                    <button
+                      key={opt.id}
+                      onClick={() => setExperience(opt.id)}
+                      className={`flex-1 py-2 px-2 rounded-lg text-xs font-medium transition-all ${
+                        experience === opt.id
+                          ? "pill-active text-white"
+                          : "pill-track text-gray-400 hover:text-gray-200"
+                      }`}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Administration preference */}
+              <div className="space-y-2">
+                <label className="block text-xs font-medium text-gray-400 uppercase tracking-wide">Administration</label>
+                <div className="flex gap-1.5">
+                  {[
+                    { id: "any", label: "Any" },
+                    { id: "injectable", label: "Injectable" },
+                    { id: "capsule", label: "Capsule / Oral" },
+                  ].map((opt) => (
+                    <button
+                      key={opt.id}
+                      onClick={() => setAdminPref(opt.id)}
+                      className={`flex-1 py-2 px-2 rounded-lg text-xs font-medium transition-all ${
+                        adminPref === opt.id
+                          ? "pill-active text-white"
+                          : "pill-track text-gray-400 hover:text-gray-200"
+                      }`}
+                    >
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Recommendations */}
+          {recommendations.length > 0 && (
+            <div className="space-y-3 fade-in">
+              <div className="flex items-center justify-between">
+                <h3 className="text-xs font-bold text-gray-300 uppercase tracking-wider">
+                  Recommended for You
+                </h3>
+                <span className="text-[10px] text-emerald-400 font-medium">5% off all products</span>
+              </div>
+              <div className="space-y-2">
+                {recommendations.map(({ name, count, goals }) => (
+                  <div key={name} className="fade-in">
+                    <ProductCard catalogKey={name} />
+                    {count > 1 && (
+                      <p className="text-[10px] text-purple-400/80 mt-1 ml-3">
+                        Matches {count} of your goals: {goals.join(", ")}
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Stacks */}
+          {relevantStacks.length > 0 && selectedGoals.length > 0 && (
+            <div className="space-y-3">
+              <button
+                onClick={() => setShowStacks(!showStacks)}
+                className="flex items-center gap-2 text-xs font-bold text-gray-300 uppercase tracking-wider hover:text-white transition-colors"
+              >
+                <span>{showStacks ? "\u25BC" : "\u25B6"}</span>
+                Synergistic Stacks ({relevantStacks.length})
+              </button>
+              {showStacks && (
+                <div className="space-y-2 fade-in">
+                  {relevantStacks.map((stack) => (
+                    <StackCard key={stack.name} stack={stack} />
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {selectedGoals.length > 0 && (
+            <button
+              onClick={() => { setSelectedGoals([]); setExperience("any"); setAdminPref("any"); }}
+              className="w-full glass hover:bg-white/10 text-gray-400 hover:text-gray-200 font-medium py-2 rounded-xl transition-all text-xs"
+            >
+              Clear All
+            </button>
+          )}
+        </div>
+      );
+    }
+
+    // ── Calculator ──
+
     function PeptideSelector({ peptide, customPeptide, onSelect, onChange }) {
       const catalogKey = CALC_TO_CATALOG[peptide];
+      const product = catalogKey ? PRODUCT_CATALOG[catalogKey] : null;
       return (
-        <div className="space-y-2">
-          <label className="block text-sm font-medium text-gray-300">Peptide</label>
+        <div className="space-y-3">
+          <label className="block text-xs font-medium text-gray-400 uppercase tracking-wide">Peptide</label>
           <select
             value={peptide}
             onChange={(e) => onSelect(e.target.value)}
-            className="w-full bg-dark-700 border border-gray-600 rounded-lg px-3 py-2.5 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full input-glass rounded-lg px-3 py-2.5 text-gray-100 appearance-none cursor-pointer"
           >
             {PEPTIDE_NAMES.map((p) => (
               <option key={p} value={p}>{p}</option>
@@ -303,40 +823,40 @@
               placeholder="Enter peptide name"
               value={customPeptide}
               onChange={(e) => onChange("customPeptide", e.target.value)}
-              className="w-full bg-dark-700 border border-gray-600 rounded-lg px-3 py-2.5 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full input-glass rounded-lg px-3 py-2.5 text-gray-100 placeholder-gray-600"
             />
           )}
           {PEPTIDE_PRESETS[peptide] && (
-            <p className="text-xs text-gray-500">
-              Recommended: {PEPTIDE_PRESETS[peptide].vialMg} mg vial with {PEPTIDE_PRESETS[peptide].waterMl} mL bac water, typical dose {PEPTIDE_PRESETS[peptide].doseMcg} mcg
+            <p className="text-[10px] text-gray-500">
+              Recommended: {PEPTIDE_PRESETS[peptide].vialMg} mg vial + {PEPTIDE_PRESETS[peptide].waterMl} mL bac water, typical dose {PEPTIDE_PRESETS[peptide].doseMcg} mcg
             </p>
           )}
-          {catalogKey && (
-            <ShopButton catalogKey={catalogKey} className="w-full justify-center mt-1" />
+          {/* Dosing info card */}
+          {product && (
+            <div className="glass rounded-lg p-3 space-y-2">
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <p className="text-[10px] text-gray-500 uppercase tracking-wide">Frequency</p>
+                  <p className="text-xs text-gray-200 font-medium">{product.frequency}</p>
+                </div>
+                <div>
+                  <p className="text-[10px] text-gray-500 uppercase tracking-wide">Route</p>
+                  <p className="text-xs text-gray-200 font-medium">{product.route}</p>
+                </div>
+              </div>
+              {product.notes && (
+                <p className="text-[10px] text-gray-400 leading-relaxed">{product.notes}</p>
+              )}
+              <a
+                href={affLink(product.path)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-center shop-btn text-white text-xs font-semibold px-4 py-2 rounded-lg"
+              >
+                Shop {product.label || catalogKey} — 5% Off
+              </a>
+            </div>
           )}
-        </div>
-      );
-    }
-
-    function NumberInput({ label, value, onChange, unit, min, step }) {
-      return (
-        <div className="space-y-1">
-          <label className="block text-sm font-medium text-gray-300">{label}</label>
-          <div className="relative">
-            <input
-              type="number"
-              value={value}
-              onChange={(e) => onChange(parseFloat(e.target.value) || 0)}
-              min={min || 0}
-              step={step || "any"}
-              className="w-full bg-dark-700 border border-gray-600 rounded-lg px-3 py-2.5 pr-14 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            />
-            {unit && (
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">
-                {unit}
-              </span>
-            )}
-          </div>
         </div>
       );
     }
@@ -344,98 +864,53 @@
     function InputSection({ state, onChange }) {
       return (
         <div className="space-y-4">
-          <h2 className="text-lg font-semibold text-gray-200">Vial & Reconstitution</h2>
-          <div className="grid grid-cols-2 gap-4">
-            <NumberInput
-              label="Vial Amount"
-              value={state.vialMg}
-              onChange={(v) => onChange("vialMg", v)}
-              unit="mg"
-              min={0.1}
-              step={0.5}
-            />
-            <NumberInput
-              label="Bacteriostatic Water"
-              value={state.waterMl}
-              onChange={(v) => onChange("waterMl", v)}
-              unit="mL"
-              min={0.1}
-              step={0.5}
-            />
+          <h3 className="text-xs font-bold text-gray-300 uppercase tracking-wider">Vial & Reconstitution</h3>
+          <div className="grid grid-cols-2 gap-3">
+            <NumberInput label="Vial Amount" value={state.vialMg} onChange={(v) => onChange("vialMg", v)} unit="mg" min={0.1} step={0.5} />
+            <NumberInput label="Bac Water" value={state.waterMl} onChange={(v) => onChange("waterMl", v)} unit="mL" min={0.1} step={0.5} />
           </div>
 
-          <h2 className="text-lg font-semibold text-gray-200 pt-2">Dose</h2>
-          <div className="flex gap-2">
+          <h3 className="text-xs font-bold text-gray-300 uppercase tracking-wider pt-1">Dose</h3>
+          <div className="flex gap-1.5">
             <button
               onClick={() => onChange("doseMode", "flat")}
-              className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
-                state.doseMode === "flat"
-                  ? "bg-blue-600 text-white"
-                  : "bg-dark-700 text-gray-400 hover:bg-gray-600"
+              className={`flex-1 py-2 rounded-lg text-xs font-medium transition-all ${
+                state.doseMode === "flat" ? "pill-active text-white" : "pill-track text-gray-400 hover:text-gray-200"
               }`}
             >
               Flat Dose (mcg)
             </button>
             <button
               onClick={() => onChange("doseMode", "perkg")}
-              className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
-                state.doseMode === "perkg"
-                  ? "bg-blue-600 text-white"
-                  : "bg-dark-700 text-gray-400 hover:bg-gray-600"
+              className={`flex-1 py-2 rounded-lg text-xs font-medium transition-all ${
+                state.doseMode === "perkg" ? "pill-active text-white" : "pill-track text-gray-400 hover:text-gray-200"
               }`}
             >
-              Per Body Weight (mcg/kg)
+              Per Body Weight
             </button>
           </div>
 
           {state.doseMode === "flat" ? (
-            <NumberInput
-              label="Dose"
-              value={state.doseMcg}
-              onChange={(v) => onChange("doseMcg", v)}
-              unit="mcg"
-              min={1}
-              step={10}
-            />
+            <NumberInput label="Dose" value={state.doseMcg} onChange={(v) => onChange("doseMcg", v)} unit="mcg" min={1} step={10} />
           ) : (
-            <div className="grid grid-cols-2 gap-4">
-              <NumberInput
-                label="Dose per kg"
-                value={state.doseMcgPerKg}
-                onChange={(v) => onChange("doseMcgPerKg", v)}
-                unit="mcg/kg"
-                min={0.1}
-                step={0.5}
-              />
-              <NumberInput
-                label="Body Weight"
-                value={state.bodyWeightKg}
-                onChange={(v) => onChange("bodyWeightKg", v)}
-                unit="kg"
-                min={1}
-                step={1}
-              />
+            <div className="grid grid-cols-2 gap-3">
+              <NumberInput label="Dose per kg" value={state.doseMcgPerKg} onChange={(v) => onChange("doseMcgPerKg", v)} unit="mcg/kg" min={0.1} step={0.5} />
+              <NumberInput label="Body Weight" value={state.bodyWeightKg} onChange={(v) => onChange("bodyWeightKg", v)} unit="kg" min={1} step={1} />
             </div>
           )}
         </div>
       );
     }
 
-    function ResultsCard({ state }) {
+    function ResultsCard({ state, onShare }) {
       const totalMcg = state.vialMg * 1000;
       const concentration = state.waterMl > 0 ? totalMcg / state.waterMl : 0;
-      const effectiveDose =
-        state.doseMode === "flat"
-          ? state.doseMcg
-          : state.doseMcgPerKg * state.bodyWeightKg;
+      const effectiveDose = state.doseMode === "flat" ? state.doseMcg : state.doseMcgPerKg * state.bodyWeightKg;
       const volumeMl = concentration > 0 ? effectiveDose / concentration : 0;
       const syringeUnits = volumeMl * 100;
       const dosesPerVial = effectiveDose > 0 ? totalMcg / effectiveDose : 0;
 
-      const peptideName =
-        state.peptide === "Other"
-          ? state.customPeptide || "Custom Peptide"
-          : state.peptide;
+      const peptideName = state.peptide === "Other" ? state.customPeptide || "Custom Peptide" : state.peptide;
 
       const instructions = [
         `Reconstitute the ${state.vialMg} mg vial of ${peptideName} with ${state.waterMl} mL of bacteriostatic water.`,
@@ -446,202 +921,91 @@
 
       const fullText = [
         `--- ${peptideName} Reconstitution Instructions ---`,
-        `FOR RESEARCH USE ONLY`,
-        "",
-        ...instructions.map((s, i) => `${i + 1}. ${s}`),
-        "",
-        "Safety: Use proper aseptic technique. Store reconstituted peptide refrigerated (2-8°C). Use within recommended timeframe per protocol.",
-        "",
+        `FOR RESEARCH USE ONLY`, "",
+        ...instructions.map((s, i) => `${i + 1}. ${s}`), "",
+        "Safety: Use aseptic technique. Store reconstituted peptide at 2-8\u00B0C.", "",
         "DISCLAIMER: For research use only. Not for human consumption.",
       ].join("\n");
 
       const [copied, setCopied] = useState(false);
+      const [shareMsg, setShareMsg] = useState("");
       const handleCopy = async () => {
-        try {
-          await navigator.clipboard.writeText(fullText);
-          setCopied(true);
-          setTimeout(() => setCopied(false), 2000);
-        } catch {
-          const ta = document.createElement("textarea");
-          ta.value = fullText;
-          document.body.appendChild(ta);
-          ta.select();
-          document.execCommand("copy");
-          document.body.removeChild(ta);
-          setCopied(true);
-          setTimeout(() => setCopied(false), 2000);
+        try { await navigator.clipboard.writeText(fullText); } catch {
+          const ta = document.createElement("textarea"); ta.value = fullText;
+          document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
         }
+        setCopied(true); setTimeout(() => setCopied(false), 2000);
+      };
+
+      const handleShare = async () => {
+        const url = `${window.location.origin}${window.location.pathname}#calc=${encodeState(state)}`;
+        try { await navigator.clipboard.writeText(url); } catch {
+          const ta = document.createElement("textarea"); ta.value = url;
+          document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
+        }
+        setShareMsg("Link copied!"); setTimeout(() => setShareMsg(""), 2000);
       };
 
       const isValid = state.vialMg > 0 && state.waterMl > 0 && effectiveDose > 0;
 
+      const ResultRow = ({ label, value }) => (
+        <div className="flex justify-between items-center py-2">
+          <span className="text-gray-500 text-xs">{label}</span>
+          <span className="num-highlight font-bold text-lg">{value}</span>
+        </div>
+      );
+
       return (
-        <div className="space-y-4">
-          <h2 className="text-lg font-semibold text-gray-200">Results</h2>
+        <div className="space-y-4 fade-in">
+          <h3 className="text-xs font-bold text-gray-300 uppercase tracking-wider">Results</h3>
 
           {!isValid ? (
-            <div className="bg-dark-700 rounded-lg p-4 text-gray-400 text-center">
+            <div className="glass rounded-xl p-6 text-gray-500 text-center text-sm">
               Enter valid values above to see results.
             </div>
           ) : (
             <>
-              <div className="bg-dark-700 rounded-lg p-4 space-y-3">
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400 text-sm">Concentration</span>
-                  <span className="text-green-400 font-bold text-lg">
-                    {concentration.toFixed(1)} mcg/mL
-                  </span>
-                </div>
-                <div className="border-t border-gray-600" />
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400 text-sm">Effective Dose</span>
-                  <span className="text-green-400 font-bold text-lg">
-                    {effectiveDose.toFixed(1)} mcg
-                  </span>
-                </div>
-                <div className="border-t border-gray-600" />
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400 text-sm">Volume per Dose</span>
-                  <span className="text-green-400 font-bold text-lg">
-                    {volumeMl.toFixed(4)} mL
-                  </span>
-                </div>
-                <div className="border-t border-gray-600" />
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400 text-sm">Syringe Draw (U-100)</span>
-                  <span className="text-green-400 font-bold text-lg">
-                    {syringeUnits.toFixed(1)} units
-                  </span>
-                </div>
-                <div className="border-t border-gray-600" />
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400 text-sm">Doses per Vial</span>
-                  <span className="text-green-400 font-bold text-lg">
-                    ~{Math.floor(dosesPerVial)}
-                  </span>
-                </div>
+              <div className="glass rounded-xl p-4 divide-y divide-white/5">
+                <ResultRow label="Concentration" value={`${concentration.toFixed(1)} mcg/mL`} />
+                <ResultRow label="Effective Dose" value={`${effectiveDose.toFixed(1)} mcg`} />
+                <ResultRow label="Volume per Dose" value={`${volumeMl.toFixed(4)} mL`} />
+                <ResultRow label="Syringe Draw (U-100)" value={`${syringeUnits.toFixed(1)} units`} />
+                <ResultRow label="Doses per Vial" value={`~${Math.floor(dosesPerVial)}`} />
               </div>
 
-              <div className="bg-dark-700 rounded-lg p-4 space-y-2">
-                <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide">
-                  Step-by-Step Instructions
-                </h3>
-                <ol className="list-decimal list-inside space-y-1.5 text-gray-300 text-sm">
+              <div className="glass rounded-xl p-4 space-y-2">
+                <h4 className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Step-by-Step Instructions</h4>
+                <ol className="space-y-1.5">
                   {instructions.map((step, i) => (
-                    <li key={i}>{step}</li>
+                    <li key={i} className="text-gray-300 text-xs flex gap-2">
+                      <span className="num-highlight font-bold shrink-0">{i + 1}.</span>
+                      <span>{step}</span>
+                    </li>
                   ))}
                 </ol>
               </div>
 
-              <div className="bg-red-900/30 border border-red-800 rounded-lg p-3">
-                <p className="text-red-400 text-xs font-medium">
-                  Safety: Use proper aseptic technique. Store reconstituted peptide
-                  refrigerated (2-8 °C). Use within recommended timeframe per protocol.
+              <div className="disclaimer-bar rounded-xl p-3">
+                <p className="text-red-400/80 text-[10px] font-medium">
+                  Safety: Use proper aseptic technique. Store reconstituted peptide refrigerated at 2-8 °C. Use within recommended timeframe per protocol.
                 </p>
               </div>
 
-              <button
-                onClick={handleCopy}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg transition-colors"
-              >
-                {copied ? "Copied!" : "Copy Instructions"}
-              </button>
-            </>
-          )}
-        </div>
-      );
-    }
-
-    // ── Peptide Finder ──
-
-    function PeptideFinder() {
-      const [selected, setSelected] = useState([]);
-
-      const toggle = (id) => {
-        setSelected((prev) =>
-          prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
-        );
-      };
-
-      // Collect recommended peptides from selected goals, ranked by frequency
-      const recommendations = (() => {
-        if (selected.length === 0) return [];
-        const counts = {};
-        const goalMap = {};
-        selected.forEach((id) => {
-          const goal = RESEARCH_GOALS.find((g) => g.id === id);
-          if (!goal) return;
-          goal.peptides.forEach((p) => {
-            counts[p] = (counts[p] || 0) + 1;
-            if (!goalMap[p]) goalMap[p] = [];
-            goalMap[p].push(goal.label);
-          });
-        });
-        return Object.entries(counts)
-          .sort((a, b) => b[1] - a[1])
-          .map(([name, count]) => ({ name, count, goals: goalMap[name] }));
-      })();
-
-      return (
-        <div className="space-y-4">
-          <div className="text-center space-y-1">
-            <h2 className="text-lg font-semibold text-gray-200">What are you researching?</h2>
-            <p className="text-gray-400 text-xs">Select one or more research areas to get peptide recommendations</p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-2">
-            {RESEARCH_GOALS.map((goal) => {
-              const active = selected.includes(goal.id);
-              return (
+              <div className="grid grid-cols-2 gap-2">
                 <button
-                  key={goal.id}
-                  onClick={() => toggle(goal.id)}
-                  className={`text-left p-3 rounded-lg border transition-all ${
-                    active
-                      ? "bg-blue-600/20 border-blue-500 ring-1 ring-blue-500/50"
-                      : "bg-dark-700 border-gray-600 hover:border-gray-500"
-                  }`}
+                  onClick={handleCopy}
+                  className="glass hover:bg-white/10 text-gray-300 hover:text-white font-medium py-2.5 rounded-xl transition-all text-xs"
                 >
-                  <div className="text-lg mb-0.5">{goal.icon}</div>
-                  <p className={`text-sm font-medium ${active ? "text-blue-300" : "text-gray-200"}`}>
-                    {goal.label}
-                  </p>
-                  <p className="text-xs text-gray-500 mt-0.5 leading-tight">{goal.description}</p>
+                  {copied ? "\u2713 Copied!" : "Copy Instructions"}
                 </button>
-              );
-            })}
-          </div>
-
-          {recommendations.length > 0 && (
-            <div className="space-y-3 pt-2">
-              <div className="flex items-center justify-between">
-                <h3 className="text-sm font-semibold text-gray-300 uppercase tracking-wide">
-                  Recommended Peptides
-                </h3>
-                <span className="text-xs text-emerald-400">5% off with our link</span>
+                <button
+                  onClick={handleShare}
+                  className="glass hover:bg-white/10 text-gray-300 hover:text-white font-medium py-2.5 rounded-xl transition-all text-xs"
+                >
+                  {shareMsg || "Share Calculation"}
+                </button>
               </div>
-              <div className="space-y-2">
-                {recommendations.map(({ name, count, goals }) => (
-                  <div key={name}>
-                    <ProductCard catalogKey={name} />
-                    {count > 1 && (
-                      <p className="text-xs text-blue-400 mt-0.5 ml-3">
-                        Matches {count} of your research areas: {goals.join(", ")}
-                      </p>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {selected.length > 0 && (
-            <button
-              onClick={() => setSelected([])}
-              className="w-full bg-gray-700 hover:bg-gray-600 text-gray-300 font-medium py-2 rounded-lg transition-colors text-sm"
-            >
-              Clear Selections
-            </button>
+            </>
           )}
         </div>
       );
@@ -650,8 +1014,18 @@
     // ── App ──
 
     function App() {
-      const [tab, setTab] = useState("finder");
-      const [state, setState] = useState({ ...DEFAULTS });
+      // Check URL for shared calculator state
+      const initialTab = window.location.hash.startsWith("#calc=") ? "calculator" : "finder";
+      const initialState = (() => {
+        if (window.location.hash.startsWith("#calc=")) {
+          const decoded = decodeState(window.location.hash.slice(6));
+          if (decoded) return decoded;
+        }
+        return { ...DEFAULTS };
+      })();
+
+      const [tab, setTab] = useState(initialTab);
+      const [state, setState] = useState(initialState);
 
       const onChange = useCallback((key, value) => {
         setState((prev) => ({ ...prev, [key]: value }));
@@ -660,85 +1034,70 @@
       const onSelectPeptide = useCallback((name) => {
         const preset = PEPTIDE_PRESETS[name];
         if (preset) {
-          setState((prev) => ({
-            ...prev,
-            peptide: name,
-            vialMg: preset.vialMg,
-            waterMl: preset.waterMl,
-            doseMcg: preset.doseMcg,
-            doseMode: "flat",
-          }));
+          setState((prev) => ({ ...prev, peptide: name, vialMg: preset.vialMg, waterMl: preset.waterMl, doseMcg: preset.doseMcg, doseMode: "flat" }));
         } else {
           setState((prev) => ({ ...prev, peptide: name }));
         }
       }, []);
 
-      const handleReset = () => setState({ ...DEFAULTS });
+      const handleReset = () => { setState({ ...DEFAULTS }); window.history.replaceState(null, "", window.location.pathname); };
 
       return (
-        <div className="max-w-lg mx-auto px-4 py-6 space-y-6">
-          <header className="text-center space-y-1">
-            <h1 className="text-2xl font-bold text-gray-100">
+        <div className="max-w-lg mx-auto px-4 py-8 space-y-6">
+          {/* Header */}
+          <header className="text-center space-y-2">
+            <h1 className="text-3xl font-extrabold gradient-text tracking-tight">
               Peptide Research Hub
             </h1>
-            <p className="text-gray-400 text-sm">
-              Find the right peptides and calculate reconstitution
+            <p className="text-gray-500 text-sm">
+              Find the right peptides &middot; Calculate reconstitution &middot; Shop with 5% off
             </p>
           </header>
 
           <DisclaimerBanner />
 
           {/* Tab switcher */}
-          <div className="flex gap-1 bg-dark-800 p-1 rounded-lg">
-            <button
-              onClick={() => setTab("finder")}
-              className={`flex-1 py-2.5 rounded-md text-sm font-medium transition-colors ${
-                tab === "finder"
-                  ? "bg-blue-600 text-white shadow"
-                  : "text-gray-400 hover:text-gray-200"
-              }`}
-            >
-              Peptide Finder
-            </button>
-            <button
-              onClick={() => setTab("calculator")}
-              className={`flex-1 py-2.5 rounded-md text-sm font-medium transition-colors ${
-                tab === "calculator"
-                  ? "bg-blue-600 text-white shadow"
-                  : "text-gray-400 hover:text-gray-200"
-              }`}
-            >
-              Reconstitution Calculator
-            </button>
+          <div className="flex gap-1 glass rounded-xl p-1">
+            {[
+              { id: "finder", label: "Peptide Finder" },
+              { id: "calculator", label: "Calculator" },
+            ].map((t) => (
+              <button
+                key={t.id}
+                onClick={() => setTab(t.id)}
+                className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${
+                  tab === t.id
+                    ? "pill-active text-white"
+                    : "text-gray-500 hover:text-gray-300"
+                }`}
+              >
+                {t.label}
+              </button>
+            ))}
           </div>
 
+          {/* Tab content */}
           {tab === "finder" ? (
-            <div className="bg-dark-800 rounded-xl p-5 shadow-lg">
+            <div className="glass-strong rounded-2xl p-5 shadow-2xl">
               <PeptideFinder />
             </div>
           ) : (
-            <>
-              <div className="bg-dark-800 rounded-xl p-5 space-y-5 shadow-lg">
-                <PeptideSelector
-                  peptide={state.peptide}
-                  customPeptide={state.customPeptide}
-                  onSelect={onSelectPeptide}
-                  onChange={onChange}
-                />
+            <div className="space-y-4 fade-in">
+              <div className="glass-strong rounded-2xl p-5 space-y-5 shadow-2xl">
+                <PeptideSelector peptide={state.peptide} customPeptide={state.customPeptide} onSelect={onSelectPeptide} onChange={onChange} />
+                <div className="border-t border-white/5" />
                 <InputSection state={state} onChange={onChange} />
               </div>
-
-              <div className="bg-dark-800 rounded-xl p-5 shadow-lg">
+              <div className="glass-strong rounded-2xl p-5 shadow-2xl">
                 <ResultsCard state={state} />
               </div>
-
               <button
                 onClick={handleReset}
-                className="w-full bg-gray-700 hover:bg-gray-600 text-gray-300 font-medium py-2.5 rounded-lg transition-colors"
+                className="w-full glass hover:bg-white/10 text-gray-500 hover:text-gray-200 font-medium py-2.5 rounded-xl transition-all text-sm"
               >
                 Reset to Defaults
               </button>
-            </>
+            </div>
           )}
 
           {/* Shop CTA */}
@@ -746,20 +1105,21 @@
             href={affLink("")}
             target="_blank"
             rel="noopener noreferrer"
-            className="block bg-emerald-600/10 border border-emerald-500/30 hover:border-emerald-500/60 rounded-xl p-4 text-center transition-all group"
+            className="block glass card-hover rounded-2xl p-5 text-center group"
           >
-            <p className="text-emerald-400 font-semibold group-hover:text-emerald-300 transition-colors">
-              Shop All Peptides at Peptide Restore
+            <p className="text-lg font-bold gradient-text group-hover:opacity-90 transition-opacity">
+              Shop All Peptides
             </p>
-            <p className="text-emerald-500/70 text-xs mt-1">
-              Get 5% off your order with our exclusive discount
+            <p className="text-gray-500 text-xs mt-1">
+              Peptide Restore &middot; Get 5% off with our exclusive discount
             </p>
           </a>
 
           <DisclaimerBanner />
 
-          <footer className="text-center text-gray-500 text-xs pb-4">
-            Research tool only. Verify all calculations independently.
+          <footer className="text-center text-gray-600 text-[10px] pb-6 space-y-1">
+            <p>Research tool only. Verify all calculations independently.</p>
+            <p>Not affiliated with any pharmaceutical company. All peptides are sold for research purposes only.</p>
           </footer>
         </div>
       );
