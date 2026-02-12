@@ -35,8 +35,8 @@
     .bg-blob-2 { width: 500px; height: 500px; background: #0ea5e9; bottom: -10%; right: -10%; animation-delay: -7s; }
     .bg-blob-3 { width: 400px; height: 400px; background: #10b981; top: 40%; left: 50%; animation-delay: -14s; }
     @keyframes drift { 0%{transform:translate(0,0) scale(1)} 50%{transform:translate(30px,-40px) scale(1.05)} 100%{transform:translate(-10px,10px) scale(.97)} }
-    .glass { background: rgba(255,255,255,0.04); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.08); }
-    .glass-strong { background: rgba(255,255,255,0.07); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.12); }
+    .glass { background: rgba(255,255,255,0.07); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.12); }
+    .glass-strong { background: rgba(255,255,255,0.10); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: 1px solid rgba(255,255,255,0.16); }
     .gradient-text { background: linear-gradient(135deg, #a78bfa, #38bdf8, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .fade-in { animation: fadeIn .4s ease-out; }
     .slide-in { animation: slideIn .35s ease-out; }
@@ -44,13 +44,13 @@
     @keyframes slideIn { from{opacity:0;transform:translateX(20px)} to{opacity:1;transform:translateX(0)} }
     .card-hover { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
     .card-hover:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,.3); }
-    .pill-track { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); }
+    .pill-track { background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.15); }
     .pill-active { background: linear-gradient(135deg, #7c3aed, #2563eb); box-shadow: 0 2px 12px rgba(124,58,237,.35); }
     .num-highlight { background: linear-gradient(135deg, #34d399, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .shop-btn { background: linear-gradient(135deg, #059669, #0d9488); transition: all .2s ease; }
     .shop-btn:hover { background: linear-gradient(135deg, #047857, #0f766e); box-shadow: 0 4px 15px rgba(5,150,105,.3); transform: translateY(-1px); }
     .goal-selected { border-color: rgba(139,92,246,.6); background: rgba(139,92,246,.1); box-shadow: 0 0 20px rgba(139,92,246,.15), inset 0 0 20px rgba(139,92,246,.05); }
-    .input-glass { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); transition: border-color .2s, box-shadow .2s; }
+    .input-glass { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); transition: border-color .2s, box-shadow .2s; }
     .input-glass:focus { border-color: rgba(139,92,246,.5); box-shadow: 0 0 0 3px rgba(139,92,246,.15); outline: none; }
     .stack-badge { background: linear-gradient(135deg, rgba(139,92,246,.2), rgba(56,189,248,.2)); border: 1px solid rgba(139,92,246,.3); }
     .disclaimer-bar { background: linear-gradient(135deg, rgba(239,68,68,.12), rgba(239,68,68,.06)); border: 1px solid rgba(239,68,68,.25); }
@@ -338,12 +338,12 @@
                 <p className="text-gray-100 font-semibold text-sm group-hover:text-white transition-colors">{p.label||name}</p>
                 {p.blend && <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full stack-badge text-purple-300">Blend</span>}
               </div>
-              {!compact && <p className="text-gray-400 text-xs mt-1 leading-relaxed">{p.desc}</p>}
+              {!compact && <p className="text-gray-300 text-xs mt-1 leading-relaxed">{p.desc}</p>}
               {!compact && (
                 <div className="flex items-center gap-3 mt-1.5">
-                  <span className="text-[10px] text-gray-400 uppercase tracking-wide">{p.freq}</span>
-                  <span className="text-gray-500">|</span>
-                  <span className="text-[10px] text-gray-400 uppercase tracking-wide">{p.route}</span>
+                  <span className="text-[10px] text-gray-300 uppercase tracking-wide">{p.freq}</span>
+                  <span className="text-gray-400">|</span>
+                  <span className="text-[10px] text-gray-300 uppercase tracking-wide">{p.route}</span>
                 </div>
               )}
             </div>
@@ -358,7 +358,7 @@
       return (
         <div className="glass rounded-xl p-4 space-y-2">
           <span className="text-xs font-bold uppercase tracking-wider gradient-text">{stack.name}</span>
-          <p className="text-gray-400 text-xs leading-relaxed">{stack.why}</p>
+          <p className="text-gray-300 text-xs leading-relaxed">{stack.why}</p>
           <div className="flex flex-wrap gap-1.5 pt-1">
             {stack.peptides.map((pp) => (
               <span key={pp} className="text-[10px] px-2 py-1 rounded-full bg-white/5 border border-white/10 text-gray-300">{pp}</span>
@@ -448,7 +448,7 @@
             <span className={`text-gray-400 text-xs transition-transform duration-200 shrink-0 ${open ? "rotate-180" : ""}`}>{"\u25BC"}</span>
           </div>
           <div className={`faq-answer ${open ? "open" : ""}`} style={{maxHeight: open ? "200px" : "0", padding: open ? "0 14px 14px" : "0 14px"}}>
-            <p className="text-gray-400 text-xs leading-relaxed">{faq.a}</p>
+            <p className="text-gray-300 text-xs leading-relaxed">{faq.a}</p>
           </div>
         </button>
       );
@@ -488,7 +488,7 @@
               <div className="text-center space-y-3 py-4">
                 <div className="success-check text-4xl">{"\u2705"}</div>
                 <p className="text-lg font-bold text-gray-100">You're in!</p>
-                <p className="text-gray-400 text-sm">Check your inbox for your personalized protocol guide.</p>
+                <p className="text-gray-300 text-sm">Check your inbox for your personalized protocol guide.</p>
               </div>
             ) : (
               <>
@@ -496,12 +496,12 @@
                 <div className="text-center space-y-2">
                   <p className="text-2xl">{"\u{1F9EC}"}</p>
                   <h3 className="text-lg font-bold text-gray-100">Wait — Don't Miss Out</h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">Get your <span className="text-purple-300 font-semibold">free personalized peptide protocol</span> plus 5% off your first order.</p>
+                  <p className="text-gray-300 text-sm leading-relaxed">Get your <span className="text-purple-300 font-semibold">free personalized peptide protocol</span> plus 5% off your first order.</p>
                 </div>
                 <form onSubmit={handleSubmit} className="space-y-3">
                   <input type="email" required placeholder="you@email.com" value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full input-glass rounded-lg px-3 py-3 text-sm text-gray-100 placeholder-gray-500" autoFocus />
+                    className="w-full input-glass rounded-lg px-3 py-3 text-sm text-gray-100 placeholder-gray-400" autoFocus />
                   <button type="submit" className="w-full pill-active text-white font-bold py-3 rounded-lg text-sm">
                     Get My Free Protocol
                   </button>
@@ -556,7 +556,7 @@
         <div className="space-y-5 fade-in">
           <div className="text-center space-y-1">
             <h2 className="text-lg font-bold text-gray-100">Build Your Protocol</h2>
-            <p className="text-gray-400 text-xs">Add peptides and schedule them throughout your day</p>
+            <p className="text-gray-300 text-xs">Add peptides and schedule them throughout your day</p>
           </div>
 
           {/* Add peptide */}
@@ -568,7 +568,7 @@
                 {catalogKeys.map(k => <option key={k} value={k}>{CATALOG[k].label || k}</option>)}
               </select>
               <button onClick={addEntry} disabled={!addPeptide}
-                className={`px-4 py-2.5 rounded-lg text-sm font-semibold transition-all ${addPeptide ? "pill-active text-white" : "glass text-gray-500 cursor-not-allowed"}`}>
+                className={`px-4 py-2.5 rounded-lg text-sm font-semibold transition-all ${addPeptide ? "pill-active text-white" : "glass text-gray-400 cursor-not-allowed"}`}>
                 + Add
               </button>
             </div>
@@ -590,15 +590,15 @@
                         <div className="flex-1 min-w-0 space-y-2">
                           <div className="flex items-center justify-between gap-2">
                             <p className="text-sm font-semibold text-gray-100 truncate">{cat.label || entry.peptide}</p>
-                            <button onClick={() => removeEntry(entry.id)} className="text-gray-400 hover:text-red-400 text-xs shrink-0 transition-colors">&times; Remove</button>
+                            <button onClick={() => removeEntry(entry.id)} className="text-gray-300 hover:text-red-400 text-xs shrink-0 transition-colors">&times; Remove</button>
                           </div>
-                          <div className="flex items-center gap-2 text-[10px] text-gray-400">
-                            <span>{cat.freq}</span><span className="text-gray-500">|</span><span>{cat.route}</span>
+                          <div className="flex items-center gap-2 text-[10px] text-gray-300">
+                            <span>{cat.freq}</span><span className="text-gray-400">|</span><span>{cat.route}</span>
                           </div>
                           <div className="flex gap-1">
                             {Object.entries(TIME_LABELS).map(([k, label]) => (
                               <button key={k} onClick={() => updateTime(entry.id, k)}
-                                className={`flex-1 py-1.5 rounded-md text-[10px] font-medium transition-all ${entry.timeOfDay === k ? "pill-active text-white" : "pill-track text-gray-300 hover:text-gray-100"}`}>
+                                                className={`flex-1 py-1.5 rounded-md text-[10px] font-medium transition-all ${entry.timeOfDay === k ? "pill-active text-white" : "pill-track text-gray-200 hover:text-white"}`}>
                                 {TIME_ICONS[k]} {label}
                               </button>
                             ))}
@@ -630,7 +630,7 @@
                           className="flex items-center gap-2 glass rounded-lg p-2 group hover:border-white/20 transition-all">
                           <img src={cat.img} alt="" className="w-7 h-7 rounded object-contain bg-white/5" />
                           <span className="text-xs text-gray-300 group-hover:text-white flex-1">{cat.label || e.peptide}</span>
-                          <span className="text-[10px] text-gray-400">{cat.freq}</span>
+                          <span className="text-[10px] text-gray-300">{cat.freq}</span>
                         </a>
                       );
                     })}
@@ -713,7 +713,7 @@
           {/* Goals */}
           <div className="text-center space-y-1">
             <h2 className="text-lg font-bold text-gray-100">What are you researching?</h2>
-            <p className="text-gray-400 text-xs">Select your research areas for personalized recommendations</p>
+            <p className="text-gray-300 text-xs">Select your research areas for personalized recommendations</p>
           </div>
           <div className="grid grid-cols-2 gap-2">
             {GOALS.map((g) => {
@@ -723,7 +723,7 @@
                   className={`text-left p-3 rounded-xl border transition-all card-hover ${active?"goal-selected":"glass border-white/5 hover:border-white/15"}`}>
                   <div className="text-base mb-0.5">{g.icon}</div>
                   <p className={`text-xs font-semibold ${active?"text-purple-300":"text-gray-200"}`}>{g.label}</p>
-                  <p className="text-[10px] text-gray-400 mt-0.5 leading-tight">{g.desc}</p>
+                  <p className="text-[10px] text-gray-300 mt-0.5 leading-tight">{g.desc}</p>
                 </button>
               );
             })}
@@ -737,7 +737,7 @@
                 <div className="flex gap-1.5">
                   {[{id:"new",label:"New to Peptides"},{id:"experienced",label:"Experienced"},{id:"any",label:"Show All"}].map((opt)=>(
                     <button key={opt.id} onClick={()=>setExperience(opt.id)}
-                      className={`flex-1 py-2 px-2 rounded-lg text-xs font-medium transition-all ${experience===opt.id?"pill-active text-white":"pill-track text-gray-400 hover:text-gray-200"}`}>
+                      className={`flex-1 py-2 px-2 rounded-lg text-xs font-medium transition-all ${experience===opt.id?"pill-active text-white":"pill-track text-gray-200 hover:text-white"}`}>
                       {opt.label}
                     </button>
                   ))}
@@ -748,7 +748,7 @@
                 <div className="flex gap-1.5">
                   {[{id:"any",label:"Any"},{id:"injectable",label:"Injectable"},{id:"capsule",label:"Capsule / Oral"}].map((opt)=>(
                     <button key={opt.id} onClick={()=>setAdminPref(opt.id)}
-                      className={`flex-1 py-2 px-2 rounded-lg text-xs font-medium transition-all ${adminPref===opt.id?"pill-active text-white":"pill-track text-gray-400 hover:text-gray-200"}`}>
+                      className={`flex-1 py-2 px-2 rounded-lg text-xs font-medium transition-all ${adminPref===opt.id?"pill-active text-white":"pill-track text-gray-200 hover:text-white"}`}>
                       {opt.label}
                     </button>
                   ))}
@@ -778,12 +778,12 @@
                 <div className="glass-strong rounded-xl p-5 space-y-3 text-center fade-in">
                   <div className="space-y-1">
                     <p className="text-sm font-bold text-gray-100">+{recommendations.length - FREE_PREVIEW} more recommendations</p>
-                    <p className="text-xs text-gray-400">Enter your email to unlock your full personalized protocol, stack suggestions, and dosing guide.</p>
+                    <p className="text-xs text-gray-300">Enter your email to unlock your full personalized protocol, stack suggestions, and dosing guide.</p>
                   </div>
                   <form onSubmit={handleEmailSubmit} className="flex flex-col sm:flex-row gap-2">
                     <input type="email" required placeholder="you@email.com" value={email}
                       onChange={(e)=>setEmail(e.target.value)}
-                      className="flex-1 input-glass rounded-lg px-3 py-2.5 text-sm text-gray-100 placeholder-gray-500" />
+                      className="flex-1 input-glass rounded-lg px-3 py-2.5 text-sm text-gray-100 placeholder-gray-400" />
                     <button type="submit" disabled={submitting}
                       className="pill-active text-white font-semibold px-5 py-2.5 rounded-lg text-sm whitespace-nowrap">
                       {submitting ? "Unlocking..." : "Unlock All"}
@@ -798,7 +798,7 @@
                 <div className="glass-strong rounded-xl p-4 text-center fade-in space-y-2" style={{borderColor:"rgba(52,211,153,.3)"}}>
                   <div className="success-check text-3xl">{"\u2705"}</div>
                   <p className="text-sm font-bold text-emerald-300">Protocol Unlocked!</p>
-                  <p className="text-xs text-gray-400">Here are all your personalized recommendations. Shop any product for 5% off.</p>
+                  <p className="text-xs text-gray-300">Here are all your personalized recommendations. Shop any product for 5% off.</p>
                 </div>
               )}
 
@@ -908,7 +908,7 @@
               {state.peptide==="Other" && (
                 <input type="text" placeholder="Enter peptide name" value={state.customPeptide}
                   onChange={(e)=>onChange("customPeptide",e.target.value)}
-                  className="w-full input-glass rounded-lg px-3 py-2.5 text-gray-100 placeholder-gray-500" />
+                  className="w-full input-glass rounded-lg px-3 py-2.5 text-gray-100 placeholder-gray-400" />
               )}
               {PRESETS[state.peptide] && (
                 <p className="text-[10px] text-gray-400">Recommended: {PRESETS[state.peptide].vialMg} mg vial + {PRESETS[state.peptide].waterMl} mL bac water, typical dose {PRESETS[state.peptide].doseMcg} mcg</p>
@@ -922,7 +922,7 @@
                       <div><p className="text-[10px] text-gray-400 uppercase">Route</p><p className="text-xs text-gray-200 font-medium">{product.route}</p></div>
                     </div>
                   </div>
-                  {product.notes && <p className="text-[10px] text-gray-400">{product.notes}</p>}
+                  {product.notes && <p className="text-[10px] text-gray-300">{product.notes}</p>}
                   <a href={aff(product.path)} target="_blank" rel="noopener noreferrer"
                     className="block w-full text-center shop-btn text-white text-xs font-semibold px-4 py-2 rounded-lg">
                     Shop {product.label||catKey} — 5% Off
@@ -940,8 +940,8 @@
               </div>
               <h3 className="text-xs font-bold text-gray-300 uppercase tracking-wider pt-1">Dose</h3>
               <div className="flex gap-1.5">
-                <button onClick={()=>onChange("doseMode","flat")} className={`flex-1 py-2 rounded-lg text-xs font-medium transition-all ${state.doseMode==="flat"?"pill-active text-white":"pill-track text-gray-400 hover:text-gray-200"}`}>Flat Dose (mcg)</button>
-                <button onClick={()=>onChange("doseMode","perkg")} className={`flex-1 py-2 rounded-lg text-xs font-medium transition-all ${state.doseMode==="perkg"?"pill-active text-white":"pill-track text-gray-400 hover:text-gray-200"}`}>Per Body Weight</button>
+                <button onClick={()=>onChange("doseMode","flat")} className={`flex-1 py-2 rounded-lg text-xs font-medium transition-all ${state.doseMode==="flat"?"pill-active text-white":"pill-track text-gray-200 hover:text-white"}`}>Flat Dose (mcg)</button>
+                <button onClick={()=>onChange("doseMode","perkg")} className={`flex-1 py-2 rounded-lg text-xs font-medium transition-all ${state.doseMode==="perkg"?"pill-active text-white":"pill-track text-gray-200 hover:text-white"}`}>Per Body Weight</button>
               </div>
               {state.doseMode==="flat"
                 ? <NumberInput label="Dose" value={state.doseMcg} onChange={(v)=>onChange("doseMcg",v)} unit="mcg" min={1} step={10} />
@@ -1057,7 +1057,7 @@
 
           <header className="text-center space-y-2">
             <h1 className="text-3xl font-extrabold gradient-text tracking-tight">Peptide Research Hub</h1>
-            <p className="text-gray-400 text-sm">Find the right peptides &middot; Calculate dosing &middot; 5% off</p>
+            <p className="text-gray-300 text-sm">Find the right peptides &middot; Calculate dosing &middot; 5% off</p>
             {/* Social proof */}
             <div className="flex items-center justify-center gap-2 pt-1">
               <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 pulse-dot"></span>
@@ -1071,7 +1071,7 @@
           <div className="flex gap-1 glass rounded-xl p-1">
             {TABS.map((t) => (
               <button key={t.id} onClick={() => setTab(t.id)}
-                className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${tab === t.id ? "pill-active text-white" : "text-gray-400 hover:text-gray-200"}`}>
+                className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all ${tab === t.id ? "pill-active text-white" : "text-gray-300 hover:text-white"}`}>
                 {t.label}
               </button>
             ))}
@@ -1093,7 +1093,7 @@
           {/* Shop CTA */}
           <a href={aff("")} target="_blank" rel="noopener noreferrer" className="block glass card-hover rounded-2xl p-5 text-center group">
             <p className="text-lg font-bold gradient-text group-hover:opacity-90 transition-opacity">Shop All Peptides</p>
-            <p className="text-gray-400 text-xs mt-1">Peptide Restore &middot; Get 5% off your entire order</p>
+            <p className="text-gray-300 text-xs mt-1">Peptide Restore &middot; Get 5% off your entire order</p>
           </a>
 
           {/* FAQ */}
