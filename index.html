@@ -27,17 +27,18 @@
   <script type="text/babel">
     const { useState, useCallback } = React;
 
-    const PEPTIDES = [
-      "BPC-157",
-      "CJC-1295 (with DAC)",
-      "CJC-1295 (no DAC / Mod GRF 1-29)",
-      "Ipamorelin",
-      "Retatrutide",
-      "Semaglutide (research analog)",
-      "TB-500 (Thymosin Beta-4)",
-      "Tirzepatide (research analog)",
-      "Other",
-    ];
+    const PEPTIDE_PRESETS = {
+      "BPC-157":                              { vialMg: 5,  waterMl: 2,   doseMcg: 250  },
+      "CJC-1295 (with DAC)":                  { vialMg: 2,  waterMl: 2,   doseMcg: 1000 },
+      "CJC-1295 (no DAC / Mod GRF 1-29)":    { vialMg: 2,  waterMl: 2,   doseMcg: 100  },
+      "Ipamorelin":                           { vialMg: 5,  waterMl: 2.5, doseMcg: 200  },
+      "Retatrutide":                          { vialMg: 10, waterMl: 3,   doseMcg: 1000 },
+      "Semaglutide (research analog)":        { vialMg: 5,  waterMl: 2.5, doseMcg: 250  },
+      "TB-500 (Thymosin Beta-4)":             { vialMg: 5,  waterMl: 2,   doseMcg: 2500 },
+      "Tirzepatide (research analog)":        { vialMg: 10, waterMl: 3,   doseMcg: 2500 },
+    };
+
+    const PEPTIDE_NAMES = [...Object.keys(PEPTIDE_PRESETS), "Other"];
 
     const DEFAULTS = {
       peptide: "BPC-157",
@@ -64,16 +65,16 @@
       );
     }
 
-    function PeptideSelector({ peptide, customPeptide, onChange }) {
+    function PeptideSelector({ peptide, customPeptide, onSelect, onChange }) {
       return (
         <div className="space-y-2">
           <label className="block text-sm font-medium text-gray-300">Peptide</label>
           <select
             value={peptide}
-            onChange={(e) => onChange("peptide", e.target.value)}
+            onChange={(e) => onSelect(e.target.value)}
             className="w-full bg-dark-700 border border-gray-600 rounded-lg px-3 py-2.5 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
-            {PEPTIDES.map((p) => (
+            {PEPTIDE_NAMES.map((p) => (
               <option key={p} value={p}>{p}</option>
             ))}
           </select>
@@ -85,6 +86,11 @@
               onChange={(e) => onChange("customPeptide", e.target.value)}
               className="w-full bg-dark-700 border border-gray-600 rounded-lg px-3 py-2.5 text-gray-100 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
+          )}
+          {PEPTIDE_PRESETS[peptide] && (
+            <p className="text-xs text-gray-500">
+              Recommended: {PEPTIDE_PRESETS[peptide].vialMg} mg vial with {PEPTIDE_PRESETS[peptide].waterMl} mL bac water, typical dose {PEPTIDE_PRESETS[peptide].doseMcg} mcg
+            </p>
           )}
         </div>
       );
@@ -332,6 +338,22 @@
         setState((prev) => ({ ...prev, [key]: value }));
       }, []);
 
+      const onSelectPeptide = useCallback((name) => {
+        const preset = PEPTIDE_PRESETS[name];
+        if (preset) {
+          setState((prev) => ({
+            ...prev,
+            peptide: name,
+            vialMg: preset.vialMg,
+            waterMl: preset.waterMl,
+            doseMcg: preset.doseMcg,
+            doseMode: "flat",
+          }));
+        } else {
+          setState((prev) => ({ ...prev, peptide: name }));
+        }
+      }, []);
+
       const handleReset = () => setState({ ...DEFAULTS });
 
       return (
@@ -351,6 +373,7 @@
             <PeptideSelector
               peptide={state.peptide}
               customPeptide={state.customPeptide}
+              onSelect={onSelectPeptide}
               onChange={onChange}
             />
             <InputSection state={state} onChange={onChange} />
