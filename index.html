@@ -44,7 +44,7 @@
     @keyframes slideIn { from{opacity:0;transform:translateX(20px)} to{opacity:1;transform:translateX(0)} }
     .card-hover { transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
     .card-hover:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,.3); }
-    .pill-track { background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.15); }
+    .pill-track { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.20); }
     .pill-active { background: linear-gradient(135deg, #7c3aed, #2563eb); box-shadow: 0 2px 12px rgba(124,58,237,.35); }
     .num-highlight { background: linear-gradient(135deg, #34d399, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
     .shop-btn { background: linear-gradient(135deg, #059669, #0d9488); transition: all .2s ease; }
@@ -561,15 +561,15 @@
 
           {/* Add peptide */}
           <div className="glass-strong rounded-2xl p-5 space-y-4">
-            <div className="flex gap-2 items-stretch">
+            <div className="space-y-2">
               <select value={addPeptide} onChange={(e) => setAddPeptide(e.target.value)}
-                className="flex-1 min-w-0 input-glass rounded-lg px-3 py-2.5 text-gray-100 text-sm appearance-none cursor-pointer">
+                className="w-full input-glass rounded-lg px-3 py-2.5 text-gray-100 text-sm appearance-none cursor-pointer">
                 <option value="">Select a peptide to add...</option>
                 {catalogKeys.map(k => <option key={k} value={k}>{CATALOG[k].label || k}</option>)}
               </select>
               <button onClick={addEntry} disabled={!addPeptide}
-                className={`shrink-0 px-5 rounded-lg text-sm font-semibold transition-all whitespace-nowrap ${addPeptide ? "pill-active text-white" : "glass text-gray-400 cursor-not-allowed"}`}>
-                + Add
+                className={`w-full py-2.5 rounded-lg text-sm font-semibold transition-all ${addPeptide ? "pill-active text-white" : "glass text-gray-400 cursor-not-allowed"}`}>
+                + Add Peptide
               </button>
             </div>
 
@@ -590,7 +590,7 @@
                         <div className="flex-1 min-w-0 space-y-2">
                           <div className="flex items-center justify-between gap-2">
                             <p className="text-sm font-semibold text-gray-100 truncate">{cat.label || entry.peptide}</p>
-                            <button onClick={() => removeEntry(entry.id)} className="text-gray-300 hover:text-red-400 text-xs shrink-0 transition-colors">&times; Remove</button>
+                            <button onClick={() => removeEntry(entry.id)} className="text-red-400/70 hover:text-red-400 text-xs shrink-0 transition-colors font-medium">&times; Remove</button>
                           </div>
                           <div className="flex items-center gap-2 text-[10px] text-gray-300">
                             <span>{cat.freq}</span><span className="text-gray-400">|</span><span>{cat.route}</span>
@@ -598,7 +598,7 @@
                           <div className="flex gap-1">
                             {Object.entries(TIME_LABELS).map(([k, label]) => (
                               <button key={k} onClick={() => updateTime(entry.id, k)}
-                                                className={`flex-1 py-1.5 rounded-md text-[10px] font-medium transition-all ${entry.timeOfDay === k ? "pill-active text-white" : "pill-track text-gray-200 hover:text-white"}`}>
+                                                className={`flex-1 py-2 rounded-md text-xs font-medium transition-all ${entry.timeOfDay === k ? "pill-active text-white" : "pill-track text-white/70 hover:text-white"}`}>
                                 {TIME_ICONS[k]} {label}
                               </button>
                             ))}
