@@ -290,19 +290,15 @@
       );
     }
 
-    // ── Step-by-step Peptide Finder (Wizard) ──
+    // ── Peptide Finder (all-at-once layout) ──
 
     function PeptideFinder() {
-      const [step, setStep] = useState(0);
       const [goals, setGoals] = useState([]);
-      const [experience, setExperience] = useState(null);
-      const [adminPref, setAdminPref] = useState(null);
+      const [experience, setExperience] = useState("any");
+      const [adminPref, setAdminPref] = useState("any");
       const [email, setEmail] = useState("");
       const [emailSubmitted, setEmailSubmitted] = useState(false);
       const [showStacks, setShowStacks] = useState(false);
-
-      const totalSteps = 4; // goals, experience, admin, results
-      const progress = ((step + 1) / totalSteps) * 100;
 
       const toggleGoal = (id) => setGoals((prev) => prev.includes(id) ? prev.filter(x=>x!==id) : [...prev, id]);
 
@@ -332,119 +328,68 @@
       const handleEmailSubmit = (e) => {
         e.preventDefault();
         if (!email.trim()) return;
-        // Store email (in production, send to your backend/email service)
         try { localStorage.setItem("peptide_hub_email", email); } catch {}
         setEmailSubmitted(true);
       };
 
-      const canAdvance = () => {
-        if (step===0) return goals.length > 0;
-        if (step===1) return experience !== null;
-        if (step===2) return adminPref !== null;
-        return true;
-      };
-
-      const restart = () => { setStep(0); setGoals([]); setExperience(null); setAdminPref(null); setShowStacks(false); };
-
-      // Preview: show top 2 results free, gate the rest
       const FREE_PREVIEW = 2;
 
       return (
-        <div className="space-y-5">
-          {/* Progress bar */}
-          <div className="space-y-2">
-            <div className="flex justify-between text-[10px] text-gray-500 uppercase tracking-wider">
-              <span>Step {step + 1} of {totalSteps}</span>
-              <span>{step===0?"Research Goals":step===1?"Experience":step===2?"Preference":"Your Results"}</span>
-            </div>
-            <div className="progress-bar rounded-full h-1.5">
-              <div className="progress-fill h-full rounded-full" style={{width:`${progress}%`}} />
-            </div>
+        <div className="space-y-5 fade-in">
+          {/* Goals */}
+          <div className="text-center space-y-1">
+            <h2 className="text-lg font-bold text-gray-100">What are you researching?</h2>
+            <p className="text-gray-500 text-xs">Select your research areas for personalized recommendations</p>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            {GOALS.map((g) => {
+              const active = goals.includes(g.id);
+              return (
+                <button key={g.id} onClick={()=>toggleGoal(g.id)}
+                  className={`text-left p-3 rounded-xl border transition-all card-hover ${active?"goal-selected":"glass border-white/5 hover:border-white/15"}`}>
+                  <div className="text-base mb-0.5">{g.icon}</div>
+                  <p className={`text-xs font-semibold ${active?"text-purple-300":"text-gray-200"}`}>{g.label}</p>
+                  <p className="text-[10px] text-gray-500 mt-0.5 leading-tight">{g.desc}</p>
+                </button>
+              );
+            })}
           </div>
 
-          {/* Step 0: Goals */}
-          {step === 0 && (
-            <div className="slide-in space-y-4">
-              <div className="text-center space-y-1">
-                <h2 className="text-xl font-bold text-gray-100">What are you researching?</h2>
-                <p className="text-gray-500 text-xs">Select all that apply</p>
-              </div>
-              <div className="grid grid-cols-2 gap-2">
-                {GOALS.map((g) => {
-                  const active = goals.includes(g.id);
-                  return (
-                    <button key={g.id} onClick={()=>toggleGoal(g.id)}
-                      className={`text-left p-3 rounded-xl border transition-all card-hover ${active?"goal-selected":"glass border-white/5 hover:border-white/15"}`}>
-                      <div className="text-base mb-0.5">{g.icon}</div>
-                      <p className={`text-xs font-semibold ${active?"text-purple-300":"text-gray-200"}`}>{g.label}</p>
-                      <p className="text-[10px] text-gray-500 mt-0.5 leading-tight">{g.desc}</p>
+          {/* Filters — show after goal selection */}
+          {goals.length > 0 && (
+            <div className="space-y-3 fade-in">
+              <div className="space-y-2">
+                <label className="block text-xs font-medium text-gray-400 uppercase tracking-wide">Experience Level</label>
+                <div className="flex gap-1.5">
+                  {[{id:"new",label:"New to Peptides"},{id:"experienced",label:"Experienced"},{id:"any",label:"Show All"}].map((opt)=>(
+                    <button key={opt.id} onClick={()=>setExperience(opt.id)}
+                      className={`flex-1 py-2 px-2 rounded-lg text-xs font-medium transition-all ${experience===opt.id?"pill-active text-white":"pill-track text-gray-400 hover:text-gray-200"}`}>
+                      {opt.label}
                     </button>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {/* Step 1: Experience */}
-          {step === 1 && (
-            <div className="slide-in space-y-4">
-              <div className="text-center space-y-1">
-                <h2 className="text-xl font-bold text-gray-100">What's your experience level?</h2>
-                <p className="text-gray-500 text-xs">This helps us recommend the right products</p>
+                  ))}
+                </div>
               </div>
               <div className="space-y-2">
-                {[
-                  { id:"new", label:"New to Peptides", desc:"I'm just getting started — show me simple, well-studied options", icon:"\u{1F331}" },
-                  { id:"experienced", label:"Experienced Researcher", desc:"I know what I'm doing — show me blends and advanced stacks", icon:"\u{1F52C}" },
-                ].map((opt) => (
-                  <button key={opt.id} onClick={()=>setExperience(opt.id)}
-                    className={`w-full text-left p-4 rounded-xl border transition-all card-hover flex items-center gap-4 ${experience===opt.id?"goal-selected":"glass border-white/5 hover:border-white/15"}`}>
-                    <span className="text-2xl">{opt.icon}</span>
-                    <div>
-                      <p className={`font-semibold text-sm ${experience===opt.id?"text-purple-300":"text-gray-200"}`}>{opt.label}</p>
-                      <p className="text-xs text-gray-500 mt-0.5">{opt.desc}</p>
-                    </div>
-                  </button>
-                ))}
+                <label className="block text-xs font-medium text-gray-400 uppercase tracking-wide">Administration</label>
+                <div className="flex gap-1.5">
+                  {[{id:"any",label:"Any"},{id:"injectable",label:"Injectable"},{id:"capsule",label:"Capsule / Oral"}].map((opt)=>(
+                    <button key={opt.id} onClick={()=>setAdminPref(opt.id)}
+                      className={`flex-1 py-2 px-2 rounded-lg text-xs font-medium transition-all ${adminPref===opt.id?"pill-active text-white":"pill-track text-gray-400 hover:text-gray-200"}`}>
+                      {opt.label}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
           )}
 
-          {/* Step 2: Administration */}
-          {step === 2 && (
-            <div className="slide-in space-y-4">
-              <div className="text-center space-y-1">
-                <h2 className="text-xl font-bold text-gray-100">Administration preference?</h2>
-                <p className="text-gray-500 text-xs">How will you administer in your research?</p>
+          {/* Recommendations — free preview */}
+          {recommendations.length > 0 && (
+            <div className="space-y-3 fade-in">
+              <div className="flex items-center justify-between">
+                <h3 className="text-xs font-bold text-gray-300 uppercase tracking-wider">Recommended for You</h3>
+                <span className="text-[10px] text-emerald-400 font-medium">5% off all products</span>
               </div>
-              <div className="space-y-2">
-                {[
-                  { id:"any", label:"No Preference", desc:"Show me all available options", icon:"\u{1F4CB}" },
-                  { id:"injectable", label:"Injectable", desc:"Subcutaneous injection — most common for peptide research", icon:"\u{1F489}" },
-                  { id:"capsule", label:"Capsule / Oral", desc:"Oral capsules — no injection required", icon:"\u{1F48A}" },
-                ].map((opt) => (
-                  <button key={opt.id} onClick={()=>setAdminPref(opt.id)}
-                    className={`w-full text-left p-4 rounded-xl border transition-all card-hover flex items-center gap-4 ${adminPref===opt.id?"goal-selected":"glass border-white/5 hover:border-white/15"}`}>
-                    <span className="text-2xl">{opt.icon}</span>
-                    <div>
-                      <p className={`font-semibold text-sm ${adminPref===opt.id?"text-purple-300":"text-gray-200"}`}>{opt.label}</p>
-                      <p className="text-xs text-gray-500 mt-0.5">{opt.desc}</p>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Step 3: Results */}
-          {step === 3 && (
-            <div className="slide-in space-y-5">
-              <div className="text-center space-y-1">
-                <h2 className="text-xl font-bold text-gray-100">Your Personalized Recommendations</h2>
-                <p className="text-gray-500 text-xs">{recommendations.length} peptides matched your research profile</p>
-              </div>
-
-              {/* Free preview */}
               <div className="space-y-2">
                 {recommendations.slice(0, FREE_PREVIEW).map(({name, count, goals: g}) => (
                   <div key={name} className="fade-in">
@@ -454,24 +399,18 @@
                 ))}
               </div>
 
-              {/* Email gate for remaining results */}
+              {/* Email gate */}
               {recommendations.length > FREE_PREVIEW && !emailSubmitted && (
                 <div className="glass-strong rounded-xl p-5 space-y-3 text-center fade-in">
                   <div className="space-y-1">
-                    <p className="text-sm font-bold text-gray-100">
-                      +{recommendations.length - FREE_PREVIEW} more recommendations
-                    </p>
+                    <p className="text-sm font-bold text-gray-100">+{recommendations.length - FREE_PREVIEW} more recommendations</p>
                     <p className="text-xs text-gray-400">Enter your email to unlock your full personalized protocol, stack suggestions, and dosing guide.</p>
                   </div>
                   <form onSubmit={handleEmailSubmit} className="flex gap-2">
-                    <input
-                      type="email" required placeholder="you@email.com" value={email}
+                    <input type="email" required placeholder="you@email.com" value={email}
                       onChange={(e)=>setEmail(e.target.value)}
-                      className="flex-1 input-glass rounded-lg px-3 py-2.5 text-sm text-gray-100 placeholder-gray-600"
-                    />
-                    <button type="submit" className="pill-active text-white font-semibold px-5 py-2.5 rounded-lg text-sm whitespace-nowrap">
-                      Unlock All
-                    </button>
+                      className="flex-1 input-glass rounded-lg px-3 py-2.5 text-sm text-gray-100 placeholder-gray-600" />
+                    <button type="submit" className="pill-active text-white font-semibold px-5 py-2.5 rounded-lg text-sm whitespace-nowrap">Unlock All</button>
                   </form>
                   <p className="text-[10px] text-gray-600">No spam. Unsubscribe anytime.</p>
                 </div>
@@ -506,27 +445,12 @@
             </div>
           )}
 
-          {/* Navigation */}
-          <div className="flex gap-2 pt-1">
-            {step > 0 && (
-              <button onClick={()=>setStep(step-1)}
-                className="flex-1 glass hover:bg-white/10 text-gray-400 hover:text-white font-medium py-3 rounded-xl transition-all text-sm">
-                Back
-              </button>
-            )}
-            {step < 3 && (
-              <button onClick={()=>canAdvance()&&setStep(step+1)} disabled={!canAdvance()}
-                className={`flex-1 py-3 rounded-xl text-sm font-semibold transition-all ${canAdvance()?"pill-active text-white cursor-pointer":"pill-track text-gray-600 cursor-not-allowed"}`}>
-                {step===2?"See My Results":"Continue"}
-              </button>
-            )}
-            {step === 3 && (
-              <button onClick={restart}
-                className="flex-1 glass hover:bg-white/10 text-gray-400 hover:text-white font-medium py-3 rounded-xl transition-all text-sm">
-                Start Over
-              </button>
-            )}
-          </div>
+          {goals.length > 0 && (
+            <button onClick={()=>{setGoals([]);setExperience("any");setAdminPref("any");setShowStacks(false);}}
+              className="w-full glass hover:bg-white/10 text-gray-400 hover:text-gray-200 font-medium py-2 rounded-xl transition-all text-xs">
+              Clear All
+            </button>
+          )}
         </div>
       );
     }
