@@ -4,6 +4,8 @@ description: "New to peptides? Here's what they are, how they work, what equipme
 date: "2026-01-25"
 readTime: "11 min read"
 tags: ["beginner", "guide", "peptides", "getting started"]
+heroImage: "/images/blog/peptide-powder.jpg"
+category: "Getting Started"
 ---
 
 If you've been poking around forums, Reddit threads, or YouTube videos trying to figure out what peptides are and whether they're worth researching, you've probably run into a wall of jargon, bro-science, and contradictory information. I get it. The space is confusing when you're starting from zero.

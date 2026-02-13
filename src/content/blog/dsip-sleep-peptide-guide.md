@@ -4,6 +4,8 @@ description: "What the research says about DSIP (Delta Sleep-Inducing Peptide) â
 date: "2026-01-28"
 readTime: "7 min read"
 tags: ["dsip", "sleep", "recovery", "stress"]
+heroImage: "/images/blog/sleep-rest.jpg"
+category: "Sleep & Recovery"
 ---
 
 Most peptide conversations revolve around tissue repair or growth hormone. But there's a quieter corner of peptide research that's been picking up momentum, and it's focused on something we all need more of: better sleep.

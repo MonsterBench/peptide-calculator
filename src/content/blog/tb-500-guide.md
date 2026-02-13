@@ -4,6 +4,8 @@ description: "Everything researchers need to know about TB-500 (Thymosin Beta-4)
 date: "2026-02-11"
 readTime: "9 min read"
 tags: ["tb-500", "thymosin beta-4", "tissue repair", "recovery"]
+heroImage: "/images/blog/fitness-recovery.jpg"
+category: "Tissue Repair"
 ---
 
 If you've been around peptide research for any amount of time, you've probably heard TB-500 mentioned in the same breath as BPC-157. And for good reason — it's one of the most studied peptides for tissue repair and recovery, with a mechanism of action that's genuinely different from anything else on the market.

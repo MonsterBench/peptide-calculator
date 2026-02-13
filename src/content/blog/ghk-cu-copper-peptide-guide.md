@@ -4,6 +4,8 @@ description: "What makes GHK-Cu one of the most interesting peptides in skin and
 date: "2026-02-07"
 readTime: "8 min read"
 tags: ["ghk-cu", "copper peptide", "skin", "anti-aging", "collagen"]
+heroImage: "/images/blog/skin-care.jpg"
+category: "Anti-Aging"
 ---
 
 GHK-Cu might be the most underrated peptide in the entire research space. While BPC-157 and semaglutide grab headlines, this tiny copper-binding tripeptide has quietly built one of the most impressive resumes in regenerative science — over 4,000 genes influenced, decades of published research, and effects that span from wound healing to hair growth to wrinkle reduction.

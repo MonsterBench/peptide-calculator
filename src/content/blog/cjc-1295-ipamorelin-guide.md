@@ -4,6 +4,8 @@ description: "Why CJC-1295 and Ipamorelin are paired together, how to dose them,
 date: "2026-02-09"
 readTime: "10 min read"
 tags: ["cjc-1295", "ipamorelin", "growth hormone", "anti-aging"]
+heroImage: "/images/blog/gym-weights.jpg"
+category: "Growth Hormone"
 ---
 
 If you've spent any time looking into growth hormone optimization, you've seen this pairing everywhere. CJC-1295 and Ipamorelin together. And there's a good reason it keeps showing up -- this combination is, in my experience, the cleanest and most effective way to drive meaningful GH pulses without the side-effect baggage that comes with older secretagogues.

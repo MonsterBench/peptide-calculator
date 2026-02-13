@@ -4,6 +4,8 @@ description: "Everything you need to know about BPC-157 for research: dosing pro
 date: "2026-02-10"
 readTime: "10 min read"
 tags: ["bpc-157", "tissue repair", "reconstitution", "dosage"]
+heroImage: "/images/blog/vials-lab.jpg"
+category: "Tissue Repair"
 ---
 
 BPC-157, short for Body Protection Compound-157, is one of the most extensively studied peptides in regenerative research. Derived from a protective protein found in gastric juice, this 15-amino-acid peptide has attracted serious attention for its remarkable tissue-repair properties observed across hundreds of preclinical studies. Whether you're new to peptide research or looking to refine an existing protocol, this guide covers everything from BPC-157 dosage calculations and reconstitution steps to stacking strategies with TB-500.

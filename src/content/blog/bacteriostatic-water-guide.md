@@ -4,6 +4,8 @@ description: "The complete guide to bacteriostatic water for peptide research â€
 date: "2026-02-03"
 readTime: "7 min read"
 tags: ["bacteriostatic water", "reconstitution", "supplies", "how-to"]
+heroImage: "/images/blog/water-drops.jpg"
+category: "Getting Started"
 ---
 
 If you're getting into peptide research, bacteriostatic water is going to become your best friend. It's the solvent you'll use over and over again â€” every time you reconstitute a vial, every new protocol, every compound. And yet, I've seen people get this wrong more often than you'd think. Wrong water type, expired vials, sketchy storage habits. All of it leads to contaminated peptides and wasted money.

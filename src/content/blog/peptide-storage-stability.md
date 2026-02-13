@@ -4,6 +4,8 @@ description: "Complete guide to peptide storage: temperature requirements, recon
 date: "2026-02-02"
 readTime: "8 min read"
 tags: ["storage", "stability", "reconstitution", "bacteriostatic water"]
+heroImage: "/images/blog/fridge-storage.jpg"
+category: "Getting Started"
 ---
 
 # Peptide Storage & Stability Guide: How to Store Peptides Properly

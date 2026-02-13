@@ -4,6 +4,8 @@ description: "Learn how to reconstitute lyophilized peptides with bacteriostatic
 date: "2026-02-08"
 readTime: "12 min read"
 tags: ["reconstitution", "bacteriostatic water", "calculator", "how-to"]
+heroImage: "/images/blog/medical-supplies.jpg"
+category: "Getting Started"
 ---
 
 Reconstituting peptides is the essential first step before any research protocol can begin. Whether you're working with BPC-157, TB-500, or any other lyophilized peptide, proper reconstitution ensures accurate dosing, preserves peptide integrity, and produces reliable results. This guide walks through the full process of **how to reconstitute peptides**, from gathering supplies to storing your finished solution. A **peptide reconstitution calculator** is also available to simplify the math.

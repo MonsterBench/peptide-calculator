@@ -4,6 +4,8 @@ description: "What NAD+ actually does at the cellular level, how researchers use
 date: "2026-01-30"
 readTime: "8 min read"
 tags: ["nad+", "longevity", "anti-aging", "cellular energy"]
+heroImage: "/images/blog/aging-wellness.jpg"
+category: "Anti-Aging"
 ---
 
 NAD+ has gone from obscure biochemistry footnote to the single most talked-about molecule in longevity research. And unlike a lot of anti-aging hype, this one actually has serious science behind it. We're talking thousands of published papers, multiple ongoing clinical trials, and some of the most respected researchers in the aging field staking their careers on it.

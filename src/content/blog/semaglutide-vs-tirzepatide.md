@@ -4,6 +4,8 @@ description: "Head-to-head comparison of semaglutide, tirzepatide, and retatruti
 date: "2026-02-06"
 readTime: "11 min read"
 tags: ["semaglutide", "tirzepatide", "retatrutide", "GLP-1", "weight loss"]
+heroImage: "/images/blog/weight-loss.jpg"
+category: "Weight Loss"
 ---
 
 The GLP-1 agonist landscape has evolved rapidly. What started with semaglutide has expanded to include dual-agonist tirzepatide and the investigational triple-agonist retatrutide. If you're evaluating these peptides for research, understanding the mechanistic differences, dosing protocols, and practical considerations is essential.
