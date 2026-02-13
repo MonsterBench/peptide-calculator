@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "PepTalk Peptides",
+  "url": "https://peptalkpeptides.com",
+  "description": "Free peptide research tools, reconstitution calculator, dosing guides, and educational blog.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://peptalkpeptides.com/blog?q={search_term_string}",
+    "query-input": "required name=search_term_string",
+  },
+};
+
+const features = [
+  { icon: '🧮', title: 'Reconstitution Calculator', desc: 'Calculate exact dosing, syringe draw volumes, and cost per dose for any peptide.', link: '/calculator' },
+  { icon: '🔬', title: 'Peptide Finder', desc: 'Select your research goals and get personalized peptide recommendations.', link: '/calculator#find=' },
+  { icon: '📋', title: 'Protocol Builder', desc: 'Build a daily schedule with timing, stacking suggestions, and shopping list.', link: '/calculator' },
+  { icon: '⚖️', title: 'Side-by-Side Compare', desc: 'Compare up to 3 peptides on frequency, route, and research applications.', link: '/calculator' },
+];
+
+const faqs = [
+  { q: 'What is a peptide reconstitution calculator?', a: 'A reconstitution calculator helps you determine the correct amount of bacteriostatic water to add to a lyophilized (freeze-dried) peptide vial, and then calculates exact injection volumes based on your desired dose.' },
+  { q: 'How do I use the peptide finder?', a: 'Select your research goals (tissue repair, weight management, GH optimization, etc.) and the finder will recommend the best peptides and stacks for your objectives, filtered by experience level and administration preference.' },
+  { q: 'Are these peptides for human use?', a: 'No. All peptides referenced on this site are for research purposes only and are not intended for human consumption. Always follow your jurisdiction\'s regulations regarding peptide research.' },
+  { q: 'How do I get 5% off?', a: 'All product links on PepTalk Peptides automatically apply a 5% discount code at Peptide Restore. Simply click any "Shop" button to get the discount applied to your order.' },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(f => ({
+    "@type": "Question",
+    "name": f.q,
+    "acceptedAnswer": { "@type": "Answer", "text": f.a },
+  })),
+};
+---
+
+<BaseLayout
+  title="PepTalk Peptides — Free Calculator, Finder & Research Guides"
+  description="Free peptide reconstitution calculator, peptide finder, protocol builder, and educational blog. Get exact dosing calculations and 5% off peptide products."
+  schema={schema}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  <!-- Handle old hash URLs from the single-page app -->
+  <script is:inline>
+    if (window.location.hash.startsWith('#calc=') || window.location.hash.startsWith('#find=')) {
+      window.location.href = '/calculator' + window.location.hash;
+    }
+  </script>
+
+  <!-- Hero -->
+  <section class="max-w-5xl mx-auto px-4 pt-16 pb-20 text-center">
+    <div class="space-y-6 fade-in">
+      <h1 class="text-4xl sm:text-5xl font-extrabold gradient-text tracking-tight leading-tight">
+        Peptide Research,<br />Simplified
+      </h1>
+      <p class="text-gray-300 text-lg sm:text-xl max-w-2xl mx-auto leading-relaxed">
+        Free tools to find, calculate, and compare peptides for your research. Plus educational guides and 5% off at Peptide Restore.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+        <a href="/calculator" class="pill-active text-white font-bold px-8 py-3.5 rounded-xl text-sm inline-block">
+          Open Calculator
+        </a>
+        <a href="/blog" class="glass hover:bg-white/10 text-gray-200 hover:text-white font-semibold px-8 py-3.5 rounded-xl text-sm inline-block transition-all">
+          Read Guides
+        </a>
+      </div>
+      <div class="flex items-center justify-center gap-2 pt-2">
+        <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500 pulse-dot"></span>
+        <span class="text-gray-400 text-sm">Trusted by <span class="text-emerald-400 font-semibold">2,000+</span> researchers</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="max-w-5xl mx-auto px-4 pb-16">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {features.map(f => (
+        <a href={f.link} class="glass card-hover rounded-2xl p-6 group block">
+          <div class="text-2xl mb-3">{f.icon}</div>
+          <h3 class="text-lg font-bold text-gray-100 group-hover:text-white transition-colors mb-2">{f.title}</h3>
+          <p class="text-gray-300 text-sm leading-relaxed">{f.desc}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Latest Blog Posts -->
+  <section class="max-w-5xl mx-auto px-4 pb-16">
+    <div class="text-center mb-8">
+      <h2 class="text-2xl font-extrabold gradient-text mb-2">Latest Research Guides</h2>
+      <p class="text-gray-400 text-sm">In-depth articles to level up your peptide knowledge</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {posts.slice(0, 3).map(post => (
+        <a href={`/blog/${post.slug}`} class="glass card-hover rounded-2xl p-5 group block">
+          <div class="flex items-center gap-2 text-[10px] text-gray-400 mb-3 uppercase tracking-wider">
+            <time datetime={post.data.date}>{new Date(post.data.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</time>
+            <span>&middot;</span>
+            <span>{post.data.readTime || '8 min'}</span>
+          </div>
+          <h3 class="text-sm font-bold text-gray-100 group-hover:text-white transition-colors mb-2 leading-snug">{post.data.title}</h3>
+          <p class="text-gray-300 text-xs leading-relaxed line-clamp-3">{post.data.description}</p>
+        </a>
+      ))}
+    </div>
+    <div class="text-center mt-6">
+      <a href="/blog" class="text-gray-400 hover:text-white text-sm transition-colors">View all articles &rarr;</a>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="max-w-3xl mx-auto px-4 pb-16">
+    <div class="text-center mb-8">
+      <h2 class="text-2xl font-extrabold gradient-text mb-2">Frequently Asked Questions</h2>
+    </div>
+    <div class="space-y-3">
+      {faqs.map(faq => (
+        <details class="glass rounded-xl group">
+          <summary class="flex items-center justify-between p-4 cursor-pointer list-none">
+            <span class="text-sm font-medium text-gray-200 pr-4">{faq.q}</span>
+            <span class="text-gray-400 text-xs transition-transform duration-200 shrink-0 group-open:rotate-180">&#9660;</span>
+          </summary>
+          <div class="px-4 pb-4">
+            <p class="text-gray-300 text-xs leading-relaxed">{faq.a}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="max-w-3xl mx-auto px-4 pb-16">
+    <div class="glass-strong rounded-2xl p-8 text-center space-y-4">
+      <p class="text-2xl font-extrabold gradient-text">Ready to Start Your Research?</p>
+      <p class="text-gray-300 text-sm max-w-lg mx-auto">Use our free calculator for precise dosing, browse our guides for education, and save 5% on all peptides.</p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="/calculator" class="pill-active text-white font-bold px-8 py-3.5 rounded-xl text-sm inline-block">Open Calculator</a>
+        <a href="https://peptiderestore.com?discount=DKE4PDRM" target="_blank" rel="noopener noreferrer" class="shop-btn text-white font-bold px-8 py-3.5 rounded-xl text-sm inline-block">Shop Peptides — 5% Off &rarr;</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Peptide Reconstitution Calculator",
+  "url": "https://peptalkpeptides.com/calculator",
+  "description": "Free peptide reconstitution calculator. Find peptides, calculate dosing, build protocols, and compare products.",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "featureList": ["Peptide Finder", "Reconstitution Calculator", "Protocol Builder", "Peptide Comparison Tool"],
+};
+---
+
+<BaseLayout
+  title="Peptide Reconstitution Calculator — Free Dosing Tool | PepTalk Peptides"
+  description="Free peptide reconstitution calculator. Calculate exact dosing, syringe volumes, and cost per dose. Find peptides by research goal, build protocols, and compare side-by-side."
+  schema={schema}
+>
+  <div id="calculator-root" class="relative z-10">
+    <!-- Loading skeleton (replaced by React) -->
+    <div class="max-w-lg mx-auto px-4 py-8 space-y-6">
+      <div class="text-center space-y-3">
+        <div class="skeleton h-9 w-64 mx-auto"></div>
+        <div class="skeleton h-4 w-48 mx-auto"></div>
+      </div>
+      <div class="skeleton h-12 w-full"></div>
+      <div class="skeleton h-10 w-full"></div>
+      <div class="space-y-3">
+        <div class="skeleton h-5 w-40"></div>
+        <div class="grid grid-cols-2 gap-2">
+          <div class="skeleton h-20"></div><div class="skeleton h-20"></div>
+          <div class="skeleton h-20"></div><div class="skeleton h-20"></div>
+          <div class="skeleton h-20"></div><div class="skeleton h-20"></div>
+        </div>
+      </div>
+      <div class="skeleton h-16 w-full"></div>
+    </div>
+  </div>
+
+  <script>
+    import App from '../components/calculator/App';
+    import { createElement } from 'react';
+    import { createRoot } from 'react-dom/client';
+
+    const root = document.getElementById('calculator-root');
+    if (root) {
+      createRoot(root).render(createElement(App));
+    }
+  </script>
+</BaseLayout>

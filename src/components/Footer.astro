@@ -1,0 +1,39 @@
+---
+const shopUrl = 'https://peptiderestore.com?discount=DKE4PDRM';
+---
+
+<footer class="relative z-10 border-t border-white/5 mt-16">
+  <div class="max-w-5xl mx-auto px-4 py-10">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-8">
+      <div>
+        <p class="text-lg font-extrabold gradient-text mb-3">PepTalk Peptides</p>
+        <p class="text-gray-400 text-xs leading-relaxed">Your go-to resource for peptide research. Free tools, guides, and education.</p>
+      </div>
+      <div>
+        <p class="text-xs font-bold text-gray-300 uppercase tracking-wider mb-3">Tools</p>
+        <ul class="space-y-2">
+          <li><a href="/calculator" class="text-gray-400 hover:text-white text-sm transition-colors">Reconstitution Calculator</a></li>
+          <li><a href="/calculator#find=" class="text-gray-400 hover:text-white text-sm transition-colors">Peptide Finder</a></li>
+          <li><a href="/blog" class="text-gray-400 hover:text-white text-sm transition-colors">Research Blog</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-xs font-bold text-gray-300 uppercase tracking-wider mb-3">Resources</p>
+        <ul class="space-y-2">
+          <li><a href="/blog/how-to-reconstitute-peptides" class="text-gray-400 hover:text-white text-sm transition-colors">How to Reconstitute</a></li>
+          <li><a href="/blog/peptide-storage-stability" class="text-gray-400 hover:text-white text-sm transition-colors">Storage Guide</a></li>
+          <li><a href={shopUrl} target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white text-sm transition-colors">Shop Peptides</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="disclaimer-bar rounded-xl px-4 py-3 text-center mb-6">
+      <p class="text-red-300 font-bold text-xs uppercase tracking-widest">For Research Use Only — Not for Human Consumption</p>
+      <p class="text-red-400/60 text-xs mt-1">All information is intended solely for laboratory and research purposes.</p>
+    </div>
+    <div class="text-center text-gray-500 text-[10px] space-y-1">
+      <p>Research tool only. Verify all calculations independently.</p>
+      <p>All peptides sold for research purposes only.</p>
+      <p class="pt-1 text-gray-600">&copy; 2026 PepTalk Peptides</p>
+    </div>
+  </div>
+</footer>
