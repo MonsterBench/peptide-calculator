@@ -4,7 +4,7 @@ description: "What makes GHK-Cu one of the most interesting peptides in skin and
 date: "2026-02-07"
 readTime: "8 min read"
 tags: ["ghk-cu", "copper peptide", "skin", "anti-aging", "collagen"]
-heroImage: "/images/blog/skin-care.jpg"
+heroImage: "/images/blog/skin-care.webp"
 category: "Anti-Aging"
 ---
 
@@ -22,7 +22,7 @@ Here's the catch: GHK-Cu levels peak around age 20, then drop steadily. By age 6
 
 That decline lines up uncomfortably well with the visible signs of aging — thinner skin, slower healing, less collagen turnover, weaker antioxidant defenses. Whether that's correlation or causation is still being studied, but the research so far is pretty compelling.
 
-![Skin care and anti-aging research](/images/blog/skin-care.jpg)
+![Skin care and anti-aging research](/images/blog/skin-care.webp)
 
 ## Why Researchers Are Excited About GHK-Cu
 
@@ -60,7 +60,7 @@ This is where things get interesting (and where I see the most confusion). GHK-C
 
 GHK-Cu has been a staple in high-end skincare for years. You'll find it in serums and creams, typically at concentrations between 0.1% and 1%. The topical research is actually quite good — multiple controlled trials have shown improvements in skin thickness, elasticity, clarity, and wrinkle depth with consistent topical use.
 
-![Scientist conducting peptide research](/images/blog/lab-scientist.jpg)
+![Scientist conducting peptide research](/images/blog/lab-scientist.webp)
 
 But topical GHK-Cu stays local. It penetrates the upper layers of skin and works on the cells it directly contacts. That's great for facial skin quality, but it's not doing anything systemic.
 
@@ -117,7 +117,7 @@ One thing to know about GHK-Cu specifically: the solution may have a slight blue
 
 For the full step-by-step on reconstituting any peptide, see our [reconstitution guide](/blog/how-to-reconstitute-peptides).
 
-![Peptide vials in a research lab](/images/blog/vials-lab.jpg)
+![Peptide vials in a research lab](/images/blog/vials-lab.webp)
 
 ## Storage
 

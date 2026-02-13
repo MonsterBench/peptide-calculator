@@ -4,7 +4,7 @@ description: "Learn how to reconstitute lyophilized peptides with bacteriostatic
 date: "2026-02-08"
 readTime: "12 min read"
 tags: ["reconstitution", "bacteriostatic water", "calculator", "how-to"]
-heroImage: "/images/blog/medical-supplies.jpg"
+heroImage: "/images/blog/medical-supplies.webp"
 category: "Getting Started"
 ---
 
@@ -33,7 +33,7 @@ Before you begin, gather the following supplies in a clean workspace:
 
 **Where to get supplies:** [Shop bacteriostatic water and peptides at Peptide Restore -- 5% off with code DKE4PDRM](https://peptiderestore.com?discount=DKE4PDRM).
 
-![Medical supplies laid out for peptide reconstitution](/images/blog/medical-supplies.jpg)
+![Medical supplies laid out for peptide reconstitution](/images/blog/medical-supplies.webp)
 
 ### A Note on Solvents
 
@@ -63,7 +63,7 @@ Using a clean mixing syringe, insert the needle into the bac water vial and draw
 
 Pierce the rubber stopper of the peptide vial and slowly inject the bacteriostatic water. **Aim the stream against the glass wall of the vial, not directly onto the powder.** Let the water trickle down the side and pool at the bottom. This gentle technique prevents degradation from excessive agitation or foaming. (Think of it like pouring a beer down the side of a glass -- same idea.)
 
-![Peptide vials ready for reconstitution](/images/blog/vials-lab.jpg)
+![Peptide vials ready for reconstitution](/images/blog/vials-lab.webp)
 
 ### Step 6: Swirl Gently -- Never Shake
 
@@ -186,7 +186,7 @@ Proper storage is critical for maintaining peptide potency over time. Here are t
 
 For a deeper look at how temperature, light, and time affect peptide integrity, read our full guide on [peptide storage and stability](/blog/peptide-storage-stability).
 
-![Proper refrigerator storage for reconstituted peptides](/images/blog/fridge-storage.jpg)
+![Proper refrigerator storage for reconstituted peptides](/images/blog/fridge-storage.webp)
 
 ## Frequently Asked Questions
 

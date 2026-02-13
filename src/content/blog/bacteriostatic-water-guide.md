@@ -4,7 +4,7 @@ description: "The complete guide to bacteriostatic water for peptide research â€
 date: "2026-02-03"
 readTime: "7 min read"
 tags: ["bacteriostatic water", "reconstitution", "supplies", "how-to"]
-heroImage: "/images/blog/water-drops.jpg"
+heroImage: "/images/blog/water-drops.webp"
 category: "Getting Started"
 ---
 
@@ -14,7 +14,7 @@ So let's break it down properly.
 
 *All peptides discussed in this article are for research purposes only. Nothing here constitutes medical advice.*
 
-![Water drops on a surface](/images/blog/water-drops.jpg)
+![Water drops on a surface](/images/blog/water-drops.webp)
 
 ## What Exactly Is Bacteriostatic Water?
 
@@ -64,7 +64,7 @@ Here's a quick reference:
 | Opened, stored properly | 28-30 days from first puncture |
 | Expired (past printed date) | Discard â€” don't risk it |
 
-![Medical supplies laid out on a surface](/images/blog/medical-supplies.jpg)
+![Medical supplies laid out on a surface](/images/blog/medical-supplies.webp)
 
 ## How to Use BAC Water for Peptide Reconstitution
 
@@ -122,7 +122,7 @@ Best practice: keep at least two vials on hand. One in use, one backup. Running 
 
 Use the [reconstitution calculator](/calculator) to plan your volumes before you start, so you know exactly how much BAC water you'll need for your entire protocol.
 
-![Syringe and medical equipment](/images/blog/syringe-medical.jpg)
+![Syringe and medical equipment](/images/blog/syringe-medical.webp)
 
 ## Where to Buy Bacteriostatic Water
 

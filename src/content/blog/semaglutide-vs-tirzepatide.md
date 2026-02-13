@@ -4,7 +4,7 @@ description: "Head-to-head comparison of semaglutide, tirzepatide, and retatruti
 date: "2026-02-06"
 readTime: "11 min read"
 tags: ["semaglutide", "tirzepatide", "retatrutide", "GLP-1", "weight loss"]
-heroImage: "/images/blog/weight-loss.jpg"
+heroImage: "/images/blog/weight-loss.webp"
 category: "Weight Loss"
 ---
 
@@ -28,7 +28,7 @@ Pharmaceutical GLP-1 agonists were originally developed for type 2 diabetes mana
 
 Each successive generation targets additional receptor pathways, and early research suggests that the multi-agonist approach may yield more pronounced results. So how do they actually differ under the hood?
 
-![Research laboratory setting](/images/blog/research-microscope.jpg)
+![Research laboratory setting](/images/blog/research-microscope.webp)
 
 ---
 
@@ -84,7 +84,7 @@ The glucagon component is particularly interesting because it addresses energy e
 
 For precise dosing calculations for any of these peptides, use our [Peptide Dosing Calculator](/calculator) to convert between concentrations and volumes accurately.
 
-![Weight management research](/images/blog/weight-loss.jpg)
+![Weight management research](/images/blog/weight-loss.webp)
 
 ---
 
@@ -155,7 +155,7 @@ Use the [Peptide Dosing Calculator](/calculator) to determine the exact injectio
 
 Reconstituted peptides should be stored at 2-8 degrees Celsius (standard refrigerator temperature) and are typically stable for 4-6 weeks. Don't freeze reconstituted solutions. For detailed stability data and best practices, read our guide on [Peptide Storage and Stability](/blog/peptide-storage-stability).
 
-![Measuring and dosing precision in peptide research](/images/blog/measuring-scale.jpg)
+![Measuring and dosing precision in peptide research](/images/blog/measuring-scale.webp)
 
 ---
 

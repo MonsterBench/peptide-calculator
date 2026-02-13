@@ -4,7 +4,7 @@ description: "New to peptides? Here's what they are, how they work, what equipme
 date: "2026-01-25"
 readTime: "11 min read"
 tags: ["beginner", "guide", "peptides", "getting started"]
-heroImage: "/images/blog/peptide-powder.jpg"
+heroImage: "/images/blog/peptide-powder.webp"
 category: "Getting Started"
 ---
 
@@ -20,7 +20,7 @@ Peptides are short chains of amino acids — typically between 2 and 50 amino ac
 
 Your body already makes hundreds of them. They act as signaling molecules, telling cells to do specific things — repair tissue, release growth hormone, modulate inflammation, produce collagen. The research peptides you'll encounter are either synthetic copies of natural peptides or modified versions designed to be more stable or targeted.
 
-![Medical supplies for peptide research](/images/blog/medical-supplies.jpg)
+![Medical supplies for peptide research](/images/blog/medical-supplies.webp)
 
 The key thing that separates peptides from small-molecule drugs is specificity. Most peptides bind to one particular receptor or trigger one specific signaling cascade. That's why they tend to have relatively clean side-effect profiles compared to broader-acting compounds. (Relatively. Nothing is side-effect-free.)
 
@@ -68,7 +68,7 @@ Before you open a single vial, you need the right supplies. Don't skip any of th
 
 **Optional but recommended:** A larger syringe (3 mL) for transferring BAC water during reconstitution. It's faster than using an insulin syringe to move 2 mL of liquid.
 
-![Lab equipment for peptide research](/images/blog/lab-equipment.jpg)
+![Lab equipment for peptide research](/images/blog/lab-equipment.webp)
 
 Total cost for a basic supply kit? Usually under $30. Don't let the equipment be the thing that stops you.
 
@@ -106,7 +106,7 @@ Here's what to look for:
 
 You don't need a chemistry degree to read a COA. You need to check three things: is the purity above 98%, does the molecular weight match, and did a third-party lab (not the manufacturer's in-house lab) perform the testing?
 
-![Peptide powder in research vial](/images/blog/peptide-powder.jpg)
+![Peptide powder in research vial](/images/blog/peptide-powder.webp)
 
 ## Storage 101
 
@@ -150,7 +150,7 @@ So you know what peptides are, you have the equipment, and you understand the ba
 
 Don't try to run three peptides your first time out. Start with one (or one well-established stack of two). Learn the process. Get comfortable with reconstitution, dosing, and record-keeping. Then expand from there.
 
-![Precision measuring equipment](/images/blog/measuring-scale.jpg)
+![Precision measuring equipment](/images/blog/measuring-scale.webp)
 
 ## Where to Source Quality Peptides
 

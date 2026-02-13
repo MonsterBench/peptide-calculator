@@ -4,7 +4,7 @@ description: "We tested and compared the top peptide vendors on purity, COAs, pr
 date: "2026-02-12"
 readTime: "12 min read"
 tags: ["peptide companies", "vendor reviews", "where to buy peptides", "COA", "purity"]
-heroImage: "/images/blog/peptide-vendors.jpg"
+heroImage: "/images/blog/peptide-vendors.webp"
 category: "Getting Started"
 ---
 

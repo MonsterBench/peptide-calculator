@@ -86,32 +86,31 @@ const schema = {
     </div>
 
     <script>
-      const form = document.getElementById('blog-email-form');
-      const msg = document.getElementById('blog-email-msg');
-      if (form) {
+      document.addEventListener('astro:page-load', () => {
+        const form = document.getElementById('blog-email-form') as HTMLFormElement | null;
+        const msg = document.getElementById('blog-email-msg');
+        if (!form) return;
         form.addEventListener('submit', async (e) => {
           e.preventDefault();
           const email = new FormData(form).get('email');
           if (!email) return;
           try {
-            const btn = form.querySelector('button');
+            const btn = form.querySelector('button') as HTMLButtonElement;
             btn.textContent = 'Sending...';
             btn.disabled = true;
             await fetch('https://script.google.com/macros/s/AKfycbxgagbrED6ibRPyT6ZAfHAbKQbjhNea26ScZi2qEYGMvGePlWk9METEZW_6j44xKmI/exec', {
               method: 'POST',
               headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-              body: `email=${encodeURIComponent(email)}&source=blog`,
+              body: `email=${encodeURIComponent(email as string)}&source=blog`,
               mode: 'no-cors',
             });
             form.classList.add('hidden');
-            msg.textContent = "You're in! Check your inbox.";
-            msg.classList.remove('hidden');
+            if (msg) { msg.textContent = "You're in! Check your inbox."; msg.classList.remove('hidden'); }
           } catch {
-            msg.textContent = 'Something went wrong. Try again.';
-            msg.classList.remove('hidden');
+            if (msg) { msg.textContent = 'Something went wrong. Try again.'; msg.classList.remove('hidden'); }
           }
         });
-      }
+      });
     </script>
 
     <!-- CTA -->

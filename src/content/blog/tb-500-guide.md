@@ -4,7 +4,7 @@ description: "Everything researchers need to know about TB-500 (Thymosin Beta-4)
 date: "2026-02-11"
 readTime: "9 min read"
 tags: ["tb-500", "thymosin beta-4", "tissue repair", "recovery"]
-heroImage: "/images/blog/fitness-recovery.jpg"
+heroImage: "/images/blog/fitness-recovery.webp"
 category: "Tissue Repair"
 ---
 
@@ -22,7 +22,7 @@ It was first identified in the thymus gland (hence the name), but don't let that
 
 The key thing that sets TB-500 apart from other repair peptides? It works systemically. You don't need to inject it right next to the injury site. Researchers have reported outcomes using standard subcutaneous injections in the abdomen while studying knee or shoulder tissue models — suggesting effective systemic distribution.
 
-![Fitness and recovery research](/images/blog/fitness-recovery.jpg)
+![Fitness and recovery research](/images/blog/fitness-recovery.webp)
 
 ## How TB-500 Works
 
@@ -91,7 +91,7 @@ Don't want to do that math every time? Use our [Peptide Reconstitution Calculato
 
 TB-500 comes as a lyophilized (freeze-dried) powder. You'll need to reconstitute it before use.
 
-![Syringe and medical supplies](/images/blog/syringe-medical.jpg)
+![Syringe and medical supplies](/images/blog/syringe-medical.webp)
 
 ### What you need:
 
@@ -151,7 +151,7 @@ Some researchers run them in the same syringe (they're chemically compatible), w
 
 For the full breakdown on combining peptides, timing, and what else stacks well together, see our [Peptide Stacking Guide](/blog/peptide-stacking-guide). And for a deep dive on BPC-157 specifically, here's our [BPC-157 Guide](/blog/bpc-157-guide).
 
-![Lab vials for peptide research](/images/blog/vials-lab.jpg)
+![Lab vials for peptide research](/images/blog/vials-lab.webp)
 
 ## Storage
 

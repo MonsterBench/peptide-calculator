@@ -4,7 +4,7 @@ description: "What the research says about DSIP (Delta Sleep-Inducing Peptide) �
 date: "2026-01-28"
 readTime: "7 min read"
 tags: ["dsip", "sleep", "recovery", "stress"]
-heroImage: "/images/blog/sleep-rest.jpg"
+heroImage: "/images/blog/sleep-rest.webp"
 category: "Sleep & Recovery"
 ---
 
@@ -20,7 +20,7 @@ DSIP is a nonapeptide, meaning it's built from just nine amino acids (Trp-Ala-Gl
 
 That discovery alone was remarkable. But what's made DSIP more interesting over time is that it doesn't just knock you out. It appears to modulate sleep architecture — the structure and quality of sleep stages — rather than simply acting as a sedative. That's a fundamentally different approach from almost every pharmaceutical sleep aid on the market.
 
-![Restful sleep and recovery](/images/blog/sleep-rest.jpg)
+![Restful sleep and recovery](/images/blog/sleep-rest.webp)
 
 ## How DSIP Works
 
@@ -78,7 +78,7 @@ Need help figuring out the exact syringe volumes? Our [Peptide Reconstitution Ca
 
 This is where DSIP gets a bit tricky, and I want to be upfront about it.
 
-![Lab equipment for peptide research](/images/blog/lab-equipment.jpg)
+![Lab equipment for peptide research](/images/blog/lab-equipment.webp)
 
 ### Reconstitution
 

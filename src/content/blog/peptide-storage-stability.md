@@ -4,7 +4,7 @@ description: "Complete guide to peptide storage: temperature requirements, recon
 date: "2026-02-02"
 readTime: "8 min read"
 tags: ["storage", "stability", "reconstitution", "bacteriostatic water"]
-heroImage: "/images/blog/fridge-storage.jpg"
+heroImage: "/images/blog/fridge-storage.webp"
 category: "Getting Started"
 ---
 
@@ -29,7 +29,7 @@ Peptides are chains of amino acids held together by peptide bonds. These bonds, 
 
 The practical result is simple: a peptide stored incorrectly may lose 50% or more of its potency within days, while the same peptide stored properly can remain stable for weeks or even years. That's a massive difference -- and the fix is straightforward.
 
-![Peptide vials stored properly in a research setting](/images/blog/vials-lab.jpg)
+![Peptide vials stored properly in a research setting](/images/blog/vials-lab.webp)
 
 ---
 
@@ -79,7 +79,7 @@ The following table summarizes recommended storage temperatures based on peptide
 
 **Key takeaway:** Lyophilized peptides are forgiving. Reconstituted peptides are not. Once you've reconstituted, refrigerate immediately and plan to use the solution within the stability window for that specific compound.
 
-![Refrigerator storage for reconstituted peptides](/images/blog/fridge-storage.jpg)
+![Refrigerator storage for reconstituted peptides](/images/blog/fridge-storage.webp)
 
 ---
 
@@ -99,7 +99,7 @@ Ultraviolet light and oxygen are two of the biggest threats to peptide integrity
 - Some researchers backfill vials with nitrogen or argon gas after each use to displace oxygen. While not strictly necessary for short-term storage, this is a best practice for peptides you plan to use over several weeks.
 - Always ensure the rubber stopper is fully seated and hasn't been compromised by repeated punctures.
 
-![Laboratory equipment for peptide handling](/images/blog/lab-equipment.jpg)
+![Laboratory equipment for peptide handling](/images/blog/lab-equipment.webp)
 
 ---
 

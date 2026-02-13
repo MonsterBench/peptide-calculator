@@ -4,7 +4,7 @@ description: "Why CJC-1295 and Ipamorelin are paired together, how to dose them,
 date: "2026-02-09"
 readTime: "10 min read"
 tags: ["cjc-1295", "ipamorelin", "growth hormone", "anti-aging"]
-heroImage: "/images/blog/gym-weights.jpg"
+heroImage: "/images/blog/gym-weights.webp"
 category: "Growth Hormone"
 ---
 
@@ -26,7 +26,7 @@ When you hit both pathways at once? The pituitary responds with a much bigger GH
 
 So why not just use a higher dose of one peptide? Because pushing a single pathway harder doesn't give the same result. You get diminishing returns and more side effects. Two moderate signals through different receptors outperform one large signal every time.
 
-![Lab scientist preparing research peptides](/images/blog/lab-scientist.jpg)
+![Lab scientist preparing research peptides](/images/blog/lab-scientist.webp)
 
 ## CJC-1295: No DAC vs. With DAC (Mod GRF 1-29)
 
@@ -92,7 +92,7 @@ Two rules for getting the most out of this stack.
 
 This is why researchers who can only inject once per day should choose the pre-bed window. It aligns with physiology in a way that morning dosing simply can't replicate.
 
-![Gym weights for fitness and recovery research](/images/blog/gym-weights.jpg)
+![Gym weights for fitness and recovery research](/images/blog/gym-weights.webp)
 
 ## Pre-Made Blends vs. Individual Vials
 
@@ -134,7 +134,7 @@ Don't want to do the math yourself? Use our [Peptide Reconstitution Calculator](
 
 For a full walkthrough on reconstitution technique, solvents, and common mistakes, check out our [How to Reconstitute Peptides](/blog/how-to-reconstitute-peptides) guide.
 
-![Measuring scale for precise peptide dosing](/images/blog/measuring-scale.jpg)
+![Measuring scale for precise peptide dosing](/images/blog/measuring-scale.webp)
 
 ## What to Expect from This Stack
 

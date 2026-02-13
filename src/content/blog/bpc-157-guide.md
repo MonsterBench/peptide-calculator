@@ -4,7 +4,7 @@ description: "Everything you need to know about BPC-157 for research: dosing pro
 date: "2026-02-10"
 readTime: "10 min read"
 tags: ["bpc-157", "tissue repair", "reconstitution", "dosage"]
-heroImage: "/images/blog/vials-lab.jpg"
+heroImage: "/images/blog/vials-lab.webp"
 category: "Tissue Repair"
 ---
 
@@ -27,7 +27,7 @@ Since the early 1990s, research teams primarily based in Croatia have published 
 
 The breadth of these findings has positioned BPC-157 as a leading candidate for further translational research in tissue regeneration. So what's actually going on at the molecular level? Let's dig into the mechanisms.
 
-![Research vials in a laboratory setting](/images/blog/vials-lab.jpg)
+![Research vials in a laboratory setting](/images/blog/vials-lab.webp)
 
 ## Mechanism of Action
 
@@ -123,7 +123,7 @@ Proper BPC-157 reconstitution is essential for maintaining peptide integrity and
 
 For a detailed walkthrough with visual references and additional solvent options, see our full guide on [How to Reconstitute Peptides](/blog/how-to-reconstitute-peptides).
 
-![Syringe and medical supplies for peptide research](/images/blog/syringe-medical.jpg)
+![Syringe and medical supplies for peptide research](/images/blog/syringe-medical.webp)
 
 ## Stacking BPC-157 with TB-500
 
@@ -149,7 +149,7 @@ During the first two weeks (loading phase), TB-500 is typically administered twi
 
 For a comprehensive breakdown of peptide combination strategies, protocols, and timing considerations, see our [Peptide Stacking Guide](/blog/peptide-stacking-guide).
 
-![Fitness and recovery — the primary research goal for BPC-157](/images/blog/fitness-recovery.jpg)
+![Fitness and recovery — the primary research goal for BPC-157](/images/blog/fitness-recovery.webp)
 
 ## Storage and Stability
 

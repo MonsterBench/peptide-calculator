@@ -4,7 +4,7 @@ description: "What NAD+ actually does at the cellular level, how researchers use
 date: "2026-01-30"
 readTime: "8 min read"
 tags: ["nad+", "longevity", "anti-aging", "cellular energy"]
-heroImage: "/images/blog/aging-wellness.jpg"
+heroImage: "/images/blog/aging-wellness.webp"
 category: "Anti-Aging"
 ---
 
@@ -38,7 +38,7 @@ This is the one that got everyone's attention. Sirtuins are a family of seven pr
 
 Without adequate NAD+, sirtuins can't do their job. It's that simple.
 
-![Research into aging and wellness](/images/blog/aging-wellness.jpg)
+![Research into aging and wellness](/images/blog/aging-wellness.webp)
 
 ## Why NAD+ Declines With Age
 
@@ -90,7 +90,7 @@ The oral route is the most convenient by far. Pop a capsule, done. But there are
 
 Look, oral NMN/NR is better than nothing. But if you want the most direct and measurable impact on NAD+ levels, injectable NAD+ (particularly subcutaneous) is the stronger option based on current evidence.
 
-![Lab equipment for peptide research](/images/blog/lab-equipment.jpg)
+![Lab equipment for peptide research](/images/blog/lab-equipment.webp)
 
 ## Subcutaneous NAD+ Dosing Protocol
 
@@ -166,7 +166,7 @@ The shorter post-reconstitution shelf life is worth noting. Unlike BPC-157 or Ip
 
 For detailed storage protocols applicable to all research compounds, read our [Peptide Storage and Stability Guide](/blog/peptide-storage-stability).
 
-![Microscope for research analysis](/images/blog/research-microscope.jpg)
+![Microscope for research analysis](/images/blog/research-microscope.webp)
 
 ## NAD+ vs. NMN vs. NR: Which Should You Use?
 

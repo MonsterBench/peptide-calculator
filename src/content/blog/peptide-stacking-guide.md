@@ -4,7 +4,7 @@ description: "Learn how to stack peptides for synergistic effects. Covers tissue
 date: "2026-02-04"
 readTime: "9 min read"
 tags: ["stacking", "protocol", "bpc-157", "tb-500", "growth hormone"]
-heroImage: "/images/blog/lab-equipment.jpg"
+heroImage: "/images/blog/lab-equipment.webp"
 category: "Protocols"
 ---
 
@@ -22,7 +22,7 @@ For example, BPC-157 promotes angiogenesis and tendon healing through nitric oxi
 
 Stacking isn't random mixing. Effective stacks are built on an understanding of each peptide's receptor targets, half-life, and dosing window so that the compounds work together rather than against each other.
 
-![Lab equipment used in peptide research](/images/blog/lab-equipment.jpg)
+![Lab equipment used in peptide research](/images/blog/lab-equipment.webp)
 
 ## Why Stack Peptides?
 
@@ -54,7 +54,7 @@ This is the most widely recognized peptide stack in the research community, ofte
 
 For a deeper dive into BPC-157 on its own, see our [complete BPC-157 guide](/blog/bpc-157-guide).
 
-![Recovery and fitness — the goal of tissue repair stacks](/images/blog/gym-weights.jpg)
+![Recovery and fitness — the goal of tissue repair stacks](/images/blog/gym-weights.webp)
 
 > Looking for a pre-made blend? [Peptide Restore carries BPC-157 + TB-500 combination vials](https://peptiderestore.com?discount=DKE4PDRM) that simplify dosing and ensure proper ratios. Use code **DKE4PDRM** for 5% off your order.
 
@@ -115,7 +115,7 @@ This stack targets cellular aging from two complementary directions: extracellul
 
 **Protocol notes**: This stack is often run in 4-6 week cycles. GHK-Cu is administered daily via subcutaneous injection, while NAD+ delivery method varies by research setup (IV, subcutaneous, or oral precursors). Some researchers add low-dose epithalon (epitalon) to this stack for additional telomere-related research.
 
-![Wellness and anti-aging research](/images/blog/aging-wellness.jpg)
+![Wellness and anti-aging research](/images/blog/aging-wellness.webp)
 
 ### 6. Thymosin Alpha-1 + KPV + BPC-157 — Immune + Gut Health Stack
 
