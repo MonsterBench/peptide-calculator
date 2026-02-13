@@ -8,7 +8,7 @@ heroImage: "/images/blog/water-drops.jpg"
 category: "Getting Started"
 ---
 
-If you're getting into peptide research, bacteriostatic water is going to become your best friend. It's the solvent you'll use over and over again — every time you reconstitute a vial, every new protocol, every compound. And yet, I've seen people get this wrong more often than you'd think. Wrong water type, expired vials, sketchy storage habits. All of it leads to contaminated peptides and wasted money.
+If you're getting into peptide research, bacteriostatic water is going to become your best friend. It's the solvent you'll use over and over again — every time you reconstitute a vial, every new protocol, every compound. And yet, This is a surprisingly common area where mistakes occur. Wrong water type, expired vials, sketchy storage habits. All of it leads to contaminated peptides and wasted money.
 
 So let's break it down properly.
 
@@ -54,7 +54,7 @@ This trips people up constantly.
 
 **Unopened BAC water** has a long shelf life — typically 2-3 years from the date of manufacture, as long as it's stored properly (room temperature, out of direct sunlight, sealed). Check the expiration date printed on the vial. If it's past that date, toss it.
 
-**Once you puncture the vial**, the clock starts. The general rule is **28-30 days from the first needle puncture**. After that, the benzyl alcohol's preservative action becomes less reliable, and contamination risk increases. Some sources say you can push it a bit longer, but in my experience, 30 days is a good hard cutoff. Write the date on the vial when you first open it.
+**Once you puncture the vial**, the clock starts. The general rule is **28-30 days from the first needle puncture**. After that, the benzyl alcohol's preservative action becomes less reliable, and contamination risk increases. Some sources say you can push it a bit longer, but 30 days is a widely accepted hard cutoff. Write the date on the vial when you first open it.
 
 Here's a quick reference:
 
@@ -90,7 +90,7 @@ The main things to avoid: direct sunlight, extreme heat (don't leave it in a hot
 
 ## Common Mistakes (And How to Avoid Them)
 
-I've seen all of these. Don't be that person.
+These are all common errors that compromise peptide integrity.
 
 **Using expired BAC water.** Check the date. Every time. Expired BAC water may have reduced benzyl alcohol concentration, meaning less bacterial protection. It's not worth the risk on a $40-60 peptide vial.
 
@@ -100,7 +100,7 @@ I've seen all of these. Don't be that person.
 
 **Reusing syringes to draw from the BAC water vial.** Use a fresh, clean syringe each time. Cross-contamination between your peptide vial and your BAC water vial defeats the whole purpose of the preservative.
 
-**Storing opened BAC water for months.** Thirty days. That's your window after first puncture. I don't care if the vial is still mostly full — if it's been open for two months, start fresh.
+**Storing opened BAC water for months.** Thirty days. That's your window after first puncture. Regardless of remaining volume — if it's been open for two months, start fresh.
 
 ## Can You Make Your Own Bacteriostatic Water?
 
@@ -118,7 +118,7 @@ Most researchers add **1-2 mL of BAC water per peptide vial**. A standard BAC wa
 
 If you're running a single compound — say BPC-157 at one vial per month — a single 30 mL BAC water vial will last you through several peptide vials (and you'll hit the 30-day expiration before you run out of water). But if you're running multiple compounds simultaneously, you might go through BAC water faster.
 
-My advice: keep at least two vials on hand. One in use, one backup. Running out mid-protocol is annoying. You can always grab more from [Peptide Restore — 5% off with code DKE4PDRM](https://peptiderestore.com?discount=DKE4PDRM).
+Best practice: keep at least two vials on hand. One in use, one backup. Running out mid-protocol is annoying. You can always grab more from [Peptide Restore — 5% off with code DKE4PDRM](https://peptiderestore.com?discount=DKE4PDRM).
 
 Use the [reconstitution calculator](/calculator) to plan your volumes before you start, so you know exactly how much BAC water you'll need for your entire protocol.
 

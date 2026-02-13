@@ -26,10 +26,10 @@ Before you begin, gather the following supplies in a clean workspace:
 |---|---|
 | Lyophilized peptide vial | The research compound, sealed with a rubber stopper and flip-off cap |
 | Bacteriostatic water (bac water) | Sterile water preserved with 0.9% benzyl alcohol; standard reconstitution solvent |
-| Insulin syringes (0.5 mL or 1 mL) | For drawing and administering precise doses in "units" |
+| Insulin syringes (0.5 mL or 1 mL) | For measuring and administering precise doses in research protocols in "units" |
 | Alcohol swabs | To sterilize vial stoppers before each needle insertion |
 | Mixing syringe (1--3 mL) | A larger syringe for transferring bac water into the peptide vial |
-| Sharps container | Safe disposal of used needles |
+| Sharps container | Safe disposal of used sharps per laboratory safety standards |
 
 **Where to get supplies:** [Shop bacteriostatic water and peptides at Peptide Restore -- 5% off with code DKE4PDRM](https://peptiderestore.com?discount=DKE4PDRM).
 
@@ -140,7 +140,7 @@ Each small tick mark on a 1 mL syringe represents 1 unit (0.01 mL). On a 0.5 mL 
 
 ## Common Mistakes to Avoid
 
-Even experienced researchers make reconstitution errors. How many of these have you run into?
+Even experienced researchers make reconstitution errors. These are among the most common errors encountered during reconstitution.
 
 ### 1. Spraying Water Directly Onto the Powder
 

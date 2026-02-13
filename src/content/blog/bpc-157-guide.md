@@ -86,7 +86,7 @@ The peptide's stability in acidic environments is a distinguishing characteristi
 
 Most published BPC-157 protocols span **14 to 30 days** of daily administration. Shorter protocols of 7 to 10 days have been used in acute injury models, while longer protocols are employed for chronic conditions or complex tissue repair. Researchers typically include a washout period between cycles.
 
-Need help calculating your reconstitution volumes and dosing? Use our [Peptide Reconstitution Calculator](/calculator) to get precise measurements for your research protocol.
+Need help calculating reconstitution volumes and dosing for your research? Use our [Peptide Reconstitution Calculator](/calculator) to get precise measurements for your research protocol.
 
 ## How to Reconstitute BPC-157
 
@@ -136,7 +136,7 @@ The rationale for the BPC-157 TB-500 stack is based on their distinct but overla
 - **BPC-157** primarily modulates growth factor expression (VEGF, EGF), the nitric oxide system, and FAK-paxillin signaling to drive localized tissue repair and angiogenesis.
 - **TB-500** primarily promotes cell migration through upregulation of actin, reduces inflammation, and supports tissue remodeling on a more systemic level.
 
-Together, these peptides address both the localized healing process and the broader systemic environment needed for recovery. Many researchers report that the combination produces more robust results than either peptide alone, though direct head-to-head comparison studies remain limited.
+Together, these peptides address both the localized healing process and the broader systemic environment needed for recovery. Preclinical data suggest the combination may produce more robust results than either peptide alone, though direct head-to-head comparison studies remain limited.
 
 ### Example Research Stack Protocol
 
@@ -172,7 +172,7 @@ Proper storage is critical for preserving BPC-157 potency. Peptides are sensitiv
 
 ### Signs of Degradation
 
-Discard your reconstituted BPC-157 if you observe any of the following:
+Reconstituted BPC-157 should be discarded if any of the following are observed:
 
 - Cloudiness or particulate matter in the solution
 - Discoloration (the solution should be clear and colorless)

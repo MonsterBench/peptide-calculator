@@ -28,15 +28,15 @@ Here's the honest truth: DSIP's exact mechanism of action isn't fully mapped out
 
 ### Sleep Architecture Modulation
 
-DSIP doesn't just increase total sleep time. It specifically promotes slow-wave sleep (SWS) — the deep sleep stage characterized by delta brain waves. This is the phase where the body does most of its physical repair, where growth hormone secretion peaks, and where memory consolidation occurs. In my experience reviewing the literature, this is the most consistently replicated finding across DSIP studies.
+DSIP doesn't just increase total sleep time. It specifically promotes slow-wave sleep (SWS) — the deep sleep stage characterized by delta brain waves. This is the phase where the body does most of its physical repair, where growth hormone secretion peaks, and where memory consolidation occurs. This is the most consistently replicated finding across DSIP studies.
 
-So why does that matter? Because most sleep problems aren't about total hours — they're about sleep quality. You can spend eight hours in bed and still feel wrecked if you're not getting enough deep sleep. DSIP appears to target that specific deficit.
+So why does that matter? Sleep quality, not just total duration, is the critical variable. Insufficient deep sleep is associated with poor recovery even after adequate time in bed. DSIP research focuses on this specific aspect of sleep architecture.
 
 ### Cortisol and Stress Response
 
 This one's interesting. DSIP has demonstrated an ability to modulate cortisol levels, particularly in stress models. Several studies have shown it reduces ACTH (adrenocorticotropic hormone) secretion and normalizes cortisol rhythms that have been disrupted by chronic stress.
 
-Think about what that means practically. Elevated cortisol is one of the most common reasons people can't fall asleep or stay asleep. Their stress hormones are still running hot when they should be winding down. DSIP appears to help recalibrate that system.
+Elevated cortisol is one of the most common factors in sleep disturbances — stress hormones remain elevated when they should be declining. DSIP's observed modulation of the HPA axis in research models is relevant to this pathway.
 
 ### Pain Perception
 
@@ -54,9 +54,7 @@ Let me be direct: DSIP is not melatonin, and it's not a sleeping pill. Understan
 
 **Pharmaceutical sleep aids** (benzodiazepines, Z-drugs like zolpidem) work by enhancing GABA activity, essentially forcing the brain into a sedated state. They increase total sleep time but actually suppress deep sleep and REM — the exact stages you need most. They also carry dependency risks.
 
-**DSIP** appears to work by modulating the brain's own sleep regulation systems rather than overriding them. It promotes delta wave sleep specifically, doesn't seem to cause dependency in the published research, and doesn't leave you foggy the next morning (one of the biggest complaints with conventional sleep aids).
-
-That's a fundamentally different value proposition. DSIP isn't trying to knock you out. It's trying to help your brain do what it's already supposed to do, just better.
+**DSIP** appears to work by modulating the brain's own sleep regulation systems rather than overriding them. It promotes delta wave sleep specifically, doesn't seem to cause dependency in the published research, and doesn't leave you foggy the next morning (one of the biggest complaints with conventional sleep aids). Published research has not identified dependency potential with DSIP, and next-day cognitive impairment has not been reported — distinguishing it from many conventional sleep aids in research comparisons. Rather than sedation, DSIP appears to modulate the brain's endogenous sleep regulation systems.
 
 ## Dosing
 

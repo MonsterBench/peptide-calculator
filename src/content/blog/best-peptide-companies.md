@@ -10,9 +10,11 @@ category: "Getting Started"
 
 Let's be real — finding a legit peptide supplier in 2026 is harder than it should be. The market's exploded over the last two years, largely thanks to the semaglutide wave, and with that growth came a flood of new vendors. Some are great. A lot of them are not.
 
-I've been in this space long enough to have ordered from too many companies, wasted money on underdosed vials, and spent hours verifying (or trying to verify) Certificates of Analysis. So I figured it was time to put together an actual honest breakdown.
+After ordering from too many companies, dealing with underdosed vials, and spending hours verifying (or trying to verify) Certificates of Analysis, it was time to put together an actual honest breakdown.
 
 *Quick note: this article contains affiliate links. If you purchase through one of them, we may earn a small commission at no extra cost to you. That said, every company on this list earned its spot based on real evaluation criteria — not just who pays us. We'll be upfront about our affiliate relationships throughout.*
+
+*All peptides referenced in this article are intended for research use only and are not approved for human consumption. Nothing in this article constitutes medical advice.*
 
 ## How We Evaluated
 
@@ -242,6 +244,6 @@ The peptide market in 2026 is light years better than it was even three years ag
 
 That said, due diligence never goes out of style. Use the comparison table above, verify COAs independently, and start with smaller orders from new vendors before committing to larger purchases.
 
-If you're looking for an all-around reliable vendor with great product quality and unique blend options, [Peptide Restore](https://peptiderestore.com) is where I'd start. But every lab on this list earned its spot for different reasons — pick the one that matches your specific research needs.
+If you're looking for an all-around reliable vendor with great product quality and unique blend options, [Peptide Restore](https://peptiderestore.com) is a strong starting point. But every lab on this list earned its spot for different reasons — pick the one that matches your specific research needs.
 
 *Have questions about reconstituting or dosing any peptides from these vendors? Check out our [free reconstitution calculator](/calculator) or browse our [research guides](/blog) for step-by-step protocols.*

@@ -20,7 +20,7 @@ TB-500 is a synthetic version of a naturally occurring 43-amino-acid peptide cal
 
 It was first identified in the thymus gland (hence the name), but don't let that fool you into thinking it's only involved in immune function. Thymosin Beta-4 is one of the most abundant intracellular peptides in the human body. It shows up in wound fluid, blood platelets, and pretty much anywhere the body is trying to repair itself.
 
-The key thing that sets TB-500 apart from other repair peptides? It works systemically. You don't need to inject it right next to the injury site. I've seen researchers get results with standard subcutaneous injections in the abdomen while studying knee or shoulder tissue models. That's a big deal.
+The key thing that sets TB-500 apart from other repair peptides? It works systemically. You don't need to inject it right next to the injury site. Researchers have reported outcomes using standard subcutaneous injections in the abdomen while studying knee or shoulder tissue models — suggesting effective systemic distribution.
 
 ![Fitness and recovery research](/images/blog/fitness-recovery.jpg)
 
@@ -53,7 +53,7 @@ The published literature on Thymosin Beta-4 is actually quite robust. Studies ha
 - Muscle injuries including muscle contusions
 - Neurological tissue (early-stage research but promising)
 
-One thing I want to be honest about: most of this research is preclinical. The corneal studies are the furthest along in terms of human application, with a Thymosin Beta-4 eye drop (RegeneRx) that went through clinical trials. But for musculoskeletal applications, we're still largely working from animal model data and anecdotal research reports.
+One important caveat: most of this research is preclinical. The corneal studies are the furthest along in terms of human application, with a Thymosin Beta-4 eye drop (RegeneRx) that went through clinical trials. But for musculoskeletal applications, we're still largely working from animal model data and anecdotal research reports.
 
 ## Dosing Protocol
 
@@ -127,7 +127,7 @@ Short answer — it probably doesn't matter much with TB-500.
 
 Unlike BPC-157, which has some evidence supporting localized injection for targeted effects, TB-500 is designed to work systemically. The peptide's molecular weight is low enough that it distributes throughout the body effectively after a standard subcutaneous injection. Researchers studying knee injuries, for example, have reported similar outcomes whether they inject in the abdomen or near the knee.
 
-That said, some researchers still prefer to inject closer to the area of interest, operating on the logic that higher local concentrations can't hurt. There's no strong data either way on this specific question. My take? Don't overthink it. Abdomen, upper thigh, or deltoid area — pick a comfortable site and rotate.
+That said, some researchers still prefer to inject closer to the area of interest, operating on the logic that higher local concentrations can't hurt. There's no strong data either way on this specific question. Common subcutaneous injection sites in research protocols include the abdomen, upper thigh, and deltoid area. Site rotation is recommended to minimize local irritation.
 
 ## The Wolverine Stack: TB-500 + BPC-157
 
@@ -183,7 +183,7 @@ What to look for in a supplier:
 - Clear labeling with peptide weight, lot number, and sequence information
 - A track record in the research community
 
-I recommend **Peptide Restore**. They provide third-party tested, research-grade TB-500 with full COAs, and they carry both individual vials and the popular BPC-157 + TB-500 blend.
+**Peptide Restore** is a recommended source for research-grade TB-500. They provide third-party tested, research-grade TB-500 with full COAs, and they carry both individual vials and the popular BPC-157 + TB-500 blend.
 
 **[Shop at Peptide Restore — 5% off](https://peptiderestore.com?discount=DKE4PDRM)**
 

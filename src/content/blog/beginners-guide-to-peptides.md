@@ -10,7 +10,7 @@ category: "Getting Started"
 
 If you've been poking around forums, Reddit threads, or YouTube videos trying to figure out what peptides are and whether they're worth researching, you've probably run into a wall of jargon, bro-science, and contradictory information. I get it. The space is confusing when you're starting from zero.
 
-This guide is the one I wish I'd had when I first started. No fluff, no gatekeeping — just what you actually need to know to understand peptides, pick up the right equipment, avoid the rookie mistakes, and start a research protocol without lighting money on fire.
+This guide covers the foundational information every new peptide researcher needs. No fluff, no gatekeeping — just what you actually need to know to understand peptides, pick up the right equipment, avoid the rookie mistakes, and start a research protocol without lighting money on fire.
 
 *Everything in this article is for educational and research purposes only. Peptides are research chemicals and are not approved by the FDA for human use. This is not medical advice.*
 
@@ -60,7 +60,7 @@ Before you open a single vial, you need the right supplies. Don't skip any of th
 
 **Bacteriostatic water (BAC water).** This is sterile water with 0.9% benzyl alcohol added as a preservative. It's what you use to reconstitute lyophilized peptides. Not sterile water (no preservative, single-use only), not saline, not distilled water from the grocery store. BAC water. This is non-negotiable.
 
-**Insulin syringes.** Standard 1 mL (100 unit) or 0.5 mL (50 unit) insulin syringes with 29-31 gauge needles. These are what you use for drawing doses and for subcutaneous injection. The smaller gauge means a thinner needle, which is more comfortable but draws slower.
+**Insulin syringes.** Standard 1 mL (100 unit) or 0.5 mL (50 unit) insulin syringes with 29-31 gauge needles. These are the standard tools for measuring and administering doses in research protocols. The smaller gauge means a thinner needle, which is more comfortable but draws slower.
 
 **Alcohol swabs.** You wipe the vial tops before every single needle insertion. Every time. This prevents bacterial contamination that can ruin your peptide solution — or worse.
 
@@ -138,7 +138,7 @@ I've seen every one of these. Don't be the person who learns the hard way.
 
 ## Choosing Your First Peptide
 
-So you know what peptides are, you have the equipment, and you understand the basics. Now what? Your first peptide should be chosen based on your actual research interest, but here's how I'd think about it:
+So you know what peptides are, you have the equipment, and you understand the basics. Now what? A first peptide should be chosen based on the specific research interest. Here is a general framework:
 
 **If your interest is tissue repair or recovery:** Start with BPC-157. It's the most extensively studied peptide in the regenerative space, has a solid safety profile in animal research, and the dosing protocols are well-established. Our [BPC-157 guide](/blog/bpc-157-guide) covers everything you need. If you want to go further, add TB-500 to form the Wolverine Stack — see the [stacking guide](/blog/peptide-stacking-guide).
 

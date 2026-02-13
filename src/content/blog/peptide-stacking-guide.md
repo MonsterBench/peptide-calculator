@@ -50,7 +50,7 @@ This is the most widely recognized peptide stack in the research community, ofte
 
 **Why it works**: BPC-157 accelerates blood vessel formation and collagen deposition at injury sites, while TB-500 promotes the migration of repair cells to damaged tissue and reduces the inflammatory cascade. Together, they create an environment where healing is both faster and more complete.
 
-**Protocol notes**: Many researchers run this stack for 4-8 weeks. BPC-157 is typically administered daily (subcutaneously near the site of interest or systemically), while TB-500 follows a loading/maintenance schedule. There's a reason this is the most popular stack out there -- it just works.
+**Protocol notes**: Many researchers run this stack for 4-8 weeks. BPC-157 is typically administered daily (subcutaneously near the site of interest or systemically), while TB-500 follows a loading/maintenance schedule. There's a reason this is the most popular stack in the research community — the complementary mechanisms are well-documented.
 
 For a deeper dive into BPC-157 on its own, see our [complete BPC-157 guide](/blog/bpc-157-guide).
 
@@ -85,7 +85,7 @@ This three-peptide stack extends the Wolverine Stack with a copper peptide known
 
 **Why it works**: While BPC-157 and TB-500 handle deep tissue repair, GHK-Cu adds a dermal regeneration layer. GHK-Cu has been shown in studies to activate over 4,000 genes involved in tissue remodeling, with particularly strong effects on skin elasticity, wound healing, and hair follicle health. The combination addresses both structural tissue repair and surface-level skin quality.
 
-**Protocol notes**: GHK-Cu can be administered subcutaneously alongside BPC-157, or applied topically to target specific areas. Researchers often run this stack for 6-8 weeks. The "Glow Stack" name comes from the visible improvements in skin texture and tone frequently reported during research.
+**Protocol notes**: GHK-Cu can be administered subcutaneously alongside BPC-157, or applied topically to target specific areas. Protocols typically run this stack for 6-8 weeks. The "Glow Stack" name refers to the combination's focus on skin-related research endpoints, including collagen synthesis and tissue remodeling markers.
 
 > [Peptide Restore offers GHK-Cu and blend products](https://peptiderestore.com?discount=DKE4PDRM) for streamlined research protocols. Save 5% with code **DKE4PDRM**.
 
@@ -138,7 +138,7 @@ This triple stack is designed for research into immune modulation and gut barrie
 Getting the timing right is just as important as choosing the right peptides. Here are general scheduling principles for peptide stacks:
 
 - **Same-syringe compatibility**: Many peptides can be combined in the same syringe for a single injection (e.g., CJC-1295 + Ipamorelin, or BPC-157 + TB-500). This reduces injection frequency without affecting efficacy. However, always verify chemical compatibility before combining compounds in solution.
-- **Fasted vs. fed state**: Growth-hormone-related peptides (CJC-1295, Ipamorelin, and other GHRPs) should generally be administered in a fasted state or at least 2 hours after eating. Elevated blood sugar and insulin blunt the GH response. BPC-157 and TB-500 can be administered regardless of food intake.
+- **Fasted vs. fed state**: In research protocols, growth-hormone-related peptides (CJC-1295, Ipamorelin, and other GHRPs) are typically administered in a fasted state or at least 2 hours post-prandially, as elevated blood glucose and insulin blunt the GH response. Elevated blood sugar and insulin blunt the GH response. BPC-157 and TB-500 can be administered regardless of food intake.
 - **Time of day**: GH stacks benefit from evening or pre-bed dosing to coincide with natural GH pulses during deep sleep. Repair peptides like BPC-157 and TB-500 are effective at any time but are commonly dosed in the morning or split into AM/PM doses.
 - **Loading phases**: TB-500 and Thymosin Alpha-1 both benefit from an initial loading phase (higher frequency/dose for the first 2-4 weeks) followed by a maintenance phase. Other peptides in the stack typically maintain consistent daily dosing throughout.
 - **Cycle length and breaks**: Most peptide stacks are run for 4-12 weeks followed by an off period of equal or greater length. This prevents receptor desensitization and allows assessment of results.
@@ -214,9 +214,9 @@ Not necessarily. Well-designed stacks use peptides with clean side-effect profil
 
 The BPC-157 + TB-500 (Wolverine Stack) is widely considered the most accessible starting point. Both peptides have extensive research backing, favorable safety profiles, and straightforward dosing schedules. The CJC-1295 + Ipamorelin stack is the standard entry point for GH-related research.
 
-### Should I take all peptides at the same time of day?
+### Should all peptides in a stack be administered at the same time of day?
 
-Not always. GH-releasing peptides should be taken on an empty stomach, ideally before bed or first thing in the morning. Repair peptides like BPC-157 are flexible on timing. When in doubt, consult the specific timing guidelines for each peptide in your stack and build a schedule that accommodates all of them.
+Not always. GH-releasing peptides are typically administered in a fasted state in research protocols, with common timing windows being pre-sleep or early morning. Repair peptides like BPC-157 are flexible on timing. When in doubt, consult the specific timing guidelines for each peptide in your stack and build a schedule that accommodates all of them.
 
 ### Where can I source quality peptides for stacking?
 

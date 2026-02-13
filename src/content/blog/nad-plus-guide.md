@@ -10,7 +10,7 @@ category: "Anti-Aging"
 
 NAD+ has gone from obscure biochemistry footnote to the single most talked-about molecule in longevity research. And unlike a lot of anti-aging hype, this one actually has serious science behind it. We're talking thousands of published papers, multiple ongoing clinical trials, and some of the most respected researchers in the aging field staking their careers on it.
 
-But here's the thing -- most of the content out there either oversimplifies NAD+ into useless buzzwords or buries you in molecular biology jargon. I want to land somewhere in the middle. Enough depth to actually understand what's going on, enough practicality to design a real research protocol.
+But here's the thing -- most of the content out there either oversimplifies NAD+ into useless buzzwords or buries you in molecular biology jargon. This guide aims to land somewhere in the middle. Enough depth to actually understand what's going on, enough practicality to design a real research protocol.
 
 *All information in this article is for educational and research purposes only. NAD+ products are sold for research use and are not FDA-approved for treating any condition. Nothing here constitutes medical advice.*
 
@@ -42,9 +42,7 @@ Without adequate NAD+, sirtuins can't do their job. It's that simple.
 
 ## Why NAD+ Declines With Age
 
-Here's the part that makes this personally relevant to anyone over 30.
-
-NAD+ levels decline dramatically as you age. By age 50, you've lost roughly half the NAD+ you had at age 20. By 80, levels are down to about 1-10% of youthful concentrations in some tissues. This isn't subtle -- it's a steep, consistent decline that correlates tightly with the onset of age-related diseases.
+NAD+ levels decline dramatically with age. By age 50, levels are roughly half of what they were at age 20. By 80, levels are down to about 1-10% of youthful concentrations in some tissues. This isn't subtle -- it's a steep, consistent decline that correlates tightly with the onset of age-related diseases.
 
 Why does this happen? Multiple factors working simultaneously:
 
@@ -96,7 +94,7 @@ Look, oral NMN/NR is better than nothing. But if you want the most direct and me
 
 ## Subcutaneous NAD+ Dosing Protocol
 
-For researchers working with injectable NAD+, here's the protocol framework that I've seen used most consistently:
+For researchers working with injectable NAD+, here's the protocol framework most commonly referenced in the research community:
 
 | Parameter | Value |
 |---|---|
@@ -123,11 +121,11 @@ Use our [Peptide Reconstitution Calculator](/calculator) for precise dilution vo
 
 ### What to Expect
 
-**Week 1-2:** Improved energy levels and mental clarity are commonly reported early on. Better sustained focus throughout the day, less of that 2pm energy crash. Some researchers report improved mood.
+**Week 1-2:** Improved energy levels and mental clarity are commonly observed in research settings early on. Better sustained focus and reduced afternoon energy dips have been documented. Some protocols note improved mood markers.
 
-**Week 3-4:** Sleep quality improvements tend to emerge here. More restorative sleep, easier time waking up. Physical recovery from exercise may improve as well.
+**Week 3-4:** Sleep quality improvements tend to emerge in this window. More restorative sleep patterns and improved physical recovery from exercise have been documented.
 
-**Week 6-8:** This is where the cumulative cellular effects start compounding. Skin quality improvements, better exercise capacity, sustained energy that feels qualitatively different from stimulant-driven alertness. Some researchers running blood panels report improvements in inflammatory markers.
+**Week 6-8:** This is where the cumulative cellular effects start compounding. Skin quality improvements, better exercise capacity, and sustained energy have been observed. Blood panel data from some research protocols show improvements in inflammatory markers.
 
 **Month 3+:** Researchers on longer protocols report the most significant and sustained benefits in this timeframe. The effects of restored mitochondrial function and sirtuin activity take time to manifest at the tissue and systemic level.
 
@@ -172,7 +170,7 @@ For detailed storage protocols applicable to all research compounds, read our [P
 
 ## NAD+ vs. NMN vs. NR: Which Should You Use?
 
-This is the question everyone asks. Here's how I think about it.
+This is the question everyone asks. Here is how these options compare.
 
 **NAD+ (injectable)** is the direct approach. You're putting the actual molecule into your system. Highest certainty that you're raising NAD+ levels, most data on acute blood-level changes. The downside is that it requires injections and has a shorter shelf life in solution.
 
@@ -180,7 +178,7 @@ This is the question everyone asks. Here's how I think about it.
 
 **NR (oral)** is two conversion steps from NAD+. It was the first NAD+ precursor to gain mainstream attention (sold commercially as Niagen). It has solid clinical trial data showing blood NAD+ increases, though the magnitude of tissue-level NAD+ restoration compared to NMN or direct NAD+ is still debated. Typical research doses are 300-1000mg daily.
 
-So which one? If you want maximum certainty and don't mind injections, subcutaneous NAD+ is the strongest option. If you want convenience and are comfortable with indirect NAD+ elevation, sublingual NMN is a solid choice with growing evidence behind it. NR works too, but I'd put it third in line based on current data.
+So which one? If you want maximum certainty and don't mind injections, subcutaneous NAD+ is the strongest option. If you want convenience and are comfortable with indirect NAD+ elevation, sublingual NMN is a solid choice with growing evidence behind it. Based on current data, NR ranks third among these delivery methods.
 
 And honestly? Some researchers use both -- injectable NAD+ 2-3x per week plus daily oral NMN on the off-days. Belt and suspenders approach. Not a bad strategy if the budget allows.
 
@@ -195,7 +193,7 @@ When evaluating vendors, look for:
 - Cold-chain shipping (especially in warm months)
 - Transparent lot numbering and expiration dating
 
-**Peptide Restore** carries research-grade NAD+ with third-party testing and proper cold-chain handling. They're my go-to recommendation for this compound.
+**Peptide Restore** carries research-grade NAD+ with third-party testing and proper cold-chain handling. They are a recommended source for research-grade NAD+.
 
 **[Shop at Peptide Restore -- 5% off](https://peptiderestore.com?discount=DKE4PDRM)**
 
