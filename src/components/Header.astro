@@ -2,7 +2,7 @@
 const currentPath = Astro.url.pathname;
 const links = [
   { href: '/', label: 'Home', mobileHidden: true },
-  { href: '/calculator', label: 'Calculator' },
+  { href: '/calculator', label: 'Calculator', reload: true },
   { href: '/blog', label: 'Blog' },
   { href: 'https://peptiderestore.com?discount=DKE4PDRM', label: 'Shop', external: true },
 ];
@@ -20,6 +20,7 @@ const links = [
           href={link.href}
           target={link.external ? '_blank' : undefined}
           rel={link.external ? 'noopener noreferrer' : undefined}
+          data-astro-reload={link.reload || undefined}
           class:list={[
             'px-2.5 sm:px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all whitespace-nowrap',
             currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href))
