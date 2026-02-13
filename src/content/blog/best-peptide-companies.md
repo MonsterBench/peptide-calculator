@@ -33,6 +33,8 @@ With that framework, here's how the top vendors stack up.
 
 ## 1. Peptide Restore — Best Overall
 
+**Our Rating:** ★★★★★ 4.8/5
+
 **Website:** [peptiderestore.com](https://peptiderestore.com)
 
 Peptide Restore has quietly become one of the most reliable vendors in the space, and they've done it without the aggressive marketing that makes some companies feel sketchy. What stood out immediately was the product quality and the unique blend formulations you won't find anywhere else.
@@ -61,6 +63,8 @@ Peptide Restore has quietly become one of the most reliable vendors in the space
 
 ## 2. Core Peptides — Best for Custom Synthesis
 
+**Our Rating:** ★★★★☆ 4.5/5
+
 **Website:** corepeptides.com
 
 Core Peptides has been around for a while and they've built a reputation as the "researcher's vendor." Their strength is custom peptide synthesis — if you need something specific that's not on a standard catalog, they can make it.
@@ -86,6 +90,8 @@ They use solid-phase synthesis and verify purity with HPLC and mass spectrometry
 
 ## 3. Biotech Peptides — Best Customer Service
 
+**Our Rating:** ★★★★☆ 4.4/5
+
 **Website:** biotechpeptides.com
 
 Biotech Peptides runs out of Nevada and has built a massive Trustpilot presence — over 270 five-star reviews, which is kind of insane for a peptide company. They've managed to combine good product quality with genuinely helpful customer service, which is rare in this industry.
@@ -108,6 +114,8 @@ Biotech Peptides runs out of Nevada and has built a massive Trustpilot presence 
 ---
 
 ## 4. Limitless Life Nootropics — Best Selection
+
+**Our Rating:** ★★★★☆ 4.2/5
 
 **Website:** limitlesslifenootropics.com
 
@@ -133,6 +141,8 @@ Limitless has one of the widest catalogs in the game. They carry everything from
 
 ## 5. Swiss Chems — Best for SARMs + Peptide Combo Research
 
+**Our Rating:** ★★★★☆ 4.0/5
+
 **Website:** swisschems.is
 
 Swiss Chems made its name in the SARMs space before expanding into peptides, and they've carried over a lot of what made them popular — competitive pricing, solid testing, and a no-nonsense approach to product quality.
@@ -156,6 +166,8 @@ Swiss Chems made its name in the SARMs space before expanding into peptides, and
 
 ## 6. Paradigm Peptides — Best Educational Resources
 
+**Our Rating:** ★★★★☆ 3.9/5
+
 **Website:** paradigmpeptides.com
 
 Paradigm has carved out a niche as the "informational" peptide vendor. Their blog and product descriptions are genuinely useful — they put effort into explaining what each compound does, citing research, and helping customers understand what they're buying.
@@ -178,6 +190,8 @@ Paradigm has carved out a niche as the "informational" peptide vendor. Their blo
 ---
 
 ## 7. NextGenPeps — Best Budget Option
+
+**Our Rating:** ★★★★☆ 3.8/5
 
 **Website:** nextgenpeps.com
 
@@ -214,15 +228,15 @@ Not every vendor deserves a spot on this list. Here are some to steer clear of:
 
 ## Quick Comparison Table
 
-| Company | Best For | COAs | Blends | Guarantee | Pricing |
-|---------|----------|------|--------|-----------|---------|
-| **Peptide Restore** | Overall quality | Yes | Yes (unique) | — | Mid-range |
-| **Core Peptides** | Custom synthesis | HPLC + Mass Spec | No | — | Premium |
-| **Biotech Peptides** | Customer service | Yes | No | 30-day refund | Mid-range |
-| **Limitless Life** | Selection | In-house HPLC | No | No refunds | Premium |
-| **Swiss Chems** | SARMs + peptides | Third-party | No | — | Budget-mid |
-| **Paradigm Peptides** | Education | Third-party | No | — | Mid-range |
-| **NextGenPeps** | Budget | Independent | No | — | Budget |
+| Company | Rating | Best For | COAs | Blends | Guarantee | Pricing |
+|---------|--------|----------|------|--------|-----------|---------|
+| **Peptide Restore** | ★★★★★ 4.8 | Overall quality | Yes | Yes (unique) | — | Mid-range |
+| **Core Peptides** | ★★★★☆ 4.5 | Custom synthesis | HPLC + Mass Spec | No | — | Premium |
+| **Biotech Peptides** | ★★★★☆ 4.4 | Customer service | Yes | No | 30-day refund | Mid-range |
+| **Limitless Life** | ★★★★☆ 4.2 | Selection | In-house HPLC | No | No refunds | Premium |
+| **Swiss Chems** | ★★★★☆ 4.0 | SARMs + peptides | Third-party | No | — | Budget-mid |
+| **Paradigm Peptides** | ★★★★☆ 3.9 | Education | Third-party | No | — | Mid-range |
+| **NextGenPeps** | ★★★★☆ 3.8 | Budget | Independent | No | — | Budget |
 
 ---
 
