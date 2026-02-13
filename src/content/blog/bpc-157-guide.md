@@ -6,7 +6,7 @@ readTime: "10 min read"
 tags: ["bpc-157", "tissue repair", "reconstitution", "dosage"]
 ---
 
-BPC-157, short for Body Protection Compound-157, is one of the most extensively studied peptides in regenerative research. Derived from a protective protein found in gastric juice, this 15-amino-acid peptide has attracted significant attention for its remarkable tissue-repair properties observed across hundreds of preclinical studies. Whether you are new to peptide research or looking to refine an existing protocol, this guide covers everything from BPC-157 dosage calculations and reconstitution steps to stacking strategies with TB-500.
+BPC-157, short for Body Protection Compound-157, is one of the most extensively studied peptides in regenerative research. Derived from a protective protein found in gastric juice, this 15-amino-acid peptide has attracted serious attention for its remarkable tissue-repair properties observed across hundreds of preclinical studies. Whether you're new to peptide research or looking to refine an existing protocol, this guide covers everything from BPC-157 dosage calculations and reconstitution steps to stacking strategies with TB-500.
 
 *All information presented in this article is strictly for educational and research purposes only. BPC-157 is sold as a research chemical and is not approved by the FDA for human use. Nothing in this article constitutes medical advice.*
 
@@ -23,11 +23,13 @@ Since the early 1990s, research teams primarily based in Croatia have published 
 - **Neuroprotection** -- protective effects against peripheral nerve damage and certain neurotoxic compounds
 - **Vascular repair** -- promotion of angiogenesis and restoration of blood flow to injured tissue
 
-The breadth of these findings has positioned BPC-157 as a leading candidate for further translational research in tissue regeneration.
+The breadth of these findings has positioned BPC-157 as a leading candidate for further translational research in tissue regeneration. So what's actually going on at the molecular level? Let's dig into the mechanisms.
+
+![Research vials in a laboratory setting](/images/blog/vials-lab.jpg)
 
 ## Mechanism of Action
 
-Understanding how BPC-157 works at the molecular level is essential for designing effective research protocols. While the complete mechanism is still under investigation, several well-documented pathways have emerged from the literature.
+Understanding how BPC-157 works at the molecular level is essential for designing effective research protocols. While the complete mechanism is still under investigation (and honestly, there's still a lot we don't know), several well-documented pathways have emerged from the literature.
 
 ### Growth Factor Modulation
 
@@ -76,7 +78,7 @@ BPC-157 has been studied via several administration routes:
 - **Oral administration** -- notably, BPC-157 has shown efficacy when administered orally in several gastrointestinal studies, which is unusual for peptides that are typically degraded in the digestive tract
 - **Topical application** -- applied in cream or solution form in wound-healing models
 
-The peptide's stability in acidic environments is a distinguishing characteristic. Unlike most peptides, BPC-157 does not degrade rapidly in gastric acid, which supports its oral bioavailability in GI-focused research.
+The peptide's stability in acidic environments is a distinguishing characteristic -- and frankly, it's pretty unusual. Unlike most peptides, BPC-157 doesn't degrade rapidly in gastric acid, which supports its oral bioavailability in GI-focused research.
 
 ### Protocol Duration
 
@@ -119,6 +121,8 @@ Proper BPC-157 reconstitution is essential for maintaining peptide integrity and
 
 For a detailed walkthrough with visual references and additional solvent options, see our full guide on [How to Reconstitute Peptides](/blog/how-to-reconstitute-peptides).
 
+![Syringe and medical supplies for peptide research](/images/blog/syringe-medical.jpg)
+
 ## Stacking BPC-157 with TB-500
 
 One of the most widely discussed combinations in peptide research is the **BPC-157 and TB-500 stack**. TB-500 (Thymosin Beta-4) is a 43-amino-acid peptide that plays a key role in cell migration, blood vessel formation, and anti-inflammatory signaling. When combined with BPC-157, the two peptides target complementary repair pathways, which has led researchers to investigate their synergistic potential.
@@ -143,9 +147,11 @@ During the first two weeks (loading phase), TB-500 is typically administered twi
 
 For a comprehensive breakdown of peptide combination strategies, protocols, and timing considerations, see our [Peptide Stacking Guide](/blog/peptide-stacking-guide).
 
+![Fitness and recovery — the primary research goal for BPC-157](/images/blog/fitness-recovery.jpg)
+
 ## Storage and Stability
 
-Proper storage is critical for preserving BPC-157 potency. Peptides are sensitive to heat, light, and bacterial contamination, so following best practices will ensure consistent results throughout your research protocol.
+Proper storage is critical for preserving BPC-157 potency. Peptides are sensitive to heat, light, and bacterial contamination, so cutting corners here can ruin an otherwise well-designed protocol.
 
 ### Lyophilized (Pre-Reconstitution) Storage
 
@@ -198,7 +204,7 @@ BPC-157 reconstitution involves adding bacteriostatic water to the lyophilized p
 
 ### Can BPC-157 be taken orally?
 
-Uniquely among peptides, BPC-157 has demonstrated stability in acidic environments and has shown efficacy via oral administration in multiple gastrointestinal studies. However, subcutaneous injection remains the most common and well-characterized route in the research literature.
+This is actually one of BPC-157's more surprising properties. Unlike most peptides, it's demonstrated stability in acidic environments and has shown efficacy via oral administration in multiple gastrointestinal studies. That said, subcutaneous injection remains the most common and well-characterized route in the research literature.
 
 ### How long does a BPC-157 protocol typically last?
 

@@ -6,7 +6,7 @@ readTime: "11 min read"
 tags: ["semaglutide", "tirzepatide", "retatrutide", "GLP-1", "weight loss"]
 ---
 
-The GLP-1 agonist landscape has evolved rapidly. What started with semaglutide has expanded to include dual-agonist tirzepatide and the investigational triple-agonist retatrutide. For researchers evaluating these peptides, understanding the mechanistic differences, dosing protocols, and practical considerations is essential.
+The GLP-1 agonist landscape has evolved rapidly. What started with semaglutide has expanded to include dual-agonist tirzepatide and the investigational triple-agonist retatrutide. If you're evaluating these peptides for research, understanding the mechanistic differences, dosing protocols, and practical considerations is essential.
 
 This guide provides a thorough **semaglutide vs tirzepatide** comparison, introduces **retatrutide** as the next-generation candidate, and walks through titration schedules, reconstitution, and side effect profiles for each.
 
@@ -24,7 +24,9 @@ Pharmaceutical GLP-1 agonists were originally developed for type 2 diabetes mana
 - **Tirzepatide** -- A dual GIP/GLP-1 receptor agonist
 - **Retatrutide** -- A triple GLP-1/GIP/glucagon receptor agonist
 
-Each successive generation targets additional receptor pathways, and early research suggests that the multi-agonist approach may yield more pronounced results.
+Each successive generation targets additional receptor pathways, and early research suggests that the multi-agonist approach may yield more pronounced results. So how do they actually differ under the hood?
+
+![Research laboratory setting](/images/blog/research-microscope.jpg)
 
 ---
 
@@ -59,7 +61,7 @@ Tirzepatide also has an approximately 5-day half-life, supporting once-weekly in
 - **Glucagon receptor activation** increases energy expenditure, promotes hepatic fat oxidation, and may reduce liver fat content
 - Early phase 2 trial data showed average weight loss of up to **24% at 48 weeks**, with some cohorts exceeding this
 
-The glucagon component is particularly interesting because it addresses energy expenditure on the output side of the equation, rather than relying solely on appetite suppression and metabolic improvement. Retatrutide remains investigational and is not yet FDA-approved.
+The glucagon component is particularly interesting because it addresses energy expenditure on the output side of the equation, rather than relying solely on appetite suppression and metabolic improvement. That's a fundamentally different approach -- and one worth watching closely. Retatrutide remains investigational and isn't yet FDA-approved.
 
 ---
 
@@ -79,6 +81,8 @@ The glucagon component is particularly interesting because it addresses energy e
 | **Availability** | Widely available | Widely available | Research peptide only |
 
 For precise dosing calculations for any of these peptides, use our [Peptide Dosing Calculator](/calculator) to convert between concentrations and volumes accurately.
+
+![Weight management research](/images/blog/weight-loss.jpg)
 
 ---
 
@@ -147,7 +151,9 @@ Use the [Peptide Dosing Calculator](/calculator) to determine the exact injectio
 
 **Storage after reconstitution:**
 
-Reconstituted peptides should be stored at 2-8 degrees Celsius (standard refrigerator temperature) and are typically stable for 4-6 weeks. Avoid freezing reconstituted solutions. For detailed stability data and best practices, read our guide on [Peptide Storage and Stability](/blog/peptide-storage-stability).
+Reconstituted peptides should be stored at 2-8 degrees Celsius (standard refrigerator temperature) and are typically stable for 4-6 weeks. Don't freeze reconstituted solutions. For detailed stability data and best practices, read our guide on [Peptide Storage and Stability](/blog/peptide-storage-stability).
+
+![Measuring and dosing precision in peptide research](/images/blog/measuring-scale.jpg)
 
 ---
 
@@ -188,7 +194,7 @@ The side effect profiles of these three peptides share significant overlap, prim
 
 ## Which One to Choose for Research
 
-Selecting the right peptide depends on research objectives, availability, and the specific parameters being studied.
+So which one should you actually go with? It depends on your research objectives, availability, and the specific parameters being studied.
 
 **Choose semaglutide if:**
 
@@ -227,7 +233,7 @@ The primary difference in the **semaglutide vs tirzepatide** comparison is recep
 
 ### Is retatrutide better than tirzepatide?
 
-It is too early to make definitive claims. **Retatrutide** has shown promising phase 2 data with up to 24% weight loss at 48 weeks, but it has not completed phase 3 trials and lacks the long-term safety data available for tirzepatide. The addition of glucagon receptor agonism is mechanistically interesting but requires further validation.
+It's too early to make definitive claims. **Retatrutide** has shown promising phase 2 data with up to 24% weight loss at 48 weeks, but it hasn't completed phase 3 trials and lacks the long-term safety data available for tirzepatide. The addition of glucagon receptor agonism is mechanistically interesting but requires further validation.
 
 ### Can you switch between these peptides?
 

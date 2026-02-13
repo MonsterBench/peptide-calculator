@@ -6,7 +6,7 @@ readTime: "12 min read"
 tags: ["reconstitution", "bacteriostatic water", "calculator", "how-to"]
 ---
 
-Reconstituting peptides is the essential first step before any research protocol can begin. Whether you are working with BPC-157, TB-500, or any other lyophilized peptide, proper reconstitution ensures accurate dosing, preserves peptide integrity, and produces reliable results. This guide walks through the full process of **how to reconstitute peptides**, from gathering supplies to storing your finished solution. A **peptide reconstitution calculator** is also available to simplify the math.
+Reconstituting peptides is the essential first step before any research protocol can begin. Whether you're working with BPC-157, TB-500, or any other lyophilized peptide, proper reconstitution ensures accurate dosing, preserves peptide integrity, and produces reliable results. This guide walks through the full process of **how to reconstitute peptides**, from gathering supplies to storing your finished solution. A **peptide reconstitution calculator** is also available to simplify the math.
 
 *All peptides discussed in this article are intended for research use only. Nothing in this guide constitutes medical advice.*
 
@@ -30,6 +30,8 @@ Before you begin, gather the following supplies in a clean workspace:
 | Sharps container | Safe disposal of used needles |
 
 **Where to get supplies:** [Shop bacteriostatic water and peptides at Peptide Restore -- 5% off with code DKE4PDRM](https://peptiderestore.com?discount=DKE4PDRM).
+
+![Medical supplies laid out for peptide reconstitution](/images/blog/medical-supplies.jpg)
 
 ### A Note on Solvents
 
@@ -57,7 +59,9 @@ Using a clean mixing syringe, insert the needle into the bac water vial and draw
 
 ### Step 5: Inject Bac Water Into the Peptide Vial
 
-Pierce the rubber stopper of the peptide vial and slowly inject the bacteriostatic water. **Aim the stream against the glass wall of the vial, not directly onto the powder.** Let the water trickle down the side and pool at the bottom. This gentle technique prevents degradation from excessive agitation or foaming.
+Pierce the rubber stopper of the peptide vial and slowly inject the bacteriostatic water. **Aim the stream against the glass wall of the vial, not directly onto the powder.** Let the water trickle down the side and pool at the bottom. This gentle technique prevents degradation from excessive agitation or foaming. (Think of it like pouring a beer down the side of a glass -- same idea.)
+
+![Peptide vials ready for reconstitution](/images/blog/vials-lab.jpg)
 
 ### Step 6: Swirl Gently -- Never Shake
 
@@ -99,7 +103,7 @@ Notice how the volume of bac water you choose directly affects how many units yo
 
 ## Using a Peptide Reconstitution Calculator
 
-Doing the math by hand is straightforward, but a **peptide reconstitution calculator** eliminates errors and saves time -- especially when working with multiple compounds at different concentrations.
+Doing the math by hand is straightforward, but why risk a mistake? A **peptide reconstitution calculator** eliminates errors and saves time -- especially when you're working with multiple compounds at different concentrations.
 
 Our free [Peptide Reconstitution Calculator](/calculator) lets you:
 
@@ -134,7 +138,7 @@ Each small tick mark on a 1 mL syringe represents 1 unit (0.01 mL). On a 0.5 mL 
 
 ## Common Mistakes to Avoid
 
-Even experienced researchers make reconstitution errors. Watch out for these pitfalls:
+Even experienced researchers make reconstitution errors. How many of these have you run into?
 
 ### 1. Spraying Water Directly Onto the Powder
 
@@ -142,7 +146,7 @@ Forcing a stream of bac water directly onto the lyophilized cake can cause foami
 
 ### 2. Shaking the Vial
 
-Vigorous shaking introduces air bubbles and can break peptide bonds. Gentle swirling or slow rolling is all that is needed. If the powder does not dissolve within a few minutes, let the vial sit in the refrigerator for 30 minutes -- most peptides will dissolve on their own.
+Vigorous shaking introduces air bubbles and can break peptide bonds. Gentle swirling or slow rolling is all that's needed. If the powder doesn't dissolve within a few minutes, let the vial sit in the refrigerator for 30 minutes -- most peptides will dissolve on their own.
 
 ### 3. Using the Wrong Volume and Miscalculating Concentration
 
@@ -180,6 +184,8 @@ Proper storage is critical for maintaining peptide potency over time. Here are t
 
 For a deeper look at how temperature, light, and time affect peptide integrity, read our full guide on [peptide storage and stability](/blog/peptide-storage-stability).
 
+![Proper refrigerator storage for reconstituted peptides](/images/blog/fridge-storage.jpg)
+
 ## Frequently Asked Questions
 
 ### What is the best water-to-peptide ratio for reconstitution?
@@ -208,7 +214,7 @@ Some researchers do combine compatible peptides in a single injection for conven
 
 ### I accidentally added more bac water than intended. Is the peptide ruined?
 
-No. The peptide is not ruined -- the solution is simply more dilute than planned. Recalculate your concentration using the actual volume you added, and adjust your dose volume accordingly. The [reconstitution calculator](/calculator) makes this easy.
+No -- don't panic. The peptide isn't ruined; the solution is simply more dilute than planned. Recalculate your concentration using the actual volume you added, and adjust your dose volume accordingly. The [reconstitution calculator](/calculator) makes this easy.
 
 ### What is the difference between reconstitution and dilution?
 

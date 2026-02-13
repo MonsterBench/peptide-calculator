@@ -8,7 +8,7 @@ tags: ["storage", "stability", "reconstitution", "bacteriostatic water"]
 
 # Peptide Storage & Stability Guide: How to Store Peptides Properly
 
-Knowing **how to store peptides** correctly is just as important as calculating the right dosage. Improper peptide storage is one of the most common reasons researchers encounter inconsistent results, reduced potency, and outright waste of expensive compounds. Whether you are working with lyophilized powder or a reconstituted solution, the conditions you maintain -- temperature, light exposure, container choice, and solvent type -- directly determine how long your peptides remain viable.
+Knowing **how to store peptides** correctly is just as important as calculating the right dosage. Improper storage is one of the most common reasons researchers encounter inconsistent results, reduced potency, and outright waste of expensive compounds. Whether you are working with lyophilized powder or a reconstituted solution, the conditions you maintain -- temperature, light exposure, container choice, and solvent type -- directly determine how long your peptides remain viable.
 
 This guide covers everything you need to know about **peptide stability**, from long-term freezer storage of unreconstituted vials to the practical shelf life of reconstituted solutions in your refrigerator.
 
@@ -25,7 +25,9 @@ Peptides are chains of amino acids held together by peptide bonds. These bonds, 
 - **Aggregation** -- Temperature fluctuations cause peptides to clump together, reducing solubility and bioactivity.
 - **Microbial contamination** -- Bacteria introduced during reconstitution multiply in solution, degrading the peptide and introducing endotoxins.
 
-The practical result is simple: a peptide stored incorrectly may lose 50% or more of its potency within days, while the same peptide stored properly can remain stable for weeks or even years.
+The practical result is simple: a peptide stored incorrectly may lose 50% or more of its potency within days, while the same peptide stored properly can remain stable for weeks or even years. That's a massive difference -- and the fix is straightforward.
+
+![Peptide vials stored properly in a research setting](/images/blog/vials-lab.jpg)
 
 ---
 
@@ -73,13 +75,15 @@ The following table summarizes recommended storage temperatures based on peptide
 | **Frozen (-20 C)** | Ideal for long-term storage. Stable for 2+ years. | Not generally recommended. Some peptides tolerate a single freeze, but repeated freeze-thaw degrades most compounds. |
 | **Deep frozen (-80 C)** | Archival storage. Stable for 5+ years. | Only for validated peptides with cryoprotectant. |
 
-**Key takeaway:** Lyophilized peptides are forgiving. Reconstituted peptides are not. Once reconstituted, refrigerate immediately and plan to use the solution within the stability window for that specific compound.
+**Key takeaway:** Lyophilized peptides are forgiving. Reconstituted peptides are not. Once you've reconstituted, refrigerate immediately and plan to use the solution within the stability window for that specific compound.
+
+![Refrigerator storage for reconstituted peptides](/images/blog/fridge-storage.jpg)
 
 ---
 
 ## Light and Air Protection
 
-Ultraviolet light and oxygen are two silent destroyers of peptide integrity.
+Ultraviolet light and oxygen are two of the biggest threats to peptide integrity -- and they're easy to overlook.
 
 **Light protection:**
 
@@ -91,7 +95,9 @@ Ultraviolet light and oxygen are two silent destroyers of peptide integrity.
 
 - After reconstituting, minimize the headspace in the vial. If you have drawn out a significant volume of solution, the remaining liquid is now exposed to a larger air pocket.
 - Some researchers backfill vials with nitrogen or argon gas after each use to displace oxygen. While not strictly necessary for short-term storage, this is a best practice for peptides you plan to use over several weeks.
-- Always ensure the rubber stopper is fully seated and has not been compromised by repeated punctures.
+- Always ensure the rubber stopper is fully seated and hasn't been compromised by repeated punctures.
+
+![Laboratory equipment for peptide handling](/images/blog/lab-equipment.jpg)
 
 ---
 
@@ -125,7 +131,7 @@ Knowing when a peptide has gone bad prevents wasted time and unreliable data. Wa
 - **Reduced efficacy in assays** -- If your research results suddenly become inconsistent or show reduced potency with the same protocol, degraded peptide is a likely culprit.
 - **Difficulty dissolving** -- If a lyophilized peptide that previously dissolved easily now leaves residue or clumps, it may have absorbed moisture and partially degraded during storage.
 
-When in doubt, discard and reconstitute a fresh vial. The cost of a new vial is far less than the cost of compromised research results.
+When in doubt, toss it and reconstitute a fresh vial. The cost of a new vial is far less than the cost of compromised research results.
 
 ---
 
@@ -196,7 +202,7 @@ Yes. Amber glass vials provide the best protection against UV-induced degradatio
 
 ### How should I store peptides if I do not have a laboratory freezer?
 
-A standard household freezer (-18 to -20 C) is perfectly adequate for lyophilized peptide storage. For reconstituted peptides, any refrigerator that maintains 2-8 C will work. Avoid storing vials in the refrigerator door, where temperatures fluctuate each time the door opens. Place them toward the back of a shelf for the most consistent temperature.
+A standard household freezer (-18 to -20 C) is perfectly adequate for lyophilized peptide storage. For reconstituted peptides, any refrigerator that maintains 2-8 C will work. One tip that's easy to overlook: avoid storing vials in the refrigerator door, where temperatures fluctuate each time the door opens. Place them toward the back of a shelf for the most consistent temperature.
 
 ### What is the best way to calculate my reconstitution volume?
 

@@ -18,11 +18,13 @@ Peptide stacking refers to running two or more peptides concurrently within a st
 
 For example, BPC-157 promotes angiogenesis and tendon healing through nitric oxide pathways, while TB-500 promotes cellular migration and reduces inflammation through actin regulation. Used together, they address tissue repair from two distinct angles, which is why their combination is one of the most popular stacks in peptide research.
 
-Stacking is not random mixing. Effective stacks are built on an understanding of each peptide's receptor targets, half-life, and dosing window so that the compounds work together rather than against each other.
+Stacking isn't random mixing. Effective stacks are built on an understanding of each peptide's receptor targets, half-life, and dosing window so that the compounds work together rather than against each other.
+
+![Lab equipment used in peptide research](/images/blog/lab-equipment.jpg)
 
 ## Why Stack Peptides?
 
-There are several reasons researchers choose to combine peptides rather than use them individually:
+Why not just use one peptide at a time? There are several reasons researchers choose to combine peptides rather than use them individually:
 
 - **Synergistic mechanisms**: Peptides that act on complementary pathways can produce results greater than the sum of their parts. A growth-hormone-releasing peptide paired with a growth-hormone-releasing hormone analog is a classic example.
 - **Broader coverage**: A single peptide may address one aspect of a complex biological process. Stacking allows a protocol to target multiple aspects at once, such as combining tissue repair peptides with anti-inflammatory peptides.
@@ -46,9 +48,11 @@ This is the most widely recognized peptide stack in the research community, ofte
 
 **Why it works**: BPC-157 accelerates blood vessel formation and collagen deposition at injury sites, while TB-500 promotes the migration of repair cells to damaged tissue and reduces the inflammatory cascade. Together, they create an environment where healing is both faster and more complete.
 
-**Protocol notes**: Many researchers run this stack for 4-8 weeks. BPC-157 is typically administered daily (subcutaneously near the site of interest or systemically), while TB-500 follows a loading/maintenance schedule.
+**Protocol notes**: Many researchers run this stack for 4-8 weeks. BPC-157 is typically administered daily (subcutaneously near the site of interest or systemically), while TB-500 follows a loading/maintenance schedule. There's a reason this is the most popular stack out there -- it just works.
 
 For a deeper dive into BPC-157 on its own, see our [complete BPC-157 guide](/blog/bpc-157-guide).
+
+![Recovery and fitness — the goal of tissue repair stacks](/images/blog/gym-weights.jpg)
 
 > Looking for a pre-made blend? [Peptide Restore carries BPC-157 + TB-500 combination vials](https://peptiderestore.com?discount=DKE4PDRM) that simplify dosing and ensure proper ratios. Use code **DKE4PDRM** for 5% off your order.
 
@@ -108,6 +112,8 @@ This stack targets cellular aging from two complementary directions: extracellul
 **Why it works**: GHK-Cu addresses aging at the structural level by activating genes associated with tissue repair and suppressing genes linked to inflammation and tissue destruction. NAD+ operates at the metabolic level, fueling sirtuins (the "longevity enzymes") that regulate DNA repair, mitochondrial biogenesis, and cellular stress resistance. Together, they represent a two-pronged approach to age-related decline: rebuilding tissue architecture while restoring cellular energy capacity.
 
 **Protocol notes**: This stack is often run in 4-6 week cycles. GHK-Cu is administered daily via subcutaneous injection, while NAD+ delivery method varies by research setup (IV, subcutaneous, or oral precursors). Some researchers add low-dose epithalon (epitalon) to this stack for additional telomere-related research.
+
+![Wellness and anti-aging research](/images/blog/aging-wellness.jpg)
 
 ### 6. Thymosin Alpha-1 + KPV + BPC-157 — Immune + Gut Health Stack
 
@@ -183,7 +189,7 @@ Peptide stacking introduces additional variables that require careful attention:
 - **Quality sourcing**: Every peptide in your stack should come from a supplier that provides third-party certificates of analysis (COA) verifying identity and purity (98%+ is the standard threshold).
 - **Proper storage**: Reconstituted peptides are sensitive to heat, light, and bacterial contamination. Store lyophilized peptides in a freezer and reconstituted peptides in a refrigerator. Use bacteriostatic water for reconstitution to extend shelf life to 4-6 weeks.
 - **Injection hygiene**: When running multiple daily injections, rotate injection sites to prevent lipodystrophy. Always use fresh needles and alcohol swabs.
-- **Complexity management**: More peptides in a stack means more variables. If an unexpected response occurs, it becomes harder to identify the responsible compound. This is another reason to start with established two-peptide stacks before building more complex protocols.
+- **Complexity management**: More peptides in a stack means more variables. If something unexpected happens, it's harder to figure out which compound is responsible. This is another reason to start with established two-peptide stacks before building more complex protocols.
 - **Reconstitution accuracy**: Incorrect reconstitution can lead to significant dosing errors that compound across a multi-peptide stack. Review our [reconstitution guide](/blog/how-to-reconstitute-peptides) and use the [calculator](/calculator) to verify your measurements.
 
 *All peptides discussed in this article are for research use only. They are not intended for human consumption and have not been approved by the FDA for clinical use. This article does not constitute medical advice.*
@@ -200,7 +206,7 @@ Most stacks are run for 4-12 weeks depending on the compounds involved and the r
 
 ### Do peptide stacks have more side effects than single peptides?
 
-Not necessarily. Well-designed stacks use peptides with clean side-effect profiles (which is why Ipamorelin is preferred over GHRP-6 in GH stacks). However, adding more compounds does increase complexity, and if a side effect emerges, it can be harder to identify the cause. Starting with established, well-documented stacks minimizes this risk.
+Not necessarily. Well-designed stacks use peptides with clean side-effect profiles (which is exactly why Ipamorelin is preferred over GHRP-6 in GH stacks). However, adding more compounds does increase complexity, and if a side effect emerges, it can be harder to pinpoint the cause. Starting with established, well-documented stacks minimizes this risk.
 
 ### What is the best beginner peptide stack?
 
