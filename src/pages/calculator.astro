@@ -42,13 +42,13 @@ const schema = {
   </div>
 
   <script>
+    import { h, render } from 'preact';
     import App from '../components/calculator/App';
-    import { createElement } from 'react';
-    import { createRoot } from 'react-dom/client';
 
     const root = document.getElementById('calculator-root');
     if (root) {
-      createRoot(root).render(createElement(App));
+      root.innerHTML = '';
+      render(h(App, null), root);
     }
   </script>
 </BaseLayout>

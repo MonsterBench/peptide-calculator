@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
+import { useState, useCallback, useMemo, useEffect, useRef } from 'preact/compat';
 import {
   CATALOG, STACKS, GOALS, PRESETS, TITRATIONS, CALC_MAP, CALC_NAMES, DEFAULTS, FAQS,
   TIME_LABELS, TIME_ICONS, PEPTIDE_COLORS, DAY_NAMES,
