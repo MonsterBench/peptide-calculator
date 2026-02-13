@@ -124,4 +124,4 @@ select option { background: #1a1a2e; color: #e5e7eb; }
 .prose-peptide a:hover { color: #c4b5fd; }
 .prose-peptide code { color: #34d399; background: rgba(255,255,255,0.05); padding: 2px 6px; border-radius: 4px; }
 .prose-peptide blockquote { border-color: rgba(139,92,246,0.5); background: rgba(255,255,255,0.05); border-radius: 0 8px 8px 0; padding: 4px 0; }
-.prose-peptide img { border-radius: 12px; margin: 1.5rem 0; width: 100%; height: auto; object-fit: cover; max-height: 400px; }
+.prose-peptide img { border-radius: 12px; margin: 1.5rem 0; width: 100%; height: auto; object-fit: cover; max-height: 400px; content-visibility: auto; }
