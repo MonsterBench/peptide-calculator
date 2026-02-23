@@ -44,6 +44,14 @@ body { font-family: 'Inter', system-ui, sans-serif; }
 .card-hover:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,.3); }
 .pill-track { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.20); }
 .pill-active { background: linear-gradient(135deg, #7c3aed, #2563eb); box-shadow: 0 2px 12px rgba(124,58,237,.35); }
+/* Injection site hotspots */
+.hotspot-zone { cursor: pointer; transition: fill 0.2s ease, filter 0.2s ease; }
+.hotspot-zone:hover { fill: rgba(139,92,246,0.35) !important; stroke: rgba(167,139,250,0.9) !important; }
+.hotspot-zone.active { fill: rgba(139,92,246,0.45) !important; stroke: #a78bfa !important; filter: drop-shadow(0 0 6px rgba(139,92,246,0.7)); }
+/* Absorption speed badges */
+.badge-fastest { background: rgba(52,211,153,0.15); border: 1px solid rgba(52,211,153,0.4); color: #34d399; }
+.badge-fast    { background: rgba(56,189,248,0.15); border: 1px solid rgba(56,189,248,0.4); color: #38bdf8; }
+.badge-moderate{ background: rgba(251,191,36,0.15);  border: 1px solid rgba(251,191,36,0.4);  color: #fbbf24; }
 .num-highlight { background: linear-gradient(135deg, #34d399, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 .shop-btn { background: linear-gradient(135deg, #059669, #0d9488); transition: all .2s ease; }
 .shop-btn:hover { background: linear-gradient(135deg, #047857, #0f766e); box-shadow: 0 4px 15px rgba(5,150,105,.3); transform: translateY(-1px); }

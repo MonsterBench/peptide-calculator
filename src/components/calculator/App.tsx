@@ -1,4 +1,5 @@
 import { useState, useCallback, useMemo, useEffect, useRef } from 'preact/compat';
+import InjectionGuide from './InjectionGuide';
 import {
   CATALOG, STACKS, GOALS, PRESETS, TITRATIONS, CALC_MAP, CALC_NAMES, DEFAULTS, FAQS,
   TIME_LABELS, TIME_ICONS, PEPTIDE_COLORS, DAY_NAMES,
@@ -924,7 +925,10 @@ function CompareTab() {
 // ── Main App ──
 
 export default function App() {
-  const initTab = typeof window !== 'undefined' && window.location.hash.startsWith("#calc=") ? "calculator" : typeof window !== 'undefined' && window.location.hash.startsWith("#find=") ? "finder" : "finder";
+  const initTab = typeof window !== 'undefined' && window.location.hash.startsWith("#calc=") ? "calculator"
+    : typeof window !== 'undefined' && window.location.hash.startsWith("#find=") ? "finder"
+    : typeof window !== 'undefined' && window.location.hash === "#injection" ? "injection"
+    : "finder";
   const [tab, setTab] = useState(initTab);
   const [emailCaptured, setEmailCaptured] = useState(() => {
     try { return !!localStorage.getItem("peptide_hub_email"); } catch { return false; }
@@ -958,7 +962,7 @@ export default function App() {
     };
   }, [emailCaptured]);
 
-  const TAB_TITLES: Record<string, string> = { finder: "Find Peptides", calculator: "Reconstitution Calculator", protocol: "Protocol Builder", compare: "Compare Peptides" };
+  const TAB_TITLES: Record<string, string> = { finder: "Find Peptides", calculator: "Reconstitution Calculator", protocol: "Protocol Builder", compare: "Compare Peptides", injection: "Injection Site Guide" };
   useEffect(() => {
     document.title = `${TAB_TITLES[tab] || "Peptide Research Hub"} \u2014 PepTalk Peptides`;
   }, [tab]);
@@ -972,9 +976,10 @@ export default function App() {
 
   const TABS = [
     { id: "finder", label: "Find" },
-    { id: "calculator", label: "Calculate" },
+    { id: "calculator", label: "Calc" },
     { id: "protocol", label: "Protocol" },
     { id: "compare", label: "Compare" },
+    { id: "injection", label: "Inject" },
   ];
 
   return (
@@ -1016,6 +1021,11 @@ export default function App() {
         {tab === "compare" && (
           <div className="glass-strong rounded-2xl p-5 shadow-2xl">
             <CompareTab />
+          </div>
+        )}
+        {tab === "injection" && (
+          <div className="glass-strong rounded-2xl p-5 shadow-2xl">
+            <InjectionGuide />
           </div>
         )}
       </div>
