@@ -47,7 +47,7 @@ const INJECTION_SITES: InjectionSite[] = [
       'Active abdominal scarring or recent surgery site',
       'Visible bruising from a recent injection at that spot',
     ],
-    frontHotspot: { cx: 130, cy: 190, rx: 30, ry: 22 },
+    frontHotspot: { cx: 130, cy: 185, rx: 26, ry: 18 },
   },
   {
     id: 'upper-arm',
@@ -67,8 +67,8 @@ const INJECTION_SITES: InjectionSite[] = [
       'Very lean arms with minimal subcutaneous fat',
       'Injecting alone without a mirror or wall to brace against',
     ],
-    frontHotspot: { cx: 60, cy: 150, rx: 14, ry: 18 },
-    backHotspot: { cx: 200, cy: 150, rx: 14, ry: 18 },
+    frontHotspot: { cx: 66, cy: 132, rx: 12, ry: 16 },
+    backHotspot: { cx: 194, cy: 132, rx: 12, ry: 16 },
   },
   {
     id: 'thigh',
@@ -88,7 +88,7 @@ const INJECTION_SITES: InjectionSite[] = [
       'Varicose veins visible at the target area',
       'Known lipodystrophy from prior overuse of this site',
     ],
-    frontHotspot: { cx: 103, cy: 268, rx: 16, ry: 22 },
+    frontHotspot: { cx: 99, cy: 258, rx: 13, ry: 20 },
   },
   {
     id: 'buttocks',
@@ -108,7 +108,7 @@ const INJECTION_SITES: InjectionSite[] = [
       'Cannot safely reach or visualize the target area',
       'Active skin irritation or lesions in the area',
     ],
-    backHotspot: { cx: 100, cy: 248, rx: 22, ry: 18 },
+    backHotspot: { cx: 100, cy: 248, rx: 20, ry: 16 },
   },
 ];
 
@@ -245,30 +245,30 @@ function BodySVG({
       {/* ── Figure silhouette ── */}
       <g fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.18)" strokeWidth="1.2">
         {/* Head */}
-        <ellipse cx="130" cy="40" rx="22" ry="26" />
+        <ellipse cx="130" cy="38" rx="20" ry="24" />
         {/* Neck */}
-        <rect x="122" y="63" width="16" height="16" rx="4" />
-        {/* Torso */}
-        <path d="M90,79 Q74,88 70,128 L66,198 Q90,210 130,212 Q170,210 194,198 L190,128 Q186,88 170,79 Z" />
+        <rect x="123" y="60" width="14" height="14" rx="4" />
+        {/* Torso — narrow waist, slight hip flare */}
+        <path d="M92,74 Q76,84 74,108 Q72,132 102,152 Q98,176 100,204 L160,204 Q162,176 158,152 Q188,132 186,108 Q184,84 168,74 Z" />
         {/* Left arm */}
-        <path d="M90,79 Q66,92 60,114 L52,168 Q60,172 68,168 L74,116 Q78,100 90,92 Z" />
+        <path d="M92,74 Q74,86 68,108 L60,162 Q66,166 72,164 L78,112 Q82,96 92,82 Z" />
         {/* Right arm */}
-        <path d="M170,79 Q194,92 200,114 L208,168 Q200,172 192,168 L186,116 Q182,100 170,92 Z" />
+        <path d="M168,74 Q186,86 192,108 L200,162 Q194,166 188,164 L182,112 Q178,96 168,82 Z" />
         {/* Left thigh + lower leg */}
-        <path d="M100,212 L88,295 Q90,300 104,300 L110,212 Z" />
-        <path d="M88,295 Q90,340 98,355 Q104,360 108,355 Q110,340 104,300 Q100,300 88,295 Z" />
+        <path d="M100,204 L91,290 Q91,296 103,297 L108,204 Z" />
+        <path d="M91,290 Q91,336 97,350 Q103,356 107,351 Q109,336 103,297 Q97,296 91,290 Z" />
         {/* Right thigh + lower leg */}
-        <path d="M160,212 L172,295 Q170,300 156,300 L150,212 Z" />
-        <path d="M172,295 Q170,340 162,355 Q156,360 152,355 Q150,340 156,300 Q160,300 172,295 Z" />
+        <path d="M160,204 L169,290 Q169,296 157,297 L152,204 Z" />
+        <path d="M169,290 Q169,336 163,350 Q157,356 153,351 Q151,336 157,297 Q163,296 169,290 Z" />
         {/* Left foot */}
-        <ellipse cx="100" cy="360" rx="12" ry="6" />
+        <ellipse cx="99" cy="358" rx="11" ry="5" />
         {/* Right foot */}
-        <ellipse cx="160" cy="360" rx="12" ry="6" />
+        <ellipse cx="161" cy="358" rx="11" ry="5" />
       </g>
 
       {/* ── Belly button (front only) ── */}
       {!showBack && (
-        <circle cx="130" cy="180" r="3" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" strokeWidth="0.8" />
+        <circle cx="130" cy="175" r="3" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" strokeWidth="0.8" />
       )}
 
       {/* ── Injection site hotspots ── */}
